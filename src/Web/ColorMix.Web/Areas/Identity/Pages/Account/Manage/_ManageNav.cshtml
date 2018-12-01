@@ -1,4 +1,6 @@
-﻿@inject SignInManager<ColorMixUser> SignInManager
+﻿@using ColorMix.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ColorMixUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

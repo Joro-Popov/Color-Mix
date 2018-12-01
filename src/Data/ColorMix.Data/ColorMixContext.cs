@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ColorMix.Web.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using ColorMix.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ColorMix.Web.Models
+namespace ColorMix.Data
 {
     public class ColorMixContext : IdentityDbContext<ColorMixUser>
     {
