@@ -15,8 +15,11 @@ namespace SandBox
         public static void Main(string[] args)
         {
             Console.WriteLine($"{typeof(Program).Namespace} ({string.Join(" ", args)}) starts working...");
+
             var serviceCollection = new ServiceCollection();
+
             ConfigureServices(serviceCollection);
+
             IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider(true);
 
             using (var serviceScope = serviceProvider.CreateScope())

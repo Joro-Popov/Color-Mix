@@ -14,6 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\ColorMix.Data.Models\ColorMix.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\ColorMix.Data\ColorMix.Data.csproj" />
+    <ProjectReference Include="..\..\Services\ColorMix.Services.DataServices\ColorMix.Services.DataServices.csproj" />
+    <ProjectReference Include="..\..\Services\ColorMix.Services.Models\ColorMix.Services.Models.csproj" />
   </ItemGroup>
 
 </Project>

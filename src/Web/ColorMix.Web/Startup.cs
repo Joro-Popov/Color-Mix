@@ -20,7 +20,7 @@ namespace ColorMix.Web
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        {
+        { 
             Configuration = configuration;
         }
 
@@ -39,7 +39,7 @@ namespace ColorMix.Web
             services.AddDbContext<ColorMixContext>(options =>
                 options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ColorMixUser>(options =>
+            services.AddDefaultIdentity<ColorMixUser>(options => 
                 {
                     options.Password.RequiredLength = 6;
                     options.Password.RequireDigit = false;
