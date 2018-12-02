@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ColorMix.Services.Models;
 using Microsoft.AspNetCore.Mvc;
-using ColorMix.Web.Models;
 
 namespace ColorMix.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {

@@ -1,6 +1,4 @@
-using System;
-
-namespace ColorMix.Web.Models
+namespace ColorMix.Services.Models
 {
     public class ErrorViewModel
     {
