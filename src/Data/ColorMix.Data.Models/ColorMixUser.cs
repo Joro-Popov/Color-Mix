@@ -1,10 +1,21 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace ColorMix.Data.Models
 {
-    // Add profile data for application users by adding properties to the ColorMixUser class
     public class ColorMixUser : IdentityUser
     {
+        public string FirstName { get; set; }
 
+        public string LastName { get; set; }
+
+        public int Age { get; set; }
+
+        public DateTime RegistrationDate { get; set; }
+
+        public virtual ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
+
+        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }
