@@ -1,94 +1,170 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
+﻿<div id="all">
+    <div id="content">
+        <!--Carousel-->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="main-slider" class="owl-carousel owl-theme">
+                        <div class="item"><img src="img/main-slider1.jpg" alt="" class="img-fluid"></div>
+                        <div class="item"><img src="img/main-slider2.jpg" alt="" class="img-fluid"></div>
+                        <div class="item"><img src="img/main-slider3.jpg" alt="" class="img-fluid"></div>
+                        <div class="item"><img src="img/main-slider4.jpg" alt="" class="img-fluid"></div>
+                    </div>
+                    <!-- /#main-slider-->
+                </div>
             </div>
         </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
+        <!--End of carousel-->
+        <!--Advantages homepage-->
+        <div id="advantages">
+            <div class="container">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
+                            <div class="icon"><i class="fa fa-heart"></i></div>
+                            <h3><a href="#">We love our customers</a></h3>
+                            <p class="mb-0">We are known to provide best possible service ever</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
+                            <div class="icon"><i class="fa fa-tags"></i></div>
+                            <h3><a href="#">Best Prices</a></h3>
+                            <p class="mb-0">You can check that the height of the boxes adjust</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box clickable d-flex flex-column justify-content-center mb-0 h-100">
+                            <div class="icon"><i class="fa fa-thumbs-up"></i></div>
+                            <h3><a href="#">100% satisfaction guaranteed</a></h3>
+                            <p class="mb-0">Free returns on everything for 3 months.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row-->
+            </div>
+            <!-- /.container-->
+        </div>
+        <!--Advantages end-->
+        <!--Hot This week-->
+        <div id="hot">
+            <div class="box py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="mb-0">Горещи оферти!</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
+        <!--End-->
+        <!--Hot offers-->
+        <div class="container">
+            <div class="product-slider owl-carousel owl-theme">
+                <!--Loop over products-->
+                <div class="item mr-3">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3><a href="detail.html">Дамско палто</a></h3>
+                            <p class="price">
+                                <del></del>45.00 лв.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.product-->
+                </div>
+                <div class="item mr-3">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3><a href="detail.html">Дамско палто</a></h3>
+                            <p class="price">
+                                <del></del>45.00 лв.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.product-->
+                </div>
+                <div class="item mr-3">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3><a href="detail.html">Дамско палто</a></h3>
+                            <p class="price">
+                                <del></del>45.00 лв.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.product-->
+                </div>
+                <div class="item mr-3">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3><a href="detail.html">Дамско палто</a></h3>
+                            <p class="price">
+                                <del></del>45.00 лв.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.product-->
+                </div>
+                <div class="item mr-3">
+                    <div class="product">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3><a href="detail.html">Дамско палто</a></h3>
+                            <p class="price">
+                                <del></del>45.00 лв.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- /.product-->
+                </div>
             </div>
         </div>
-    </div>
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-</div>
-
-<div class="row">
-    <div class="col-md-3">
-        <h2>Application uses</h2>
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
+        <!--End of Hot offers-->
+        <!--Some offer-->
+        <div class="container">
+            <div class="col-md-12">
+                <div class="box slideshow">
+                    <h3>Get Inspired</h3>
+                    <p class="lead">Get the inspiration from our world class designers</p>
+                    <div id="get-inspired" class="owl-carousel owl-theme">
+                        <div class="item"><a href="#"><img src="img/getinspired1.jpg" alt="Get inspired" class="img-fluid"></a></div>
+                        <div class="item"><a href="#"><img src="img/getinspired2.jpg" alt="Get inspired" class="img-fluid"></a></div>
+                        <div class="item"><a href="#"><img src="img/getinspired3.jpg" alt="Get inspired" class="img-fluid"></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End of Some offer-->
     </div>
 </div>

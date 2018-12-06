@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
+using ColorMix.Services.Mapping.Contracts;
 
 namespace ColorMix.Services.Mapping
 {
