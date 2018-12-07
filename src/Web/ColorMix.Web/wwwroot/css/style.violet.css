@@ -14,8 +14,9 @@
 *
 */
 body {
-  overflow-x: hidden;
-  background-color: #f0f0f0;
+    overflow-x: hidden;
+    /*background-color: #f0f0f0;*/
+    background-image: url("/img/background.jpg");
 }
 
 a, button {

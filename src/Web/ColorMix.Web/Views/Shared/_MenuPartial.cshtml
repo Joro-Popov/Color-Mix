@@ -1,5 +1,5 @@
 ﻿<nav class="navbar navbar-expand-lg">
-    <div class="container">
+    <div class="container-fluid">
         <a href="index.html" class="navbar-brand home"><img src="/img/logo.png" alt="Obaju logo" class="d-none d-md-inline-block"><img src="img/logo-small.png" alt="Obaju logo" class="d-inline-block d-md-none"><span class="sr-only">Obaju - go to homepage</span></a>
 
         <div id="navigation" class="collapse navbar-collapse">
@@ -92,8 +92,8 @@
                                     </ul>
                                 </div>*@
                                 <div class="col-md-6 col-lg-3">
-                                    <div class="banner"><a href="#"><img src="img/banner.jpg" alt="" class="img img-fluid"></a></div>
-                                    <div class="banner"><a href="#"><img src="img/banner2.jpg" alt="" class="img img-fluid"></a></div>
+                                    <div class="banner"><a href="#"><img src="/img/banner.jpg" alt="" class="img img-fluid"></a></div>
+                                    <div class="banner"><a href="#"><img src="/img/banner2.jpg" alt="" class="img img-fluid"></a></div>
                                 </div>
                             </div>
                         </li>
@@ -201,6 +201,10 @@
             <!--Shopping Cart-->
             <div class="navbar-buttons d-flex justify-content-end">
                 <!-- /.nav-collapse-->
+                <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary navbar-btn"><i class="fas fa-sign-in-alt mr-1"></i><span>Вход</span></a></div>
+                <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary navbar-btn"><i class="fas fa-user-plus mr-1"></i><span>Регистрация</span></a></div>
+                <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="basket.html" class="btn btn-primary navbar-btn"><i class="far fa-comments mr-1"></i><span>Контакти</span></a></div>
+
                 <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span>3 продукта в количката</span></a></div>
             </div>
         </div>

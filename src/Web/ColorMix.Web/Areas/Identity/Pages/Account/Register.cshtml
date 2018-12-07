@@ -1,37 +1,39 @@
 ﻿@page
 @model RegisterModel
-@{
-    ViewData["Title"] = "Register";
-}
-
-<h2>@ViewData["Title"]</h2>
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div id="all">
+        <div id="content">
+            <div class="container mt-4">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <h1>Нова регистрация</h1>
+                            <p>Създавайки профил, вие ще можете да пазарувате по-бързо, да следите състоянието и историята на поръчките си и да се възползвате от редица бонуси, достъпни само за регистрираните ни потребители.</p>
+                            <hr>
+                            <form action="customer-orders.html" method="post">
+                                <div class="form-group">
+                                    <label for="name">Име</label>
+                                    <input id="name" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-mail адрес</label>
+                                    <input id="email" type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Парола</label>
+                                    <input id="password" type="password" class="form-control">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Регистрирай ме</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+        </div>
     </div>
 </div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
