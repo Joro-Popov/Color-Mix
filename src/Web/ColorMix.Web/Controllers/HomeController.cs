@@ -15,6 +15,10 @@ namespace ColorMix.Web.Controllers
             return View();
         }
 
+        public IActionResult Contacts()
+        {
+            return this.View();
+        }
         public IActionResult Privacy()
         {
             return View();
