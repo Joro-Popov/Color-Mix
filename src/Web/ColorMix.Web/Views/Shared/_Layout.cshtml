@@ -12,24 +12,25 @@
 
     <environment include="Development">
         <!-- Favicon-->
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="/favicon.png">
 
         <!--bootstrap-->
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.css" />
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-reboot.css" />
 
         <!-- owl carousel-->
-        <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
-        <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+        <link rel="stylesheet" href="/vendor/owl.carousel/assets/owl.carousel.css">
+        <link rel="stylesheet" href="/vendor/owl.carousel/assets/owl.theme.default.css">
 
         <!-- Theme stylesheet-->
-        <link rel="stylesheet" href="css/style.violet.css" id="theme-stylesheet">
+        <link rel="stylesheet" href="/css/style.violet.css" id="theme-stylesheet">
 
         <!-- Custom stylesheet - for your changes-->
-        <link rel="stylesheet" href="css/style.violet.css">
+        <link rel="stylesheet" href="/css/style.violet.css">
+        <link rel="stylesheet" href="/css/externalLogin.css">
     </environment>
 
     <environment exclude="Development">
@@ -48,10 +49,14 @@
                 <div class="row d-flex justify-content-end">
                     <ul class="menu list-inline mb-0">
                         <li class="list-inline-item">
-                            <a href="register.html"> <i class="fas fa-sign-in-alt mr-1"></i>Вход</a>
+                            <a asp-area="Identity" asp-page="/Account/Login">
+                                <i class="fas fa-sign-in-alt mr-1"></i>Вход
+                            </a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="register.html"><i class="fas fa-user-plus mr-1"></i> Регистрация</a>
+                            <a asp-area="Identity" asp-page="/Account/Register">
+                                <i class="fas fa-user-plus mr-1"></i> Регистрация
+                            </a>
                         </li>
                         <li class="list-inline-item">
                             <a href="contact.html"><i class="far fa-comments mr-1"></i>Контакти</a>
@@ -71,7 +76,22 @@
     <footer>
         <partial name="_FooterPartial" />
     </footer>
-
+    <!--COPYRIGHT-->
+    <div id="copyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-2 mb-lg-0">
+                    <p class="text-center text-lg-left">©@(DateTime.UtcNow.Year) Color Mix.</p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-center text-lg-right">
+                        Template design by <a href="https://bootstrapious.com/e-commerce-templates">Bootstrapious: E-commerce</a>
+                        <!-- Not removing these links is part of the licence conditions of the template. Thanks for understanding :)-->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <environment include="Development">
         <!--jquery-->
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -83,17 +103,17 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
         <!--popper.js-->
-        <script src="vendor/popper.js/popper.js"></script>
-        <script src="vendor/popper.js/popper-utils.js"></script>
-        <script src="vendor/popper.js/umd/popper.js"></script>
-        <script src="vendor/popper.js/umd/popper-utils.js"></script>
-        <script src="vendor/popper.js/esm/popper.js"></script>
-        <script src="vendor/popper.js/esm/popper-utils.js"></script>
+        <script src="/vendor/popper.js/popper.js"></script>
+        <script src="/vendor/popper.js/popper-utils.js"></script>
+        <script src="/vendor/popper.js/umd/popper.js"></script>
+        <script src="/vendor/popper.js/umd/popper-utils.js"></script>
+        <script src="/vendor/popper.js/esm/popper.js"></script>
+        <script src="/vendor/popper.js/esm/popper-utils.js"></script>
 
-        <script src="vendor/owl.carousel/owl.carousel.min.js"></script>
-        <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
+        <script src="/vendor/owl.carousel/owl.carousel.min.js"></script>
+        <script src="/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js"></script>
-        <script src="js/front.js"></script>
+        <script src="/js/front.js"></script>
     </environment>
 
     <environment exclude="Development">
@@ -109,8 +129,6 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
-
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

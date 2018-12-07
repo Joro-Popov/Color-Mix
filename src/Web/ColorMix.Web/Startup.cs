@@ -4,6 +4,7 @@ using ColorMix.Services.Mapping;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -40,10 +41,23 @@ namespace ColorMix.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredUniqueChars = 0;
             })
-            .AddEntityFrameworkStores<ColorMixContext>();
+            .AddEntityFrameworkStores<ColorMixContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication()
+            .AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            })
+            .AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            });
 
             AutoMapperConfig.RegisterMappings(
-                
+
                 // TODO: Register assemblies
                 );
 
