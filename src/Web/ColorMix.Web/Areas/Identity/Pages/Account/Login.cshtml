@@ -1,6 +1,9 @@
 ﻿@page
 @model LoginModel
-
+@inject SignInManager<ColorMixUser> SignInManager
+@{
+    var externalLogins = SignInManager.GetExternalAuthenticationSchemesAsync().GetAwaiter().GetResult();
+}
 <div class="row justify-content-center">
     <div id="all">
         <div id="content">
@@ -34,11 +37,10 @@
                     <div class="col-lg-6">
                         <div class="right">
                             <span class="loginwith">Вход чрез<br />социални мрежи</span>
-    
                             <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
                                 <div>
                                     <p>
-                                        @foreach (var provider in Model.ExternalLogins)
+                                        @foreach (var provider in externalLogins)
                                         {
                                             <button type="submit" class="social-signup @(provider.DisplayName.ToLower())" name="provider" value="@provider.Name">Вход със @provider.DisplayName</button>
                                         }
@@ -46,7 +48,6 @@
                                 </div>
                             </form>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -55,5 +56,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        <partial name="_ValidationScriptsPartial" />
+    }

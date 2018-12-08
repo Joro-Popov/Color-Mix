@@ -19,6 +19,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
         private const string REQUIRED_FIELD = "Полето е задължително !";
         private const string INVALID_NAME_LENGTH = "Въведете име с дължина между 3 и 32 символа !";
         private const string INVALID_PASSWORD_LENGTH = "Въведете парола с дължина между 6 и 100 символа !";
+        private const string INVALID_USERNAME_OR_PASSWORD = "Невалидно потребителско име или парола !";
 
         private readonly SignInManager<ColorMixUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
@@ -31,9 +32,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
+        
         public string ReturnUrl { get; set; }
 
         [TempData]
@@ -64,9 +63,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-
+            
             ReturnUrl = returnUrl;
         }
 
@@ -95,7 +92,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, INVALID_USERNAME_OR_PASSWORD);
                     return Page();
                 }
             }
