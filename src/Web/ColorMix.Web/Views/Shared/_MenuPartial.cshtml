@@ -75,22 +75,22 @@
                                     </ul>
                                 </div>
                                 @*<div class="col-md-6 col-lg-3">
-                                    <h5>Аксесоари</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Колани</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Часовници</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Casual</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Casual</a></li>
-                                    </ul>
-                                    <h5>Looks and trends</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Trainers</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Sandals</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
-                                    </ul>
-                                </div>*@
+                                        <h5>Аксесоари</h5>
+                                        <ul class="list-unstyled mb-3">
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Колани</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Часовници</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Casual</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Casual</a></li>
+                                        </ul>
+                                        <h5>Looks and trends</h5>
+                                        <ul class="list-unstyled mb-3">
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Trainers</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Sandals</a></li>
+                                            <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
+                                        </ul>
+                                    </div>*@
                                 <div class="col-md-6 col-lg-3">
                                     <div class="banner"><a href="#"><img src="/img/banner.jpg" alt="" class="img img-fluid"></a></div>
                                     <div class="banner"><a href="#"><img src="/img/banner2.jpg" alt="" class="img img-fluid"></a></div>
@@ -143,7 +143,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
                 <!--Other-->
                 <li class="nav-item dropdown menu-large">
                     <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Други</a>
@@ -201,11 +201,24 @@
             <!--Shopping Cart-->
             <div class="navbar-buttons d-flex justify-content-end">
                 <!-- /.nav-collapse-->
-                <div id="basket-overview" class="d-lg-block"><a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary navbar-btn"><i class="fas fa-sign-in-alt mr-1"></i><span>Вход</span></a></div>
-                <div id="basket-overview" class="d-lg-block"><a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary navbar-btn"><i class="fas fa-user-plus mr-1"></i><span>Регистрация</span></a></div>
+                @if (!this.User.Identity.IsAuthenticated)
+                {
+                    <div id="basket-overview" class="d-lg-block"><a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary navbar-btn"><i class="fas fa-sign-in-alt mr-1"></i><span>Вход</span></a></div>
+                    <div id="basket-overview" class="d-lg-block"><a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary navbar-btn"><i class="fas fa-user-plus mr-1"></i><span>Регистрация</span></a></div>
+                }
                 <div id="basket-overview" class="d-lg-block"><a asp-controller="Home" asp-action="Contacts" class="btn btn-primary navbar-btn"><i class="far fa-comments mr-1"></i><span>Контакти</span></a></div>
 
                 <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span>3 продукта в количката</span></a></div>
+
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <div id="basket-overview" class="d-lg-block"><a asp-controller="Home" asp-action="Contacts" class="btn btn-primary navbar-btn"><i class="fas fa-user mr-1"></i><span>Профил</span></a></div>
+
+                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+
+                        <button type="submit" class="btn btn-primary mr-2"> <i class="fas fa-sign-out-alt mr-1"></i> Излез</button>
+                    </form>
+                }
             </div>
         </div>
     </div>

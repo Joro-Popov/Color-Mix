@@ -32,7 +32,7 @@ namespace ColorMix.Web
             services.AddDbContext<ColorMixContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ColorMixUser>(options =>
+            services.AddIdentity<ColorMixUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 6;
                 options.Password.RequireDigit = false;
@@ -42,7 +42,9 @@ namespace ColorMix.Web
                 options.Password.RequiredUniqueChars = 0;
             })
             .AddEntityFrameworkStores<ColorMixContext>()
-                .AddDefaultTokenProviders();
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
+        
 
             services.AddAuthentication()
             .AddFacebook(facebookOptions =>
@@ -60,11 +62,13 @@ namespace ColorMix.Web
 
                 // TODO: Register assemblies
                 );
-
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+                              IHostingEnvironment env,
+                              RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +86,8 @@ namespace ColorMix.Web
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            UserRoleInitializer.SeedRoles(roleManager);
 
             app.UseMvc(routes =>
             {

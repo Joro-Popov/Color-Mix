@@ -14,14 +14,16 @@
                                 Влезте в профила си, за да може да следите състоянието и историята на поръчките си!
                             </p>
                             <hr>
-                            <form action="customer-orders.html" method="post">
+                            <form method="post">
                                 <div class="form-group">
-                                    <label asp-for="Input.Email">E-mail адрес</label>
-                                    <input asp-for="Input.Email" class="form-control">
+                                    <label asp-for="Input.Username">Потребителско име</label>
+                                    <input asp-for="Input.Username" class="form-control">
+                                    <span asp-validation-for="Input.Username" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Input.Password">Парола</label>
                                     <input asp-for="Input.Password" type="password" class="form-control">
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i> Вход</button>

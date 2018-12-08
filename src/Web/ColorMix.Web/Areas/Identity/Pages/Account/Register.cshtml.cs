@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ColorMix.Data.Models;
@@ -16,6 +17,14 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private const string INVALID_NAME_LENGTH = "Въведете име с дължина между 3 и 32 символа !";
+        private const string INVALID_SYMBOLS = "Полето съдържа невалидни символи !";
+        private const string INVALID_AGE = "Въведете години между 16 и 80 !";
+        private const string INVALID_EMAIL_ADDRESS = "Невалиден E-mail адрес !";
+        private const string INVALID_PASSWORD_LENGTH = "Въведете парола с дължина между 6 и 100 символа !";
+        private const string INVALID_CONFIRM_PASSWORD = "Паролите не съвпадат !";
+        private const string REQUIRED_FIELD = "Полето е задължително !";
+
         private readonly SignInManager<ColorMixUser> _signInManager;
         private readonly UserManager<ColorMixUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -40,20 +49,41 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
+            [MaxLength(32, ErrorMessage = INVALID_NAME_LENGTH)]
+            public string Username { get; set; }
+
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
+            [MaxLength(32, ErrorMessage = INVALID_NAME_LENGTH)]
+            [RegularExpression("^[\u0410-\u044F]+", ErrorMessage = INVALID_SYMBOLS)]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
+            [MaxLength(32, ErrorMessage = INVALID_NAME_LENGTH)]
+            [RegularExpression("^[\u0410-\u044F]+", ErrorMessage = INVALID_SYMBOLS)]
+            public string LastName { get; set; }
+
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [Range(16, 80, ErrorMessage = INVALID_AGE)]
+            public int Age { get; set; }
+
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [EmailAddress(ErrorMessage = INVALID_EMAIL_ADDRESS)]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [StringLength(100, ErrorMessage = INVALID_PASSWORD_LENGTH, MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
-
+            
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = INVALID_CONFIRM_PASSWORD)]
             public string ConfirmPassword { get; set; }
         }
 
@@ -65,15 +95,36 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
+
             if (ModelState.IsValid)
             {
-                var user = new ColorMixUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ColorMixUser
+                {
+                    UserName = Input.Username,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Age = Input.Age,
+                    Email = Input.Email,
+                    RegistrationDate = DateTime.UtcNow
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                if (this._userManager.Users.Count() == 1)
+                {
+                    await this._userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    await this._userManager.AddToRoleAsync(user, "User");
+                }
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
@@ -84,6 +135,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
                     return LocalRedirect(returnUrl);
                 }
                 foreach (var error in result.Errors)

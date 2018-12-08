@@ -16,6 +16,10 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private const string REQUIRED_FIELD = "Полето е задължително !";
+        private const string INVALID_NAME_LENGTH = "Въведете име с дължина между 3 и 32 символа !";
+        private const string INVALID_PASSWORD_LENGTH = "Въведете парола с дължина между 6 и 100 символа !";
+
         private readonly SignInManager<ColorMixUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
@@ -37,16 +41,16 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
+            [MaxLength(32, ErrorMessage = INVALID_NAME_LENGTH)]
+            public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [StringLength(100, ErrorMessage = INVALID_PASSWORD_LENGTH, MinimumLength = 6)]
             [DataType(DataType.Password)]
+            [Display(Name = "Password")]
             public string Password { get; set; }
-
-            [Display(Name = "Remember me?")]
-            public bool RememberMe { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -74,15 +78,15 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, isPersistent:false, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.LogInformation($"User logged in.");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl});
                 }
                 if (result.IsLockedOut)
                 {

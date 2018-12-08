@@ -12,19 +12,54 @@
                                 Създавайки профил, вие ще можете да пазарувате по-бързо, да следите състоянието и историята на поръчките си и да се възползвате от редица бонуси, достъпни само за регистрираните ни потребители.
                             </p>
                             <hr>
-                            <form action="customer-orders.html" method="post">
-                                <div class="form-group">
-                                    <label for="name">Име</label>
-                                    <input id="name" type="text" class="form-control">
+                            <form method="post">
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label asp-for="Input.Username" class="text-center">Потребителско име<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.Username" class="form-control" placeholder="Име">
+                                        <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">E-mail адрес</label>
-                                    <input id="email" type="text" class="form-control">
+                                <hr/>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label asp-for="Input.FirstName">Име<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.FirstName" class="form-control" placeholder="Име">
+                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="Input.LastName">Фамилия<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.LastName" class="form-control" placeholder="Фамилия">
+                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Парола</label>
-                                    <input id="password" type="password" class="form-control">
+                                <hr/>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label asp-for="Input.Age">Години<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.Age" class="form-control" placeholder="Години">
+                                        <span asp-validation-for="Input.Age" class="text-danger"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="Input.Email">E-mail адрес<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.Email" type="email" class="form-control" placeholder="E-mail адрес">
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
                                 </div>
+                                <hr/>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <label asp-for="Input.Password">Парола<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.Password" type="password" class="form-control" placeholder="Парола">
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="Input.ConfirmPassword">Потвърдете паролата<span class="text-danger">*</span></label>
+                                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <hr/>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Регистрирай ме</button>
                                 </div>
