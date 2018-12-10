@@ -8,4 +8,9 @@
     <Folder Include="Home\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\ColorMix.Data.Models\ColorMix.Data.Models.csproj" />
+    <ProjectReference Include="..\ColorMix.Services.Mapping\ColorMix.Services.Mapping.csproj" />
+  </ItemGroup>
+
 </Project>

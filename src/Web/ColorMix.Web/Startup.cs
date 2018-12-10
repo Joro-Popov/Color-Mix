@@ -62,7 +62,7 @@ namespace ColorMix.Web
 
                 // TODO: Register assemblies
                 );
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -23,7 +23,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         private readonly SignInManager<ColorMixUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
-
+        
         public LoginModel(SignInManager<ColorMixUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
@@ -37,7 +37,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
-
+        
         public class InputModel
         {
             [Required(ErrorMessage = REQUIRED_FIELD)]
@@ -51,7 +51,8 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
         }
-
+        
+        // TODO: Restrict authorized users
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -63,19 +64,20 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            
+
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null) 
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
-
+            returnUrl = returnUrl ?? "/Users/MyOrders"; 
+             
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, isPersistent:false, lockoutOnFailure: true);
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation($"User logged in.");

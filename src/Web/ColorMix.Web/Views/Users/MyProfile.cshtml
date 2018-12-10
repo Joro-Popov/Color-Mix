@@ -1,0 +1,84 @@
+﻿<div id="all">
+    <div id="content">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-lg-3">
+                    <!--
+                    *** CUSTOMER MENU ***
+                    _________________________________________________________
+                    -->
+                    <div class="card sidebar-menu">
+                        <div class="card-header">
+                            <h3 class="h4 card-title">Меню</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills flex-column">
+                                <a asp-controller="Users" asp-action="MyOrders" class="nav-link"><i class="fa fa-list"></i> Моите поръчки</a>
+                                <a asp-controller="Users" asp-action="MyProfile" class="nav-link"><i class="fa fa-user"></i>Моят профил</a>
+                                <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link"><i class="fa fa-sign-out"></i> Излез</a>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.col-lg-3-->
+                    <!-- *** CUSTOMER MENU END ***-->
+                </div>
+                <div class="col-lg-9">
+                    <div class="box">
+                        <partial name="_ChangePasswordPartial"/>
+
+                        <h3 class="mt-5">Лични данни</h3>
+                        <form method="post">
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="Input.FirstName">Име<span class="text-danger">*</span></label>
+                                    <input for="Input.FirstName" class="form-control" placeholder="Име">
+                                </div>
+                                <div class="col">
+                                    <label for="Input.LastName">Фамилия<span class="text-danger">*</span></label>
+                                    <input for="Input.LastName" class="form-control" placeholder="Фамилия">
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="Input.Age">Години<span class="text-danger">*</span></label>
+                                    <input for="Input.Age" class="form-control" placeholder="Години">
+                                </div>
+                                <div class="col">
+                                    <label for="Input.Email">E-mail адрес<span class="text-danger">*</span></label>
+                                    <input for="Input.Email" type="email" class="form-control" placeholder="E-mail адрес">
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="Input.Password">Държава<span class="text-danger">*</span></label>
+                                    <input for="Input.Password" type="password" class="form-control" placeholder="Парола">
+                                </div>
+                                <div class="col">
+                                    <label for="Input.ConfirmPassword">Град<span class="text-danger">*</span></label>
+                                    <input for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for="Input.Password">Пощенски код<span class="text-danger">*</span></label>
+                                    <input for="Input.Password" type="password" class="form-control" placeholder="Парола">
+                                </div>
+                                <div class="col">
+                                    <label for="Input.ConfirmPassword">Телефонен номер<span class="text-danger">*</span></label>
+                                    <input for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Регистрирай ме</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial"/>

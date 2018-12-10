@@ -20,7 +20,6 @@ namespace ColorMix.Web.Controllers
         }
         public IActionResult Index()
         {
-            var user = this.User;
 
             return this.View();
         }
@@ -29,6 +28,7 @@ namespace ColorMix.Web.Controllers
         {
             return this.View();
         }
+
         public IActionResult Privacy()
         {
             return View();

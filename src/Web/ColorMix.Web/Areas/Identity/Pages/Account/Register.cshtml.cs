@@ -109,7 +109,6 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
                 if (this._userManager.Users.Count() == 1)
                 {
                     await this._userManager.AddToRoleAsync(user, "Admin");

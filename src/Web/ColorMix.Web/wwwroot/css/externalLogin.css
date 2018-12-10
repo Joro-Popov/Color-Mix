@@ -1,12 +1,12 @@
 ﻿.right {
     position: absolute;
     top: 0;
-    right: 64px;
+    right: 26px;
     box-sizing: border-box;
     padding: 40px;
     width: 300px;
     height: 431px;
-    background: url('http://images.all-free-download.com/images/graphiclarge/romantic_down_517380.jpg');
+    background: url('/img/social.jpg');
     background-size: cover;
     background-position: center;
     border-radius: 0 2px 2px 0;
