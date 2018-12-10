@@ -1,6 +1,8 @@
-﻿using ColorMix.Data;
+﻿using System;
+using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Services.Mapping;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,7 +46,17 @@ namespace ColorMix.Web
             .AddEntityFrameworkStores<ColorMixContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
-        
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.Cookie.Name = "ColorMix.Auth.";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Identity/Account/Login";
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+                options.SlidingExpiration = true;
+            });
 
             services.AddAuthentication()
             .AddFacebook(facebookOptions =>

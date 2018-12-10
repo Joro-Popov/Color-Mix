@@ -70,13 +70,13 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null) 
         {
-            returnUrl = returnUrl ?? "/Users/MyOrders"; 
+            returnUrl = returnUrl ?? "~/"; 
              
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, isPersistent:false, lockoutOnFailure: true);
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, isPersistent:true, lockoutOnFailure: true);
 
                 if (result.Succeeded)
                 {
