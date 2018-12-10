@@ -13,9 +13,12 @@
                         </div>
                         <div class="card-body">
                             <ul class="nav nav-pills flex-column">
-                                <a asp-controller="Users" asp-action="MyOrders" class="nav-link"><i class="fa fa-list"></i> Моите поръчки</a>
-                                <a asp-controller="Users" asp-action="MyProfile" class="nav-link"><i class="fa fa-user"></i>Моят профил</a>
-                                <a asp-area="Identity" asp-page="/Account/Logout" class="nav-link"><i class="fa fa-sign-out"></i> Излез</a>
+                                <li>
+                                    <a asp-controller="Users" asp-action="MyOrders" class="nav-link"><i class="fa fa-list"></i> Моите поръчки</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Users" asp-action="MyProfile" class="nav-link"><i class="fa fa-user"></i>Моят профил</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -24,7 +27,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="box">
-                        <partial name="_ChangePasswordPartial"/>
+                        <partial name="_ChangePasswordPartial" />
 
                         <h3 class="mt-5">Лични данни</h3>
                         <form method="post">
@@ -38,7 +41,7 @@
                                     <input for="Input.LastName" class="form-control" placeholder="Фамилия">
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                             <div class="form-row">
                                 <div class="col">
                                     <label for="Input.Age">Години<span class="text-danger">*</span></label>
@@ -60,7 +63,7 @@
                                     <input for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                             <div class="form-row">
                                 <div class="col">
                                     <label for="Input.Password">Пощенски код<span class="text-danger">*</span></label>
@@ -81,4 +84,4 @@
         </div>
     </div>
 </div>
-<partial name="_ValidationScriptsPartial"/>
+<partial name="_ValidationScriptsPartial" />

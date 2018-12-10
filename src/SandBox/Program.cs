@@ -2,8 +2,10 @@
 using System.IO;
 using System.Linq;
 using ColorMix.Data;
+using ColorMix.Data.Models;
 using CommandLine;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -8,10 +8,7 @@ namespace ColorMix.Data.Models
     {
         public string Name { get; set; }
 
-        public Guid CategoryId { get; set; }
-
-        public virtual Category Category { get; set; }
-
+        public virtual ICollection<CategorySubcategories> CategorySubCategories { get; set; } = new HashSet<CategorySubcategories>();
         public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
 }

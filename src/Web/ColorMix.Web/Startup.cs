@@ -80,7 +80,8 @@ namespace ColorMix.Web
 
         public void Configure(IApplicationBuilder app, 
                               IHostingEnvironment env,
-                              RoleManager<IdentityRole> roleManager)
+                              RoleManager<IdentityRole> roleManager,
+                              ColorMixContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -99,7 +100,7 @@ namespace ColorMix.Web
 
             app.UseAuthentication();
 
-            UserRoleInitializer.SeedRoles(roleManager);
+            DatabaseSeeder.Seed(roleManager, dbContext);
 
             app.UseMvc(routes =>
             {

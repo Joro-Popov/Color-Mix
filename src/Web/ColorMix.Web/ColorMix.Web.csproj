@@ -224,6 +224,9 @@
     <Content Update="wwwroot\vendor\owl.carousel\owl.carousel.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\vendor\owl.carousel\owl.carousel.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\vendor\popper.js\esm\popper-utils.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -4,197 +4,20 @@
 
         <div id="navigation" class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link active">Начало</a></li>
-                <!--Men's-->
-                <li class="nav-item dropdown menu-large">
-                    <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Мъже</a>
-                    <ul class="dropdown-menu megamenu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Дрехи</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Тениски</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Ризи</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Панталони</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Аксесоари</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Обувки</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Ежедневни</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Официални</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Зимни</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Летни</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Аксесоари</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Колани</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Часовници</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Вратовръзки</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Други</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Спортни стоки</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Екипировки</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link active">Начало</a>
                 </li>
-
-                <!--Woman's-->
                 <li class="nav-item dropdown menu-large">
-                    <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Жени</a>
-                    <ul class="dropdown-menu megamenu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Дрехи</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">тениски</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">ризи</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">панталони</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">рокли</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">поли</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Обувки</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Ежедневни</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Официални</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Зимни</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Летни</a></li>
-                                    </ul>
-                                </div>
-                                @*<div class="col-md-6 col-lg-3">
-                                        <h5>Аксесоари</h5>
-                                        <ul class="list-unstyled mb-3">
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Колани</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Часовници</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Casual</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Casual</a></li>
-                                        </ul>
-                                        <h5>Looks and trends</h5>
-                                        <ul class="list-unstyled mb-3">
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Trainers</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Sandals</a></li>
-                                            <li class="nav-item"><a href="category.html" class="nav-link">Hiking shoes</a></li>
-                                        </ul>
-                                    </div>*@
-                                <div class="col-md-6 col-lg-3">
-                                    <div class="banner"><a href="#"><img src="/img/banner.jpg" alt="" class="img img-fluid"></a></div>
-                                    <div class="banner"><a href="#"><img src="/img/banner2.jpg" alt="" class="img img-fluid"></a></div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <a href="#" data-delay="200" class="nav-link">Мъже</a>
                 </li>
-
-                <!--Kids-->
                 <li class="nav-item dropdown menu-large">
-                    <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Деца</a>
-                    <ul class="dropdown-menu megamenu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Дрехи</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Тениски</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Ризи</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Панталони</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Аксесоари</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Обувки</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Ежедневни</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Официални</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Зимни</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Лятни</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Аксесоари</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Колани</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Часовници</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Вратовръзки</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Други</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Спортни стоки</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Екипировки</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <a href="#" data-delay="200" class="nav-link">Жени</a>
                 </li>
-
-                <!--Other-->
                 <li class="nav-item dropdown menu-large">
-                    <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Други</a>
-                    <ul class="dropdown-menu megamenu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Shop</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="index.html" class="nav-link">Homepage</a></li>
-                                        <li class="nav-item"><a href="category.html" class="nav-link">Category - sidebar left</a></li>
-                                        <li class="nav-item"><a href="category-right.html" class="nav-link">Category - sidebar right</a></li>
-                                        <li class="nav-item"><a href="category-full.html" class="nav-link">Category - full width</a></li>
-                                        <li class="nav-item"><a href="detail.html" class="nav-link">Product detail</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>User</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="register.html" class="nav-link">Register / login</a></li>
-                                        <li class="nav-item"><a href="customer-orders.html" class="nav-link">Orders history</a></li>
-                                        <li class="nav-item"><a href="customer-order.html" class="nav-link">Order history detail</a></li>
-                                        <li class="nav-item"><a href="customer-wishlist.html" class="nav-link">Wishlist</a></li>
-                                        <li class="nav-item"><a href="customer-account.html" class="nav-link">Customer account / change password</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Order process</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="basket.html" class="nav-link">Shopping cart</a></li>
-                                        <li class="nav-item"><a href="checkout1.html" class="nav-link">Checkout - step 1</a></li>
-                                        <li class="nav-item"><a href="checkout2.html" class="nav-link">Checkout - step 2</a></li>
-                                        <li class="nav-item"><a href="checkout3.html" class="nav-link">Checkout - step 3</a></li>
-                                        <li class="nav-item"><a href="checkout4.html" class="nav-link">Checkout - step 4</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6 col-lg-3">
-                                    <h5>Pages and blog</h5>
-                                    <ul class="list-unstyled mb-3">
-                                        <li class="nav-item"><a href="blog.html" class="nav-link">Blog listing</a></li>
-                                        <li class="nav-item"><a href="post.html" class="nav-link">Blog Post</a></li>
-                                        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
-                                        <li class="nav-item"><a href="text.html" class="nav-link">Text page</a></li>
-                                        <li class="nav-item"><a href="text-right.html" class="nav-link">Text page - right sidebar</a></li>
-                                        <li class="nav-item"><a href="404.html" class="nav-link">404 page</a></li>
-                                        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    <a href="#" data-delay="200" class="nav-link">Деца</a>
+                </li>
+                <li class="nav-item dropdown menu-large">
+                    <a href="#" data-delay="200" class="nav-link">Други</a>
                 </li>
             </ul>
 
