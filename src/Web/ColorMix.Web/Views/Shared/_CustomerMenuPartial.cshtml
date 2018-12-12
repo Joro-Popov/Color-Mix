@@ -1,0 +1,18 @@
+﻿ <div class="card sidebar-menu">
+    <div class="card-header">
+        <h3 class="h4 card-title">Меню</h3>
+    </div>
+    <div class="card-body">
+        <ul class="nav nav-pills flex-column">
+            <li>
+                <a asp-controller="Users" asp-action="MyOrders" class="nav-link"><i class="fa fa-list"></i> Моите поръчки</a>
+            </li>
+            <li>
+                <a asp-controller="Users" asp-action="MyPersonalData" class="nav-link"><i class="fa fa-user"></i>Лични данни</a>
+            </li>
+            <li>
+                <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="nav-link"><i class="fas fa-users-cog mr-1"></i>Смяна на парола</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -3,32 +3,13 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-lg-3">
-                    <!--
-                    *** CUSTOMER MENU ***
-                    _________________________________________________________
-                    -->
-                    <div class="card sidebar-menu">
-                        <div class="card-header">
-                            <h3 class="h4 card-title">Меню</h3>
-                        </div>
-                        <div class="card-body">
-                            <ul class="nav nav-pills flex-column">
-                                <li>
-                                    <a asp-controller="Users" asp-action="MyOrders" class="nav-link"><i class="fa fa-list"></i> Моите поръчки</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Users" asp-action="MyProfile" class="nav-link"><i class="fa fa-user"></i>Моят профил</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /.col-lg-3-->
-                    <!-- *** CUSTOMER MENU END ***-->
+                    <!--Customer meu-->
+                    <partial name="_CustomerMenupartial"/>
+                    <!--Customer menu end-->
                 </div>
                 <div class="col-lg-9">
                     <div class="box">
-                        <partial name="_ChangePasswordPartial" />
-
+                        <h1>Редактиране на профилните данни</h1>
                         <h3 class="mt-5">Лични данни</h3>
                         <form method="post">
                             <div class="form-row">
@@ -41,7 +22,7 @@
                                     <input for="Input.LastName" class="form-control" placeholder="Фамилия">
                                 </div>
                             </div>
-                            <hr />
+                            <hr/>
                             <div class="form-row">
                                 <div class="col">
                                     <label for="Input.Age">Години<span class="text-danger">*</span></label>
@@ -52,7 +33,7 @@
                                     <input for="Input.Email" type="email" class="form-control" placeholder="E-mail адрес">
                                 </div>
                             </div>
-                            <hr />
+                            <hr/>
                             <div class="form-row">
                                 <div class="col">
                                     <label for="Input.Password">Държава<span class="text-danger">*</span></label>
@@ -63,7 +44,7 @@
                                     <input for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
                                 </div>
                             </div>
-                            <hr />
+                            <hr/>
                             <div class="form-row">
                                 <div class="col">
                                     <label for="Input.Password">Пощенски код<span class="text-danger">*</span></label>
@@ -75,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-3">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Регистрирай ме</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Запази промените</button>
                             </div>
                         </form>
                     </div>
