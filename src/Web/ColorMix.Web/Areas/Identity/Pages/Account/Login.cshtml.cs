@@ -53,8 +53,13 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
         }
         
         // TODO: Restrict authorized users
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("AccessDenied");
+            }
+
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -66,10 +71,17 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ReturnUrl = returnUrl;
+
+            return null;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null) 
         {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("AccessDenied");
+            }
+
             returnUrl = returnUrl ?? "~/"; 
              
             if (ModelState.IsValid)

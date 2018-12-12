@@ -69,10 +69,10 @@ namespace ColorMix.Data
         {
             var categories = new List<Category>
             {
-                new Category(){Name = "Men"},
-                new Category(){Name = "Women"},
-                new Category(){Name = "Kids"},
-                new Category(){Name = "Others"},
+                new Category(){Name = "Мъже"},
+                new Category(){Name = "Жени"},
+                new Category(){Name = "Деца"},
+                new Category(){Name = "Други"},
             };
 
             dbContext.Categories.AddRange(categories);
@@ -83,21 +83,21 @@ namespace ColorMix.Data
         {
             var subcategories = new List<SubCategory>
             {
-                new SubCategory(){Name = "Hats"},
-                new SubCategory(){Name = "T-shirts"},
-                new SubCategory(){Name = "Tops"},
-                new SubCategory(){Name = "Sweatshirt"},
-                new SubCategory(){Name = "Vests"},
-                new SubCategory(){Name = "Scarf"},
-                new SubCategory(){Name = "Jackets"},
-                new SubCategory(){Name = "Shorts"},
-                new SubCategory(){Name = "Trousers"},
-                new SubCategory(){Name = "Jeans"},
-                new SubCategory(){Name = "Shoes"},
-                new SubCategory(){Name = "Accessories"},
-                new SubCategory(){Name = "Dresses"},
-                new SubCategory(){Name = "Skirts"},
-                new SubCategory(){Name = "Bags"},
+                new SubCategory(){Name = "Шапки"},
+                new SubCategory(){Name = "Тениски"},
+                new SubCategory(){Name = "Блузи"},
+                new SubCategory(){Name = "Суитчъри"},
+                new SubCategory(){Name = "Жилетки"},
+                new SubCategory(){Name = "Шалове"},
+                new SubCategory(){Name = "Якета"},
+                new SubCategory(){Name = "Къси панталони"},
+                new SubCategory(){Name = "Панталони"},
+                new SubCategory(){Name = "Дънки"},
+                new SubCategory(){Name = "Обувки"},
+                new SubCategory(){Name = "Аксесоари"},
+                new SubCategory(){Name = "Рокли"},
+                new SubCategory(){Name = "Поли"},
+                new SubCategory(){Name = "Чанти"},
 
             };
 
