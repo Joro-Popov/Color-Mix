@@ -3,22 +3,51 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using SubCategory = ColorMix.Data.Models.SubCategory;
 
 namespace ColorMix.Data
 {
-    public static class DatabaseSeeder
+    public class DatabaseSeeder
     {
-        public static void Seed(RoleManager<IdentityRole> roleManager, ColorMixContext dbContext)
-        {
-            var roles = new string[] {"Admin", "User"};
+        private readonly RequestDelegate next;
 
-            SeedRoles(roles, roleManager);
-            SeedCategories(dbContext);
-            SeedSubCategories(dbContext);
+        public DatabaseSeeder(RequestDelegate next)
+        {
+            this.next = next;
         }
 
-        private static void SeedRoles(string[] roles, RoleManager<IdentityRole> roleManager)
+        public async Task InvokeAsync(HttpContext context, RoleManager<IdentityRole> roleManager, ColorMixContext dbContext)
+        {
+            if (dbContext == null)
+            {
+                throw new ArgumentNullException(nameof(dbContext));
+            }
+
+            if (roleManager == null)
+            {
+                throw new ArgumentNullException(nameof(roleManager));
+            }
+
+            var roles = new string[] { "Admin", "User" };
+
+            if (!(dbContext.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
+            {
+                dbContext.Database.Migrate();
+
+                SeedRoles(roles, roleManager);
+                SeedCategories(dbContext);
+                SeedSubCategories(dbContext);
+            }
+
+            await this.next(context);
+        }
+        
+        private void SeedRoles(string[] roles, RoleManager<IdentityRole> roleManager)
         {
             foreach (var roleName in roles)
             {
@@ -36,7 +65,7 @@ namespace ColorMix.Data
             }
         }
 
-        private static void SeedCategories(ColorMixContext dbContext)
+        private void SeedCategories(ColorMixContext dbContext)
         {
             var categories = new List<Category>
             {
@@ -50,7 +79,7 @@ namespace ColorMix.Data
             dbContext.SaveChanges();
         }
 
-        private static void SeedSubCategories(ColorMixContext dbContext)
+        private void SeedSubCategories(ColorMixContext dbContext)
         {
             var subcategories = new List<SubCategory>
             {

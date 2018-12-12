@@ -1,7 +1,7 @@
-﻿using System;
-using ColorMix.Data;
+﻿using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Services.Mapping;
+using ColorMix.Services.Models.Categories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using ColorMix.Services.DataServices;
+using ColorMix.Services.DataServices.Contracts;
+using ColorMix.Web.MiddlewareExtensions;
 
 namespace ColorMix.Web
 {
@@ -71,14 +75,15 @@ namespace ColorMix.Web
             });
 
             AutoMapperConfig.RegisterMappings(
-
-                // TODO: Register assemblies
+                typeof(CategoryViewModel).Assembly
                 );
+
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env,
                               RoleManager<IdentityRole> roleManager,
                               ColorMixContext dbContext)
@@ -100,7 +105,7 @@ namespace ColorMix.Web
 
             app.UseAuthentication();
 
-            DatabaseSeeder.Seed(roleManager, dbContext);
+            app.UseDatabaseSeeder();
 
             app.UseMvc(routes =>
             {

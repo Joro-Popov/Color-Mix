@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-expand-lg">
+﻿@model IEnumerable<CategoryViewModel>
+
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
         <a asp-controller="Home" asp-action="Index" class="navbar-brand home"><img src="/img/logo.png" alt="Obaju logo" class="d-none d-md-inline-block"><img src="img/logo-small.png" alt="Obaju logo" class="d-inline-block d-md-none"><span class="sr-only">Obaju - go to homepage</span></a>
 
@@ -7,18 +9,12 @@
                 <li class="nav-item">
                     <a asp-controller="Home" asp-action="Index" class="nav-link active">Начало</a>
                 </li>
-                <li class="nav-item dropdown menu-large">
-                    <a href="#" data-delay="200" class="nav-link">Мъже</a>
-                </li>
-                <li class="nav-item dropdown menu-large">
-                    <a href="#" data-delay="200" class="nav-link">Жени</a>
-                </li>
-                <li class="nav-item dropdown menu-large">
-                    <a href="#" data-delay="200" class="nav-link">Деца</a>
-                </li>
-                <li class="nav-item dropdown menu-large">
-                    <a href="#" data-delay="200" class="nav-link">Други</a>
-                </li>
+                @foreach (var menuItem in Model)
+                {
+                    <li class="nav-item dropdown menu-large">
+                        <a href="#" data-delay="200" class="nav-link">@menuItem.Name</a>
+                    </li>
+                }
             </ul>
 
             <!--Shopping Cart-->
