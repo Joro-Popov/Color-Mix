@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using ColorMix.Data.Models;
+﻿using ColorMix.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace ColorMix.Web.Areas.Identity.Pages.Account
 {
@@ -80,7 +79,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
-            
+
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = INVALID_CONFIRM_PASSWORD)]
@@ -105,17 +104,19 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     Age = Input.Age,
                     Email = Input.Email,
-                    RegistrationDate = DateTime.UtcNow
+                    RegistrationDate = DateTime.UtcNow,
+                    Address = new Address()
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                if (this._userManager.Users.Count() == 1)
+
+                if (_userManager.Users.Count() == 1)
                 {
-                    await this._userManager.AddToRoleAsync(user, "Admin");
+                    await _userManager.AddToRoleAsync(user, "Admin");
                 }
                 else
                 {
-                    await this._userManager.AddToRoleAsync(user, "User");
+                    await _userManager.AddToRoleAsync(user, "User");
                 }
 
                 if (result.Succeeded)

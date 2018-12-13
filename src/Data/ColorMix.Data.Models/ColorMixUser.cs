@@ -14,7 +14,7 @@ namespace ColorMix.Data.Models
 
         public DateTime RegistrationDate { get; set; }
 
-        public virtual ICollection<Address> Addresses { get; set; } = new HashSet<Address>();
+        public virtual Address Address { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }

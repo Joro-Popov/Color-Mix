@@ -1,4 +1,7 @@
-﻿using ColorMix.Services.DataServices.Contracts;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using ColorMix.Services.DataServices.Contracts;
+using ColorMix.Services.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,13 +25,20 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult MyPersonalData()
         {
-            return View();
+            var profileData = this.userService.GetUserData(this.User);
+
+            return View(profileData);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
-        public IActionResult ChangePersonalData()
+        public async Task<IActionResult> ChangePersonalData(ProfileDataViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                await this.userService.ChangeUserData(this.User, model);
+            }
+
             return RedirectToAction("MyPersonalData");
         }
     }

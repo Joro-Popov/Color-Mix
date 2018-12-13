@@ -1,13 +1,11 @@
 ﻿using ColorMix.Data.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using SubCategory = ColorMix.Data.Models.SubCategory;
 
 namespace ColorMix.Data
@@ -21,7 +19,9 @@ namespace ColorMix.Data
             this.next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, RoleManager<IdentityRole> roleManager, ColorMixContext dbContext)
+        public async Task InvokeAsync(HttpContext context,
+                                      RoleManager<IdentityRole> roleManager,
+                                      ColorMixContext dbContext)
         {
             if (dbContext == null)
             {
@@ -35,18 +35,15 @@ namespace ColorMix.Data
 
             var roles = new string[] { "Admin", "User" };
 
-            if (!(dbContext.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
-            {
-                dbContext.Database.Migrate();
+            dbContext.Database.Migrate();
 
-                SeedRoles(roles, roleManager);
-                SeedCategories(dbContext);
-                SeedSubCategories(dbContext);
-            }
+            SeedRoles(roles, roleManager);
+            SeedCategories(dbContext);
+            SeedSubCategories(dbContext);
 
-            await this.next(context);
+            await next(context);
         }
-        
+
         private void SeedRoles(string[] roles, RoleManager<IdentityRole> roleManager)
         {
             foreach (var roleName in roles)
@@ -64,9 +61,10 @@ namespace ColorMix.Data
                 }
             }
         }
-
         private void SeedCategories(ColorMixContext dbContext)
         {
+            if (dbContext.Categories.Any()) return;
+
             var categories = new List<Category>
             {
                 new Category(){Name = "Мъже"},
@@ -81,6 +79,8 @@ namespace ColorMix.Data
 
         private void SeedSubCategories(ColorMixContext dbContext)
         {
+            if (dbContext.SubCategories.Any()) return;
+
             var subcategories = new List<SubCategory>
             {
                 new SubCategory(){Name = "Шапки"},
@@ -106,3 +106,4 @@ namespace ColorMix.Data
         }
     }
 }
+

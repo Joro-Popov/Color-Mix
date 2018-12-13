@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20181204105400_InitialCreate.cs" />
+    <Compile Remove="Migrations\20181213100431_VirtualUserAddress.cs" />
   </ItemGroup>
 
   <ItemGroup>

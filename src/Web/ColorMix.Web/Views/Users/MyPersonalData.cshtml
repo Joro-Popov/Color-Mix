@@ -1,58 +1,74 @@
-﻿<div id="all">
+﻿@model ProfileDataViewModel
+<div id="all">
     <div id="content">
         <div class="container mt-3">
             <div class="row">
                 <div class="col-lg-3">
                     <!--Customer meu-->
-                    <partial name="_CustomerMenupartial"/>
+                    <partial name="_CustomerMenuPartial" />
                     <!--Customer menu end-->
                 </div>
                 <div class="col-lg-9">
                     <div class="box">
                         <h1>Редактиране на профилните данни</h1>
                         <h3 class="mt-5">Лични данни</h3>
-                        <form method="post">
+                        <form method="post" asp-controller="Users" asp-action="ChangePersonalData">
                             <div class="form-row">
                                 <div class="col">
-                                    <label for="Input.FirstName">Име<span class="text-danger">*</span></label>
-                                    <input for="Input.FirstName" class="form-control" placeholder="Име">
+                                    <label asp-for="@Model.FirstName">Име<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.FirstName" class="form-control" placeholder="Име" value="@Model.FirstName">
+                                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col">
-                                    <label for="Input.LastName">Фамилия<span class="text-danger">*</span></label>
-                                    <input for="Input.LastName" class="form-control" placeholder="Фамилия">
+                                    <label asp-for="@Model.LastName">Фамилия<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.LastName" class="form-control" placeholder="Фамилия" value="@Model.LastName">
+                                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                             <div class="form-row">
                                 <div class="col">
-                                    <label for="Input.Age">Години<span class="text-danger">*</span></label>
-                                    <input for="Input.Age" class="form-control" placeholder="Години">
+                                    <label asp-for="@Model.Age">Години<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.Age" class="form-control" placeholder="Години" value="@Model.Age">
+                                    <span asp-validation-for="@Model.Age" class="text-danger"></span>
                                 </div>
                                 <div class="col">
-                                    <label for="Input.Email">E-mail адрес<span class="text-danger">*</span></label>
-                                    <input for="Input.Email" type="email" class="form-control" placeholder="E-mail адрес">
+                                    <label asp-for="@Model.Email">E-mail адрес<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.Email" type="email" class="form-control" placeholder="E-mail адрес" value="@Model.Email">
+                                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                             <div class="form-row">
                                 <div class="col">
-                                    <label for="Input.Password">Държава<span class="text-danger">*</span></label>
-                                    <input for="Input.Password" type="password" class="form-control" placeholder="Парола">
+                                    <label asp-for="@Model.AddressCountry">Държава<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.AddressCountry" type="text" class="form-control" placeholder="Държава" value="@Model.AddressCountry">
+                                    <span asp-validation-for="@Model.AddressCountry" class="text-danger"></span>
                                 </div>
                                 <div class="col">
-                                    <label for="Input.ConfirmPassword">Град<span class="text-danger">*</span></label>
-                                    <input for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
+                                    <label asp-for="@Model.AddressCity">Град<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.AddressCity" type="text" class="form-control" placeholder="Град" value="@Model.AddressCity">
+                                    <span asp-validation-for="@Model.AddressCity" class="text-danger"></span>
                                 </div>
                             </div>
-                            <hr/>
                             <div class="form-row">
                                 <div class="col">
-                                    <label for="Input.Password">Пощенски код<span class="text-danger">*</span></label>
-                                    <input for="Input.Password" type="password" class="form-control" placeholder="Парола">
+                                    <label asp-for="@Model.AddressStreet">Улица<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.AddressStreet" type="text" class="form-control" placeholder="Улица" value="@Model.AddressStreet">
+                                    <span asp-validation-for="@Model.AddressStreet" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="form-row">
+                                <div class="col">
+                                    <label asp-for="@Model.AddressZipCode">Пощенски код<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.AddressZipCode" type="number" class="form-control" placeholder="Пощенски код" value="@Model.AddressZipCode">
+                                    <span asp-validation-for="@Model.AddressZipCode" class="text-danger"></span>
                                 </div>
                                 <div class="col">
-                                    <label for="Input.ConfirmPassword">Телефонен номер<span class="text-danger">*</span></label>
-                                    <input for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Потвърдете паролата">
+                                    <label asp-for="@Model.PhoneNumber">Телефонен номер<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.PhoneNumber" type="text" class="form-control" placeholder="Телефонен номер" value="@Model.PhoneNumber">
+                                    <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="text-center mt-3">
@@ -65,4 +81,6 @@
         </div>
     </div>
 </div>
-<partial name="_ValidationScriptsPartial" />
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

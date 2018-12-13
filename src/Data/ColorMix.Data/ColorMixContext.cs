@@ -10,6 +10,7 @@ namespace ColorMix.Data
         public ColorMixContext(DbContextOptions<ColorMixContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -28,7 +29,7 @@ namespace ColorMix.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new AddressConfig());
+            builder.ApplyConfiguration(new UserConfig());
             builder.ApplyConfiguration(new OrderConfig());
             builder.ApplyConfiguration(new OrderProductConfig());
             builder.ApplyConfiguration(new ProductConfig());
