@@ -8,6 +8,6 @@ namespace ColorMix.Services.DataServices.Contracts
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductsViewModel>> GetProductsByCategory(Guid id);
+        IEnumerable<ProductsViewModel> GetProductsByCategory(Guid id);
     }
 }

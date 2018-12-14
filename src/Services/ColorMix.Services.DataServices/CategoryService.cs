@@ -1,4 +1,5 @@
-﻿using ColorMix.Data;
+﻿using System;
+using ColorMix.Data;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Categories;
@@ -20,6 +21,16 @@ namespace ColorMix.Services.DataServices
             var categories = DbContext.Categories.To<CategoryViewModel>().ToList();
 
             return categories;
+        }
+
+        public bool CheckIfCategoryExists(Guid id)
+        {
+            return this.DbContext.Categories.Any(c => c.Id == id);
+        }
+
+        public string GetCategoryName(Guid id)
+        {
+            return this.DbContext.Categories.FirstOrDefault(c => c.Id == id)?.Name;
         }
     }
 }

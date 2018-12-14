@@ -7,7 +7,7 @@ namespace ColorMix.Data.Models
     {
         public string Name { get; set; }
 
-        public byte[] Image { get; set; }
+        public string ImageUrl { get; set; }
 
         public decimal Price { get; set; }
 
