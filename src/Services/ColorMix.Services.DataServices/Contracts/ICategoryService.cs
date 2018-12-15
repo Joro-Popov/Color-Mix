@@ -11,5 +11,7 @@ namespace ColorMix.Services.DataServices.Contracts
         bool CheckIfCategoryExists(Guid id);
 
         string GetCategoryName(Guid id);
+
+        IEnumerable<CategorySubcategoriesViewModel> GetAllCategoriesAndSubCategories();
     }
 }

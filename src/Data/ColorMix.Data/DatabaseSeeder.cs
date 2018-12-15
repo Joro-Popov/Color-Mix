@@ -61,6 +61,7 @@ namespace ColorMix.Data
                 }
             }
         }
+
         private void SeedCategories(ColorMixContext dbContext)
         {
             if (dbContext.Categories.Any()) return;
@@ -81,28 +82,39 @@ namespace ColorMix.Data
         {
             if (dbContext.SubCategories.Any()) return;
 
-            var subcategories = new List<SubCategory>
+            var categories = dbContext.Categories
+                .ToList();
+            
+            foreach (var category in categories)
             {
-                new SubCategory(){Name = "Шапки"},
-                new SubCategory(){Name = "Тениски"},
-                new SubCategory(){Name = "Блузи"},
-                new SubCategory(){Name = "Суитчъри"},
-                new SubCategory(){Name = "Жилетки"},
-                new SubCategory(){Name = "Шалове"},
-                new SubCategory(){Name = "Якета"},
-                new SubCategory(){Name = "Къси панталони"},
-                new SubCategory(){Name = "Панталони"},
-                new SubCategory(){Name = "Дънки"},
-                new SubCategory(){Name = "Обувки"},
-                new SubCategory(){Name = "Аксесоари"},
-                new SubCategory(){Name = "Рокли"},
-                new SubCategory(){Name = "Поли"},
-                new SubCategory(){Name = "Чанти"},
+                var subCategories = new List<SubCategory>
+                {
+                    new SubCategory(){Name = "Шапки", CategoryId = category.Id},
+                    new SubCategory(){Name = "Ризи", CategoryId = category.Id},
+                    new SubCategory(){Name = "Тениски", CategoryId = category.Id},
+                    new SubCategory(){Name = "Блузи", CategoryId = category.Id},
+                    new SubCategory(){Name = "Суитчъри", CategoryId = category.Id},
+                    new SubCategory(){Name = "Жилетки", CategoryId = category.Id},
+                    new SubCategory(){Name = "Шалове", CategoryId = category.Id},
+                    new SubCategory(){Name = "Якета", CategoryId = category.Id},
+                    new SubCategory(){Name = "Къси панталони",CategoryId = category.Id},
+                    new SubCategory(){Name = "Панталони",CategoryId = category.Id},
+                    new SubCategory(){Name = "Дънки",CategoryId = category.Id},
+                    new SubCategory(){Name = "Обувки",CategoryId = category.Id},
+                    new SubCategory(){Name = "Аксесоари",CategoryId = category.Id},
+                    
+                };
 
-            };
+                if (category.Name == "Жени")
+                {
+                    subCategories.Add(new SubCategory() {Name = "Рокли", CategoryId = category.Id});
+                    subCategories.Add(new SubCategory() {Name = "Поли", CategoryId = category.Id});
+                    subCategories.Add(new SubCategory() {Name = "Чанти", CategoryId = category.Id});
+                }
 
-            dbContext.SubCategories.AddRange(subcategories);
-            dbContext.SaveChanges();
+                dbContext.SubCategories.AddRange(subCategories);
+                dbContext.SaveChanges();
+            }
         }
     }
 }

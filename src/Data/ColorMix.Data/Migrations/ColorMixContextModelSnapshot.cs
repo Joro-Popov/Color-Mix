@@ -55,19 +55,6 @@ namespace ColorMix.Data.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ColorMix.Data.Models.CategorySubcategories", b =>
-                {
-                    b.Property<Guid>("CategoryId");
-
-                    b.Property<Guid>("SubCategoryId");
-
-                    b.HasKey("CategoryId", "SubCategoryId");
-
-                    b.HasIndex("SubCategoryId");
-
-                    b.ToTable("CategorySubcategories");
-                });
-
             modelBuilder.Entity("ColorMix.Data.Models.ColorMixUser", b =>
                 {
                     b.Property<string>("Id")
@@ -189,6 +176,8 @@ namespace ColorMix.Data.Migrations
 
                     b.Property<string>("Brand");
 
+                    b.Property<Guid>("CategoryId");
+
                     b.Property<string>("Color");
 
                     b.Property<string>("Description");
@@ -207,6 +196,8 @@ namespace ColorMix.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Products");
@@ -217,9 +208,13 @@ namespace ColorMix.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid>("CategoryId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
                 });
@@ -342,19 +337,6 @@ namespace ColorMix.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ColorMix.Data.Models.CategorySubcategories", b =>
-                {
-                    b.HasOne("ColorMix.Data.Models.Category", "Category")
-                        .WithMany("CategorySubCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ColorMix.Data.Models.SubCategory", "SubCategory")
-                        .WithMany("CategorySubCategories")
-                        .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ColorMix.Data.Models.Invoice", b =>
                 {
                     b.HasOne("ColorMix.Data.Models.Order", "Order")
@@ -386,9 +368,22 @@ namespace ColorMix.Data.Migrations
 
             modelBuilder.Entity("ColorMix.Data.Models.Product", b =>
                 {
+                    b.HasOne("ColorMix.Data.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("ColorMix.Data.Models.SubCategory", "SubCategory")
                         .WithMany("Products")
                         .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ColorMix.Data.Models.SubCategory", b =>
+                {
+                    b.HasOne("ColorMix.Data.Models.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

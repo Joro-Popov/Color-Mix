@@ -28,11 +28,25 @@ namespace ColorMix.Web.Controllers
             }
 
             var products = productService.GetProductsByCategory(id);
-            var categoryName = this.categoryService.GetCategoryName(id);
 
-            this.ViewData["CategoryName"] = categoryName;
+            this.ViewData["CategoryName"] = this.categoryService.GetCategoryName(id);
 
             return View(products);
+        }
+
+        public IActionResult ProductsBySubCategory(Guid categoryId, Guid subCategoryId)
+        {
+
+            if (!categoryService.CheckIfCategoryExists(categoryId))
+            {
+                return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
+            }
+
+            var products = productService.GetProductsBySubCategory(categoryId, subCategoryId);
+
+            this.ViewData["CategoryName"] = this.categoryService.GetCategoryName(categoryId);
+
+            return this.View("ProductsByCategory", products);
         }
     }
 }

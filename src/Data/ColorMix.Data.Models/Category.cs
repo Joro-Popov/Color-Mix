@@ -8,6 +8,9 @@ namespace ColorMix.Data.Models
     {
         public string Name { get; set; }
 
-        public virtual ICollection<CategorySubcategories> CategorySubCategories { get; set; } = new HashSet<CategorySubcategories>();
+        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
+
+        public virtual ICollection<SubCategory> SubCategories { get; set; } = new HashSet<SubCategory>();
+        
     }
 }

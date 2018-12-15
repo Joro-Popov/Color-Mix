@@ -33,7 +33,7 @@ namespace ColorMix.Data
             builder.ApplyConfiguration(new OrderConfig());
             builder.ApplyConfiguration(new OrderProductConfig());
             builder.ApplyConfiguration(new ProductConfig());
-            builder.ApplyConfiguration(new CategorySubcategoriesConfig());
+            builder.ApplyConfiguration(new SubCategoryConfig());
 
             base.OnModelCreating(builder);
         }

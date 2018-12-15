@@ -12,6 +12,10 @@ namespace ColorMix.Data.ModelConfigurations
             builder.HasOne(p => p.SubCategory)
                    .WithMany(s => s.Products)
                    .HasForeignKey(p => p.SubCategoryId);
+
+            builder.HasOne(p => p.Category)
+                .WithMany(s => s.Products)
+                .HasForeignKey(p => p.CategoryId);
         }
     }
 }

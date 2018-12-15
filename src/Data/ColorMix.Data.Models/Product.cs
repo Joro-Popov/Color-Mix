@@ -21,6 +21,10 @@ namespace ColorMix.Data.Models
 
         public string Brand { get; set; }
 
+        public Guid CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
         public Guid SubCategoryId { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CategorySubcategoriesViewModel>
+
+<div class="card sidebar-menu mb-4">
+    <div class="card-header">
+        <h3 class="h4 card-title">Категории</h3>
+    </div>
+    @foreach (var category in Model)
+    {
+        <div class="card-body">
+            <ul class="nav nav-pills flex-column category-menu">
+                <li>
+                    <a asp-controller="Products" asp-action="ProductsByCategory" asp-route-id="@category.Id" class="nav-link">@category.Name <span class="badge badge-secondary">@category.SubCategories.Sum(c => c.ProductsCount)</span></a>
+
+                    <ul class="list-unstyled">
+
+                        @foreach (var subCategory in category.SubCategories.Where(x => x.ProductsCount > 0))
+                        {
+                            <li><a asp-controller="Products" asp-action="ProductsBySubCategory" asp-route-categoryId="@category.Id" asp-route-subCategoryId="@subCategory.Id" class="nav-link">@subCategory.Name</a></li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    }
+</div>
+
+<div class="card sidebar-menu mb-4">
+    <div class="card-header">
+        <h3 class="h4 card-title">Brands <a href="#" class="btn btn-sm btn-danger pull-right"><i class="fa fa-times-circle"></i> Clear</a></h3>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Armani (10)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Versace (12)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Carlo Bruni (15)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Jack Honey (14)
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+        </form>
+    </div>
+</div>
+<div class="card sidebar-menu mb-4">
+    <div class="card-header">
+        <h3 class="h4 card-title">Colours <a href="#" class="btn btn-sm btn-danger pull-right"><i class="fa fa-times-circle"></i> Clear</a></h3>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"><span class="colour white"></span> White (14)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"><span class="colour blue"></span> Blue (10)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"><span class="colour green"></span> Green (20)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"><span class="colour yellow"></span> Yellow (13)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"><span class="colour red"></span> Red (10)
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+        </form>
+    </div>
+</div>
