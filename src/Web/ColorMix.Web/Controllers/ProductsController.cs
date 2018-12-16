@@ -34,10 +34,11 @@ namespace ColorMix.Web.Controllers
             return View(products);
         }
 
+        [Authorize]
         public IActionResult ProductsBySubCategory(Guid categoryId, Guid subCategoryId)
         {
 
-            if (!categoryService.CheckIfCategoryExists(categoryId))
+            if (!this.categoryService.CheckIfCategoryExists(categoryId))
             {
                 return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
             }
@@ -47,6 +48,20 @@ namespace ColorMix.Web.Controllers
             this.ViewData["CategoryName"] = this.categoryService.GetCategoryName(categoryId);
 
             return this.View("ProductsByCategory", products);
+        }
+
+        [Authorize]
+        public IActionResult Details(Guid id)
+        {
+
+            if (!this.productService.CheckIfProductExists(id))
+            {
+                return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
+            }
+
+            var details = this.productService.GetProductDetails(id);
+
+            return this.View(details);
         }
     }
 }

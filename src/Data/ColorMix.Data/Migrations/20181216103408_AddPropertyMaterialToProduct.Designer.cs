@@ -4,14 +4,16 @@ using ColorMix.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ColorMix.Data.Migrations
 {
     [DbContext(typeof(ColorMixContext))]
-    partial class ColorMixContextModelSnapshot : ModelSnapshot
+    [Migration("20181216103408_AddPropertyMaterialToProduct")]
+    partial class AddPropertyMaterialToProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

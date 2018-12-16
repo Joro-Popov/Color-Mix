@@ -33,29 +33,12 @@ namespace ColorMix.Services.DataServices
             return this.DbContext.Categories.FirstOrDefault(c => c.Id == id)?.Name;
         }
 
-        public IEnumerable<CategorySubcategoriesViewModel> GetAllCategoriesAndSubCategories()
+        public IEnumerable<SideMenuViewModel> GetAllCategoriesAndSubCategories()
         {
-            //var categorySubcategories = this.DbContext.Categories
-            //    .To<CategorySubcategoriesViewModel>()
-            //    .ToList();
-
-            // TODO: Map with Automapper
-
             var categorySubcategories = this.DbContext.Categories
-                .Select(c => new CategorySubcategoriesViewModel()
-                {
-                    Id = c.Id,
-                    Name = c.Name,
-                    SubCategories = c.SubCategories
-                        .Where(sc => sc.CategoryId == c.Id)
-                        .Select(sbc => new SubCategoryViewModel()
-                        {
-                            Name = sbc.Name,
-                            Id = sbc.Id,
-                            ProductsCount = sbc.Products.Count
-                        }).ToList()
-                });
-
+                .To<SideMenuViewModel>()
+                .ToList();
+            
             return categorySubcategories;
         }
     }

@@ -3,10 +3,11 @@ using ColorMix.Services.Mapping.Contracts;
 using System;
 using System.Collections.Generic;
 using AutoMapper;
+using ColorMix.Services.Models.Products;
 
 namespace ColorMix.Services.Models.Categories
 {
-    public class CategorySubcategoriesViewModel
+    public class SideMenuViewModel : IMapFrom<Category>
     {
         public Guid Id { get; set; }
 

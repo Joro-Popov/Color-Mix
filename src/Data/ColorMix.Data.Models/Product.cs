@@ -19,6 +19,8 @@ namespace ColorMix.Data.Models
 
         public string Size { get; set; }
 
+        public string Material { get; set; }
+
         public string Brand { get; set; }
 
         public Guid CategoryId { get; set; }

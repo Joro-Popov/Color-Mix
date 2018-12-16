@@ -30,8 +30,8 @@
                                 <div class="product">
                                     <div class="flip-container">
                                         <div class="flipper">
-                                            <div class="front"><a href="detail.html"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>
-                                            <div class="back"><a href="detail.html"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>
+                                            <div class="front"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>
+                                            <div class="back"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>
                                         </div>
                                     </div><a href="detail.html" class="invisible"><img src="@product.ImageUrl" alt="" class="img-fluid"></a>
                                     <div class="text">
@@ -40,7 +40,7 @@
                                             @product.Price лв.
                                         </p>
                                         <p class="buttons">
-                                            <a href="detail.html" class="btn btn-outline-secondary">Детайли</a>
+                                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-secondary">Детайли</a>
                                             <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Добави в количката</a>
                                         </p>
                                     </div>

@@ -12,6 +12,6 @@ namespace ColorMix.Services.DataServices.Contracts
 
         string GetCategoryName(Guid id);
 
-        IEnumerable<CategorySubcategoriesViewModel> GetAllCategoriesAndSubCategories();
+        IEnumerable<SideMenuViewModel> GetAllCategoriesAndSubCategories();
     }
 }

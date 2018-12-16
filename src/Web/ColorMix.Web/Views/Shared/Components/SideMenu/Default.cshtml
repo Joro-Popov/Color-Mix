@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CategorySubcategoriesViewModel>
+﻿@model IEnumerable<SideMenuViewModel>
 
 <div class="card sidebar-menu mb-4">
     <div class="card-header">
@@ -23,32 +23,16 @@
         </div>
     }
 </div>
-
 <div class="card sidebar-menu mb-4">
     <div class="card-header">
         <h3 class="h4 card-title">Brands <a href="#" class="btn btn-sm btn-danger pull-right"><i class="fa fa-times-circle"></i> Clear</a></h3>
     </div>
     <div class="card-body">
-        <form>
+        <form method="post">
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Armani (10)
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Versace (12)
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Carlo Bruni (15)
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Jack Honey (14)
+                        <input type="checkbox" name="Lacoste" value="Lacoste">Lacoste (10)
                     </label>
                 </div>
             </div>

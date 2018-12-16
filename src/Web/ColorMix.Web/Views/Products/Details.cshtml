@@ -1,0 +1,89 @@
+﻿@model DetailsViewModel
+
+<div id="all">
+    <div id="content">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-lg-3">
+
+                    <vc:Side-Menu></vc:Side-Menu>
+
+                    <div class="banner">
+                        <a href="#"><img src="/img/banner.jpg" alt="sales 2014" class="img-fluid"></a>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div id="productMain" class="row">
+                        <div class="col-md-6">
+                            <div class="item">
+                                <img src="@Model.ImageUrl" alt="" class="img-fluid">
+                            </div>
+                            <div class="ribbon sale">
+                                <div class="theribbon">SALE</div>
+                                <div class="ribbon-background"></div>
+                            </div>
+                            <!-- /.ribbon-->
+                            <div class="ribbon new">
+                                <div class="theribbon">NEW</div>
+                                <div class="ribbon-background"></div>
+                            </div>
+                            <!-- /.ribbon-->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="box">
+                                <h1 class="text-center">@Model.Name</h1>
+                                <p class="price">@Model.Price лв.</p>
+                                <p class="text-center buttons">
+
+                                    <a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Добави в количката </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="details" class="box">
+                        <p></p>
+                        <h4>Детайли</h4>
+                        <p>@Model.Description</p>
+
+                        <h4>Състав на материята</h4>
+                        <ul>
+                            <li>@Model.Material</li>
+                        </ul>
+                        <h4>Размер</h4>
+                        <ul>
+                            <li>Моделът е размер @Model.Size</li>
+                        </ul>
+                        <hr>
+                    </div>
+                    <div class="row same-height-row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="box same-height">
+                                <h3>Може да харесате</h3>
+                            </div>
+                        </div>
+                        @foreach (var rndProduct in Model.RandomProducts)
+                        {
+                            <div class="col-lg-3 col-md-6">
+                                <div class="product same-height">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front"><a asp-controller="Products" asp-action="Details" asp-route-id="@rndProduct.Id"><img src="@rndProduct.ImageUrl" alt="" class="img-fluid"></a></div>
+                                            <div class="back"><a asp-controller="Products" asp-action="Details" asp-route-id="@rndProduct.Id"><img src="@rndProduct.ImageUrl" alt="" class="img-fluid"></a></div>
+                                        </div>
+                                    </div>
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@rndProduct.Id" class="invisible"><img src="@rndProduct.ImageUrl" alt="" class="img-fluid"></a>
+                                    <div class="text">
+                                        <h3>Fur coat</h3>
+                                        <p class="price">@rndProduct.Price лв.</p>
+                                    </div>
+                                </div>
+                                <!-- /.product-->
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- /.col-md-9-->
+            </div>
+        </div>
+    </div>
+</div>
