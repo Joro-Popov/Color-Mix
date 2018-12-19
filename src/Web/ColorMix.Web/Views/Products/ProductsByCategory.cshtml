@@ -1,4 +1,5 @@
 ﻿@using X.PagedList
+@using X.PagedList.Mvc.Common
 @using X.PagedList.Mvc.Core
 
 @model AllProductsViewModel
@@ -50,8 +51,21 @@
                         }
                         <!-- /.products-->
                     </div>
-                    @Html.PagedListPager((IPagedList)Model.Products, page => Url.Action("ProductsByCategory", new { Model.CategoryId, page, Model.SubCategoryId }) )
+
                     <div class="pages">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            @Html.PagedListPager((IPagedList)Model.Products,
+                                page => Url.Action("ProductsByCategory",
+                                    new { Model.CategoryId, page, Model.SubCategoryId }),
+                                    new PagedListRenderOptions()
+                                    {
+                                        UlElementClasses = new List<string> { "pagination"},
+                                        LiElementClasses = new List<string> { "page-item", "page-link"}
+                                    })
+                        </nav>
+                    </div>
+
+                    @*<div class="pages">
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <li class="page-item"><a href="#" aria-label="Previous" class="page-link"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
@@ -63,7 +77,7 @@
                                 <li class="page-item"><a href="#" aria-label="Next" class="page-link"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
                             </ul>
                         </nav>
-                    </div>
+                    </div>*@
                 </div>
                 <!-- /.col-lg-9-->
             </div>
