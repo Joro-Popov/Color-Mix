@@ -23,9 +23,14 @@ namespace ColorMix.Services.DataServices
             return categories;
         }
 
-        public bool CheckIfCategoryExists(Guid id)
+        public bool CheckIfCategoryExists(Guid categoryId)
         {
-            return this.DbContext.Categories.Any(c => c.Id == id);
+            return this.DbContext.Categories.Any(c => c.Id == categoryId);
+        }
+
+        public bool CheckIfSubCategoryExists(Guid? subCategoryId)
+        {
+            return subCategoryId == null || this.DbContext.SubCategories.Any(x => x.Id == subCategoryId);
         }
 
         public string GetCategoryName(Guid id)

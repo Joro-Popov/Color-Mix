@@ -12,7 +12,7 @@
                 @foreach (var menuItem in Model)
                 {
                     <li class="nav-item dropdown menu-large">
-                        <a asp-controller="Products" asp-action="ProductsByCategory" asp-route-id="@menuItem.Id" data-delay="200" class="nav-link">@menuItem.Name</a>
+                        <a asp-controller="Products" asp-action="ProductsByCategory" asp-route-categoryId="@menuItem.Id" data-delay="200" class="nav-link">@menuItem.Name</a>
                     </li>
                 }
             </ul>

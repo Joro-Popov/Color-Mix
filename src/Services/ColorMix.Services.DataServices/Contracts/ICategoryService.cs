@@ -8,7 +8,9 @@ namespace ColorMix.Services.DataServices.Contracts
     {
         IEnumerable<CategoryViewModel> GetAllCategories();
 
-        bool CheckIfCategoryExists(Guid id);
+        bool CheckIfCategoryExists(Guid categoryId);
+
+        bool CheckIfSubCategoryExists(Guid? subCategoryId);
 
         string GetCategoryName(Guid id);
 

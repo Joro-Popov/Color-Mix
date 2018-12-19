@@ -9,13 +9,13 @@
         <div class="card-body">
             <ul class="nav nav-pills flex-column category-menu">
                 <li>
-                    <a asp-controller="Products" asp-action="ProductsByCategory" asp-route-id="@category.Id" class="nav-link">@category.Name <span class="badge badge-secondary">@category.SubCategories.Sum(c => c.ProductsCount)</span></a>
+                    <a asp-controller="Products" asp-action="ProductsByCategory" asp-route-categoryId="@category.Id" class="nav-link">@category.Name <span class="badge badge-secondary">@category.SubCategories.Sum(c => c.ProductsCount)</span></a>
 
                     <ul class="list-unstyled">
 
                         @foreach (var subCategory in category.SubCategories.Where(x => x.ProductsCount > 0))
                         {
-                            <li><a asp-controller="Products" asp-action="ProductsBySubCategory" asp-route-categoryId="@category.Id" asp-route-subCategoryId="@subCategory.Id" class="nav-link">@subCategory.Name</a></li>
+                            <li><a asp-controller="Products" asp-action="ProductsByCategory" asp-route-categoryId="@category.Id" asp-route-subCategoryId="@subCategory.Id" class="nav-link">@subCategory.Name</a></li>
                         }
                     </ul>
                 </li>
