@@ -13,5 +13,7 @@ namespace ColorMix.Services.Models.Products
         public decimal Price { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public Guid SubCategoryId { get; set; }
     }
 }

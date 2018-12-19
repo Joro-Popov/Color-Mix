@@ -20,6 +20,8 @@ namespace ColorMix.Services.Models.Products
 
         public string Material { get; set; }
 
+        public string Color { get; set; }
+
         public bool IsAvailable { get; set; }
 
         public string Brand { get; set; }

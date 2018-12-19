@@ -53,14 +53,13 @@
                         <ul>
                             <li>Моделът е размер @Model.Size</li>
                         </ul>
+                        <h4>Цвят</h4>
+                        <ul>
+                            <li>Моделът се предлага в @Model.Color цвят</li>
+                        </ul>
                         <hr>
                     </div>
                     <div class="row same-height-row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="box same-height">
-                                <h3>Може да харесате</h3>
-                            </div>
-                        </div>
                         @foreach (var rndProduct in Model.RandomProducts)
                         {
                             <div class="col-lg-3 col-md-6">
@@ -73,7 +72,7 @@
                                     </div>
                                     <a asp-controller="Products" asp-action="Details" asp-route-id="@rndProduct.Id" class="invisible"><img src="@rndProduct.ImageUrl" alt="" class="img-fluid"></a>
                                     <div class="text">
-                                        <h3>Fur coat</h3>
+                                        <h3>@rndProduct.Name</h3>
                                         <p class="price">@rndProduct.Price лв.</p>
                                     </div>
                                 </div>

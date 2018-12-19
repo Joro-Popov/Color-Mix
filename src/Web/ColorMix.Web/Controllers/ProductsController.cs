@@ -43,7 +43,7 @@ namespace ColorMix.Web.Controllers
                 return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
             }
 
-            var products = productService.GetProductsBySubCategory(categoryId, subCategoryId);
+            var products = productService.GetProductsByCategory(categoryId, subCategoryId);
 
             this.ViewData["CategoryName"] = this.categoryService.GetCategoryName(categoryId);
 

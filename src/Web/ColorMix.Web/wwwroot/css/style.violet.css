@@ -660,7 +660,7 @@ h1 {
 }
 
 #content .card.sidebar-menu ul.nav.category-menu {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 #content .card.sidebar-menu ul.nav.category-menu li a {
@@ -2902,7 +2902,7 @@ code {
 }
 
 .card-body {
-  padding: 1.25rem;
+  padding: 0.25rem;
 }
 
 .card-title {
