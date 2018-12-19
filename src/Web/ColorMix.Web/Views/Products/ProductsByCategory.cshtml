@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ProductsViewModel>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+@model AllProductsViewModel
 @{
     var categoryName = this.ViewData["CategoryName"];
 }
@@ -20,7 +23,7 @@
                         <h1>@categoryName</h1>
                     </div>
                     <div class="row products">
-                        @foreach (var product in Model)
+                        @foreach (var product in Model.Products)
                         {
                             <div class="col-lg-4 col-md-6">
                                 <div class="product">
@@ -47,8 +50,8 @@
                         }
                         <!-- /.products-->
                     </div>
+                    @Html.PagedListPager((IPagedList)Model.Products, page => Url.Action("ProductsByCategory", new { Model.CategoryId, page, Model.SubCategoryId }) )
                     <div class="pages">
-                        <p class="loadMore"><a href="#" class="btn btn-primary btn-lg"><i class="fa fa-chevron-down"></i> Load more</a></p>
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <li class="page-item"><a href="#" aria-label="Previous" class="page-link"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>

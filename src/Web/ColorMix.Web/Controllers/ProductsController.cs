@@ -20,7 +20,7 @@ namespace ColorMix.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult ProductsByCategory(Guid categoryId, Guid? subCategoryId)
+        public IActionResult ProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId)
         {
             if (!this.categoryService.CheckIfCategoryExists(categoryId) || 
                 !this.categoryService.CheckIfSubCategoryExists(subCategoryId))
@@ -28,8 +28,8 @@ namespace ColorMix.Web.Controllers
                 return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
             }
 
-            var products = productService.GetProductsByCategory(categoryId, subCategoryId);
-
+            var products = productService.GetProductsByCategory(categoryId, page, subCategoryId);
+            
             this.ViewData["CategoryName"] = this.categoryService.GetCategoryName(categoryId);
 
             return View(products);

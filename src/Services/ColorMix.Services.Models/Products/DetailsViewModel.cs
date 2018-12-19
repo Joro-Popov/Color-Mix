@@ -26,6 +26,6 @@ namespace ColorMix.Services.Models.Products
 
         public string Brand { get; set; }
 
-        public ICollection<ProductsViewModel> RandomProducts { get; set; }
+        public ICollection<ProductViewModel> RandomProducts { get; set; }
     }
 }

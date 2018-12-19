@@ -4,7 +4,7 @@ using ColorMix.Services.Mapping.Contracts;
 
 namespace ColorMix.Services.Models.Products
 {
-    public class ProductsViewModel : IMapFrom<Product>
+    public class ProductViewModel : IMapFrom<Product>
     {
         public Guid Id { get; set; }
 
@@ -15,5 +15,7 @@ namespace ColorMix.Services.Models.Products
         public string ImageUrl { get; set; }
 
         public Guid SubCategoryId { get; set; }
+
+        public Guid CategoryId { get; set; }
     }
 }

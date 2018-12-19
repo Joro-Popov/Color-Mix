@@ -7,23 +7,25 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using X.PagedList;
 
 namespace ColorMix.Services.DataServices
 {
     public class ProductService : IProductService
     {
         private readonly ColorMixContext dbContext;
+        private const int PAGE_SIZE = 9;
 
         public ProductService(ColorMixContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<ProductsViewModel> GetProductsByCategory(Guid categoryId, Guid? subCategoryId = null)
+        public AllProductsViewModel GetProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId = null)
         {
             var products = dbContext.Products
                 .Where(p => p.CategoryId == categoryId)
-                .To<ProductsViewModel>()
+                .To<ProductViewModel>()
                 .ToList();
 
             if (subCategoryId != null)
@@ -31,7 +33,18 @@ namespace ColorMix.Services.DataServices
                 products = products.Where(p => p.SubCategoryId == subCategoryId).ToList();
             }
 
-            return products;
+            var nextPage = page ?? 1; 
+
+            var pagedProducts = products.ToPagedList(nextPage, PAGE_SIZE);
+
+            var allProducts = new AllProductsViewModel()
+            {
+                CategoryId = categoryId,
+                SubCategoryId = subCategoryId,
+                Products = pagedProducts
+            };
+
+            return allProducts;
         }
 
         public DetailsViewModel GetProductDetails(Guid id)
@@ -40,12 +53,8 @@ namespace ColorMix.Services.DataServices
                 .Where(p => p.Id == id)
                 .ProjectTo<DetailsViewModel>()
                 .First();
-
-            //var product = this.dbContext.Products.FirstOrDefault(x => x.Id == categoryId);
-
-            //var details = this.mapper.Map<DetailsViewModel>(product);
-
-            var randomProducts = GetRandomProducts(id).ToList();
+            
+            var randomProducts = this.GetRandomProducts(id).ToList();
 
             details.RandomProducts = randomProducts;
 
@@ -57,11 +66,11 @@ namespace ColorMix.Services.DataServices
             return dbContext.Products.Any(p => p.Id == id);
         }
 
-        private IEnumerable<ProductsViewModel> GetRandomProducts(Guid productId)
+        private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
         {
             var random = new Random();
 
-            var randomProducts = new HashSet<ProductsViewModel>();
+            var randomProducts = new HashSet<ProductViewModel>();
 
             var category = dbContext.Products
                 .Include(x => x.Category)
@@ -69,7 +78,7 @@ namespace ColorMix.Services.DataServices
 
             var products = dbContext.Products
                 .Where(p => p.CategoryId == category.Id && p.Id != productId)
-                .To<ProductsViewModel>()
+                .To<ProductViewModel>()
                 .ToList();
 
             var end = products.Count < 4 ? products.Count : 4;
