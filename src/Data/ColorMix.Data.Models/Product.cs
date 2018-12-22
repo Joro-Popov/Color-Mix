@@ -17,8 +17,6 @@ namespace ColorMix.Data.Models
 
         public string Color { get; set; }
 
-        public string Size { get; set; }
-
         public string Material { get; set; }
 
         public string Brand { get; set; }
@@ -30,6 +28,8 @@ namespace ColorMix.Data.Models
         public Guid SubCategoryId { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
+
+        public virtual ICollection<ProductSize> Sizes { get; set; } = new HashSet<ProductSize>();
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
     }

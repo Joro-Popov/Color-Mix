@@ -27,6 +27,10 @@ namespace ColorMix.Data
 
         public DbSet<SubCategory> SubCategories { get; set; }
 
+        public DbSet<Size> Sizes { get; set; }
+
+        public DbSet<ProductSize> ProductSizes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfig());
@@ -34,6 +38,7 @@ namespace ColorMix.Data
             builder.ApplyConfiguration(new OrderProductConfig());
             builder.ApplyConfiguration(new ProductConfig());
             builder.ApplyConfiguration(new SubCategoryConfig());
+            builder.ApplyConfiguration(new ProductSizeConfig());
 
             base.OnModelCreating(builder);
         }

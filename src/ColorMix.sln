@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorMix.Services.DataServi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorMix.Services.Models", "Services\ColorMix.Services.Models\ColorMix.Services.Models.csproj", "{412307C7-6C9F-4851-9EDB-8A6AB94B4F4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorMix.Services.Mapping", "Services\ColorMix.Services.Mapping\ColorMix.Services.Mapping.csproj", "{43F377FD-CDBA-42C5-841A-721E66F70F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorMix.Services.Mapping", "Services\ColorMix.Services.Mapping\ColorMix.Services.Mapping.csproj", "{43F377FD-CDBA-42C5-841A-721E66F70F88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorMix.Services.DataServices.Tests", "Tests\ColorMix.Services.DataServices.Tests\ColorMix.Services.DataServices.Tests.csproj", "{7443D1BD-A96B-4E0E-BAC9-A632E7BCE23F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorMix.Services.DataServices.Tests", "Tests\ColorMix.Services.DataServices.Tests\ColorMix.Services.DataServices.Tests.csproj", "{7443D1BD-A96B-4E0E-BAC9-A632E7BCE23F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorMix.Web.Tests", "Tests\ColorMix.Web.Tests\ColorMix.Web.Tests.csproj", "{051A8EFA-F4AD-457B-8CF0-5441E5445A21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorMix.Web.Tests", "Tests\ColorMix.Web.Tests\ColorMix.Web.Tests.csproj", "{051A8EFA-F4AD-457B-8CF0-5441E5445A21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,6 +12,7 @@ namespace ColorMix.Services.Models.Products
         public Guid CategoryId { get; set; }
 
         public string Name { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Category, CheckboxViewModel>()

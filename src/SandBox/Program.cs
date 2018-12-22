@@ -31,7 +31,15 @@ namespace SandBox
 
         private static void SandBoxCode(IServiceProvider serviceProvider)
         {
-            
+            var account = new Account("my_cloud_name", "my_api_key", "my_api_secret");
+            var cloudinary = new Cloudinary(account);
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(@"c:\myPicture.jpg")
+            };
+
+            var uploadResult = cloudinary.Upload(uploadParams);
         }
 
         private static void ConfigureServices(ServiceCollection services)
