@@ -74,6 +74,12 @@ namespace ColorMix.Web
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
+            services.AddSession(opt =>
+            {
+                opt.IdleTimeout = TimeSpan.FromHours(2);
+                opt.Cookie.HttpOnly = true;
+            });
+
             AutoMapperConfig.RegisterMappings(
                 typeof(CategoryViewModel).Assembly
                 );
@@ -81,7 +87,8 @@ namespace ColorMix.Web
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
-            
+            services.AddScoped<ICartService, CartService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -102,6 +109,7 @@ namespace ColorMix.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

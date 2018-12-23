@@ -1,20 +1,18 @@
-﻿using ColorMix.Data.Models;
+﻿using System;
+using ColorMix.Data.Models;
 using ColorMix.Services.Mapping.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using ColorMix.Services.Models.Cart;
 
 namespace ColorMix.Services.Models.Products
 {
-    public class DetailsViewModel : IMapFrom<Product>, ICustomMappings
+    public class DetailsViewModel : IMapFrom<Product>
     {
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
+        public CartItemViewModel CartItem { get; set; }
 
         public string Description { get; set; }
-
-        public string ImageUrl { get; set; }
 
         public string Material { get; set; }
 
@@ -22,16 +20,6 @@ namespace ColorMix.Services.Models.Products
 
         public bool IsAvailable { get; set; }
 
-        public string Brand { get; set; }
-
-        public ICollection<string> Sizes { get; set; }
-
         public ICollection<ProductViewModel> RandomProducts { get; set; }
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Product, DetailsViewModel>()
-                .ForMember(opt => opt.Sizes,
-                    opt => opt.MapFrom(x => x.Sizes.Select(s => s.Size.Abbreviation)));
-        }
     }
 }

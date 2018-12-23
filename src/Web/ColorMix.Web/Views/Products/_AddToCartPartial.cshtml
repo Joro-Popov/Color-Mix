@@ -1,0 +1,57 @@
+﻿@model CartItemViewModel
+
+<form asp-controller="Cart" asp-action="AddToCart" method="post">
+    <div id="productMain" class="row">
+        <div class="col-md-6">
+            <div class="item">
+                <input asp-for="@Model.Id" type="hidden"/>
+                <img src="@Model.ImageUrl" alt="" class="img-fluid">
+                <input asp-for="@Model.ImageUrl" , type="hidden"/>
+            </div>
+            <div class="ribbon sale">
+                <div class="theribbon">SALE</div>
+                <div class="ribbon-background"></div>
+            </div>
+            <!-- /.ribbon-->
+            <div class="ribbon new">
+                <div class="theribbon">NEW</div>
+                <div class="ribbon-background"></div>
+            </div>
+            <!-- /.ribbon-->
+        </div>
+        <div class="col-md-6">
+            <div class="box">
+                <h1 class="text-center">@Model.Name</h1>
+                <input asp-for="@Model.Name" , type="hidden" />
+
+                <h1 class="text-center">@Model.Brand</h1>
+                <input asp-for="@Model.Brand" , type="hidden" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Размер:</h4>
+
+                        @foreach (var size in Model.Sizes)
+                        {
+                            <div class="form-check">
+                                <input asp-for="@Model.Sizes" class="form-check-input" type="radio" value="@size">
+                                <label asp-for="@Model.Sizes" class="form-check-label">
+                                    @size
+                                </label>
+                            </div>
+                        }
+
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Количество</h4>
+                        <input asp-for="@Model.Quantity" type="number" class="form-control"><br>
+                    </div>
+                </div>
+                <label asp-for="@Model.Price" class="price text-center">@Model.Price лв.</label>
+                <input asp-for="@Model.Price" type="hidden" />
+                <p class="text-center buttons">
+                    <button class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Добави в количката </button>
+                </p>
+            </div>
+        </div>
+    </div>
+</form>

@@ -8,7 +8,7 @@ namespace ColorMix.Web.Controllers
 {
     public class ProductsController : BaseController
     {
-        private const string UNEXISTING_CATEGORY = "Възникна грешка!";
+        private const string ERROR = "Възникна грешка!";
 
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
@@ -25,7 +25,7 @@ namespace ColorMix.Web.Controllers
             if (!this.categoryService.CheckIfCategoryExists(categoryId) || 
                 !this.categoryService.CheckIfSubCategoryExists(subCategoryId))
             {
-                return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
+                return View("Error", new ErrorViewModel() { Message = ERROR });
             }
 
             var products = productService.GetProductsByCategory(categoryId, page, subCategoryId);
@@ -41,7 +41,7 @@ namespace ColorMix.Web.Controllers
 
             if (!this.productService.CheckIfProductExists(id))
             {
-                return View("Error", new ErrorViewModel() { Message = UNEXISTING_CATEGORY });
+                return View("Error", new ErrorViewModel() { Message = ERROR });
             }
 
             var details = this.productService.GetProductDetails(id);

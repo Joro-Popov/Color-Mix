@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ColorMix.Services.Models.Cart;
 using X.PagedList;
 
 namespace ColorMix.Services.DataServices
@@ -49,11 +50,33 @@ namespace ColorMix.Services.DataServices
 
         public DetailsViewModel GetProductDetails(Guid id)
         {
-            var details = dbContext.Products
-                .Where(p => p.Id == id)
-                .ProjectTo<DetailsViewModel>()
-                .First();
+            var product = this.dbContext.Products
+                .Include(x => x.Sizes)
+                .ThenInclude(x => x.Size)
+                .FirstOrDefault(p => p.Id == id);
+
+            //var details = dbContext.Products
+            //    .Where(p => p.Id == id)
+            //    .ProjectTo<DetailsViewModel>()
+            //    .First();
             
+            var details = new DetailsViewModel()
+            {
+                CartItem = new CartItemViewModel()
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Brand = product.Brand,
+                    ImageUrl = product.ImageUrl,
+                    Price = product.Price,
+                    Sizes = product.Sizes.Select(x => x.Size.Abbreviation).ToList()
+                },
+                Color = product.Color,
+                Description = product.Description,
+                IsAvailable = product.IsAvailable,
+                Material = product.Material
+            };
+
             var randomProducts = this.GetRandomProducts(id).ToList();
 
             details.RandomProducts = randomProducts;
@@ -66,7 +89,7 @@ namespace ColorMix.Services.DataServices
             return dbContext.Products.Any(p => p.Id == id);
         }
 
-        private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
+        public IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
         {
             var random = new Random();
 
