@@ -39,7 +39,7 @@ namespace ColorMix.Web.Controllers
                 return this.RedirectToAction("Index");
             }
             
-            ModelState.AddModelError(string.Empty, "Error");
+            ModelState.AddModelError(string.Empty, ERROR);
 
             return this.RedirectToAction("Details","Products");
         }

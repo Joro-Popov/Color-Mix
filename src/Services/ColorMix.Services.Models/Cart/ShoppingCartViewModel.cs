@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ColorMix.Data.Models;
+using ColorMix.Services.Mapping.Contracts;
 
 namespace ColorMix.Services.Models.Cart
 {

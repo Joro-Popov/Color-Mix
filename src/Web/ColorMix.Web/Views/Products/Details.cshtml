@@ -13,8 +13,6 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    @*<partial name="_AddToCartPartial" model="Model.ShoppingCartItem"/>*@
-
                     <form asp-controller="Cart" asp-action="AddToCart" method="post">
                         <div id="productMain" class="row">
                             <div class="col-md-6">
@@ -113,3 +111,6 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

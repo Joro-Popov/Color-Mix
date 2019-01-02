@@ -29,13 +29,13 @@ namespace ColorMix.Services.DataServices
             this.userManager = userManager;
         }
 
-        public IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, ClaimsPrincipal user)
+        public IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, ClaimsPrincipal principal)
         {
-            var userId = this.userManager.GetUserId(user);
+            var userId = this.userManager.GetUserId(principal);
 
             if (userId != null)
             {
-                var principal = this.dbContext.Users
+                var user = this.dbContext.Users
                     .Include(x => x.ShoppingCart)
                     .ThenInclude(x => x.ShoppingCartItems)
                     .ThenInclude(x => x.Product)
@@ -43,19 +43,19 @@ namespace ColorMix.Services.DataServices
                     .ThenInclude(x => x.Size)
                     .FirstOrDefault(x => x.Id == userId);
 
-                if (principal?.ShoppingCart == null)
+                if (user?.ShoppingCart == null)
                 {
                     var shoppingCart = new ShoppingCart()
                     {
                         UserId = userId
                     };
 
-                    principal.ShoppingCart = shoppingCart;
+                    user.ShoppingCart = shoppingCart;
 
                     this.dbContext.SaveChanges();
                 }
 
-                var items =  principal.ShoppingCart.ShoppingCartItems
+                var items =  user.ShoppingCart.ShoppingCartItems
                     .Select(x => new ShoppingCartViewModel()
                     {
                         Id = x.ProductId,
@@ -78,7 +78,7 @@ namespace ColorMix.Services.DataServices
         public void AddToCart(DetailsViewModel product, ISession session, ClaimsPrincipal principal)
         {
             var userId = this.userManager.GetUserId(principal);
-
+            
             if (userId != null)
             {
                 AddProductToDbCart(product, userId);
@@ -87,6 +87,48 @@ namespace ColorMix.Services.DataServices
             {
                 AddProductToSessionCart(product, session);
             }
+        }
+
+        public void MoveFromSessionCartToDbCart(ISession session, ClaimsPrincipal principal)
+        {
+            var userId = this.userManager.GetUserId(principal);
+
+            var user = this.dbContext.Users
+                .Include(x => x.ShoppingCart)
+                .ThenInclude(x => x.ShoppingCartItems)
+                .FirstOrDefault(x => x.Id == userId);
+                
+            if (user?.ShoppingCart == null)
+            {
+                var shoppingCart = new ShoppingCart()
+                {
+                    UserId = userId
+                };
+
+                user.ShoppingCart = shoppingCart;
+
+                this.dbContext.SaveChanges();
+            }
+
+            var products = SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart");
+
+            if (products == null) return;
+
+            for (var i = 0; i < products.Count(); i++)
+            {
+                var shoppingCartItem = new ShoppingCartItem()
+                {
+                    ProductId = products[i].Id,
+                    Size = products[i].Size,
+                    ShoppingCartId = user.ShoppingCart.Id,
+                    Quantity = products[i].Quantity
+                };
+
+                AddToShoppingCart(user, shoppingCartItem);
+            }
+
+            session.Clear();
+            this.dbContext.SaveChanges();
         }
 
         public void Remove(Guid productId, string size, ISession session, ClaimsPrincipal principal)
@@ -113,7 +155,6 @@ namespace ColorMix.Services.DataServices
                 var item = user.ShoppingCart.ShoppingCartItems
                     .ToList()
                     .FirstOrDefault(x => x.ProductId == productId && x.Size == size);
-
 
                 user.ShoppingCart.ShoppingCartItems.Remove(item);
 
@@ -176,6 +217,18 @@ namespace ColorMix.Services.DataServices
                 .ThenInclude(x => x.Product)
                 .FirstOrDefault(u => u.Id == userId);
 
+            if (user?.ShoppingCart == null)
+            {
+                var shoppingCart = new ShoppingCart()
+                {
+                    UserId = userId
+                };
+
+                user.ShoppingCart = shoppingCart;
+
+                this.dbContext.SaveChanges();
+            }
+
             var shoppingCartItem = new ShoppingCartItem()
             {
                 ProductId = product.Id,
@@ -184,6 +237,13 @@ namespace ColorMix.Services.DataServices
                 Quantity = product.Quantity
             };
 
+            AddToShoppingCart(user, shoppingCartItem);
+
+            this.dbContext.SaveChanges();
+        }
+
+        private static void AddToShoppingCart(ColorMixUser user, ShoppingCartItem shoppingCartItem)
+        {
             if (user.ShoppingCart.ShoppingCartItems.Any(x => x.ProductId == shoppingCartItem.ProductId && x.Size == shoppingCartItem.Size))
             {
                 var index = user.ShoppingCart.ShoppingCartItems.ToList().FindIndex(x => x.ProductId == shoppingCartItem.ProductId);
@@ -194,8 +254,6 @@ namespace ColorMix.Services.DataServices
             {
                 user.ShoppingCart.ShoppingCartItems.Add(shoppingCartItem);
             }
-
-            this.dbContext.SaveChanges();
         }
     }
 }

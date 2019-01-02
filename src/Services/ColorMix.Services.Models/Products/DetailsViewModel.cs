@@ -1,7 +1,6 @@
 ﻿using System;
 using ColorMix.Data.Models;
 using ColorMix.Services.Mapping.Contracts;
-using ColorMix.Services.Models.Cart;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace ColorMix.Services.Models.Products
 {
     public class DetailsViewModel : IMapFrom<Product>, ICustomMappings
     {
-        //public ShoppingCartViewModel ShoppingCartItem { get; set; }
+        private const string REQUIRED_FIELD = "Полето е задължително !";
 
         [Required]
         public Guid Id { get; set; }
@@ -24,29 +23,29 @@ namespace ColorMix.Services.Models.Products
 
         [Required]
         public string Brand { get; set; }
-
-        [Required]
+        
+        [Required(ErrorMessage = REQUIRED_FIELD)]
         [Range(1, 10)]
         public int Quantity { get; set; }
 
         [Required]
         public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Изберете размер!")]
-
+        [Required(ErrorMessage = REQUIRED_FIELD)]
         public ICollection<string> Sizes { get; set; }
 
         public decimal Total => Quantity * Price;
-
+        
         public string Description { get; set; }
-
+        
         public string Material { get; set; }
-
+        
         public string Color { get; set; }
-
+        
         public bool IsAvailable { get; set; }
 
         public ICollection<ProductViewModel> RandomProducts { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Product, DetailsViewModel>()
