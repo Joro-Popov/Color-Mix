@@ -5,44 +5,155 @@ using ColorMix.Services.Models.Cart;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
 using ColorMix.Data;
+using ColorMix.Data.Models;
 using ColorMix.Services.Mapping;
+using ColorMix.Services.Models.Products;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ColorMix.Services.DataServices
 {
     public class CartService : ICartService
     {
-        private const int INITIAL_QUANTITY = 1;
-
         private readonly ColorMixContext dbContext;
+        private readonly UserManager<ColorMixUser> userManager;
 
-        public CartService(ColorMixContext dbContext)
+        public CartService(ColorMixContext dbContext, 
+                           UserManager<ColorMixUser> userManager)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
         }
 
-        public IEnumerable<CartItemViewModel> GetAllCartProducts(ISession session)
+        public IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, ClaimsPrincipal user)
         {
-            var cart = SessionHelper.Get<List<CartItemViewModel>>(session, "cart");
+            var userId = this.userManager.GetUserId(user);
 
-            return cart ?? new List<CartItemViewModel>();
-        }
-
-        public void AddToCart(CartItemViewModel product, ISession session)
-        {
-            if (SessionHelper.Get<List<CartItemViewModel>>(session, "cart") == null)
+            if (userId != null)
             {
-                var cart = new List<CartItemViewModel>();
-                
-                cart.Add(product);
+                var principal = this.dbContext.Users
+                    .Include(x => x.ShoppingCart)
+                    .ThenInclude(x => x.ShoppingCartItems)
+                    .ThenInclude(x => x.Product)
+                    .ThenInclude(x => x.Sizes)
+                    .ThenInclude(x => x.Size)
+                    .FirstOrDefault(x => x.Id == userId);
+
+                if (principal?.ShoppingCart == null)
+                {
+                    var shoppingCart = new ShoppingCart()
+                    {
+                        UserId = userId
+                    };
+
+                    principal.ShoppingCart = shoppingCart;
+
+                    this.dbContext.SaveChanges();
+                }
+
+                var items =  principal.ShoppingCart.ShoppingCartItems
+                    .Select(x => new ShoppingCartViewModel()
+                    {
+                        Id = x.ProductId,
+                        Name = x.Product.Name,
+                        Price = x.Product.Price,
+                        Size = x.Size,
+                        Quantity = x.Quantity,
+                        ImageUrl = x.Product.ImageUrl,
+                        Brand = x.Product.Brand
+                    });
+
+                return items;
+            }
+
+            var cart = SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart");
+
+            return cart ?? new List<ShoppingCartViewModel>();
+        }
+
+        public void AddToCart(DetailsViewModel product, ISession session, ClaimsPrincipal principal)
+        {
+            var userId = this.userManager.GetUserId(principal);
+
+            if (userId != null)
+            {
+                AddProductToDbCart(product, userId);
+            }
+            else
+            {
+                AddProductToSessionCart(product, session);
+            }
+        }
+
+        public void Remove(Guid productId, string size, ISession session, ClaimsPrincipal principal)
+        {
+            if (!principal.Identity.IsAuthenticated)
+            {
+                var cart = SessionHelper.Get<List<DetailsViewModel>>(session, "cart");
+                var index = GetProductIndex(productId, size, session);
+
+                cart.RemoveAt(index);
 
                 SessionHelper.Set(session, "cart", cart);
             }
             else
             {
-                var cart = SessionHelper.Get<List<CartItemViewModel>>(session, "cart");
+                var userId = this.userManager.GetUserId(principal);
 
-                var index = GetProductIndex(product.Id, session);
+                var user = this.dbContext.Users
+                    .Include(x => x.ShoppingCart)
+                    .ThenInclude(x => x.ShoppingCartItems)
+                    .ThenInclude(x => x.Product)
+                    .FirstOrDefault(x => x.Id == userId);
+
+                var item = user.ShoppingCart.ShoppingCartItems
+                    .ToList()
+                    .FirstOrDefault(x => x.ProductId == productId && x.Size == size);
+
+
+                user.ShoppingCart.ShoppingCartItems.Remove(item);
+
+                this.dbContext.SaveChanges();
+            }
+        }
+
+        private int GetProductIndex(Guid productId, string size, ISession session)
+        {
+            var cart = SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart");
+            
+            return cart.Any(x => x.Id == productId && x.Size == size) ? cart.FindIndex(x => x.Id == productId) : -1;
+        }
+
+        private void AddProductToSessionCart(DetailsViewModel product, ISession session)
+        {
+            var shoppingCartItem = new ShoppingCartViewModel()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Size = product.Sizes.FirstOrDefault(x => x != null),
+                Price = product.Price,
+                Quantity = product.Quantity,
+                Brand = product.Brand,
+                ImageUrl = product.ImageUrl
+            };
+
+            if (SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart") == null)
+            {
+                var cart = new List<ShoppingCartViewModel>();
+                
+                cart.Add(shoppingCartItem);
+
+                SessionHelper.Set(session, "cart", cart);
+            }
+            else
+            {
+                var cart = SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart");
+
+                var index = GetProductIndex(product.Id, shoppingCartItem.Size, session);
 
                 if (index != -1)
                 {
@@ -50,28 +161,41 @@ namespace ColorMix.Services.DataServices
                 }
                 else
                 {
-                    cart.Add(product);
+                    cart.Add(shoppingCartItem);
                 }
 
                 SessionHelper.Set(session, "cart", cart);
             }
         }
 
-        public void Remove(Guid productId, ISession session)
+        private void AddProductToDbCart(DetailsViewModel product, string userId)
         {
-            var cart = SessionHelper.Get<List<CartItemViewModel>>(session, "cart");
-            var index = GetProductIndex(productId, session);
+            var user = this.dbContext.Users
+                .Include(x => x.ShoppingCart)
+                .ThenInclude(x => x.ShoppingCartItems)
+                .ThenInclude(x => x.Product)
+                .FirstOrDefault(u => u.Id == userId);
 
-            cart.RemoveAt(index);
+            var shoppingCartItem = new ShoppingCartItem()
+            {
+                ProductId = product.Id,
+                Size = product.Sizes.FirstOrDefault(x => x != null),
+                ShoppingCartId = user.ShoppingCart.Id,
+                Quantity = product.Quantity
+            };
 
-            SessionHelper.Set(session, "cart", cart);
-        }
+            if (user.ShoppingCart.ShoppingCartItems.Any(x => x.ProductId == shoppingCartItem.ProductId && x.Size == shoppingCartItem.Size))
+            {
+                var index = user.ShoppingCart.ShoppingCartItems.ToList().FindIndex(x => x.ProductId == shoppingCartItem.ProductId);
 
-        private int GetProductIndex(Guid productId, ISession session)
-        {
-            var cart = SessionHelper.Get<List<CartItemViewModel>>(session, "cart");
+                user.ShoppingCart.ShoppingCartItems.ToList()[index].Quantity += shoppingCartItem.Quantity;
+            }
+            else
+            {
+                user.ShoppingCart.ShoppingCartItems.Add(shoppingCartItem);
+            }
 
-            return cart.Any(x => x.Id == productId) ? cart.FindIndex(x => x.Id == productId) : -1;
+            this.dbContext.SaveChanges();
         }
     }
 }

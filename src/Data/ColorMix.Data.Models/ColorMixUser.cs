@@ -16,6 +16,8 @@ namespace ColorMix.Data.Models
 
         public virtual Address Address { get; set; }
 
+        public virtual ShoppingCart ShoppingCart { get; set; }
+
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

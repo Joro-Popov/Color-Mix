@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
 using ColorMix.Data.Models;
 using ColorMix.Services.Mapping.Contracts;
 

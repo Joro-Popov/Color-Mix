@@ -12,9 +12,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Reflection;
 using ColorMix.Services.DataServices;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Web.MiddlewareExtensions;
+using AutoMapper;
+using AutoMapperConfig = ColorMix.Services.Mapping.AutoMapperConfig;
+using CookieAuthenticationDefaults = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults;
 
 namespace ColorMix.Web
 {
@@ -74,15 +78,24 @@ namespace ColorMix.Web
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
 
-            services.AddSession(opt =>
+            services.AddDistributedSqlServerCache(options =>
             {
-                opt.IdleTimeout = TimeSpan.FromHours(2);
-                opt.Cookie.HttpOnly = true;
+                options.ConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheData";
             });
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(2);
+                options.Cookie.HttpOnly = true;
+            });
+            
             AutoMapperConfig.RegisterMappings(
                 typeof(CategoryViewModel).Assembly
                 );
+
+            services.AddAutoMapper();
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();

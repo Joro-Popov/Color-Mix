@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper.QueryableExtensions;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using AutoMapper.QueryableExtensions;
 
 namespace ColorMix.Services.Mapping
 {

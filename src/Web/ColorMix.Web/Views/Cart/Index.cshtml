@@ -1,21 +1,25 @@
-﻿@model IEnumerable<CartItemViewModel>
+﻿@model IEnumerable<ShoppingCartViewModel>
+@{
+    var totalPrice = Model.Sum(x => x.Total);
+}
 <div id="all">
     <div id="content">
-        <div class="container">
+        <div class="container mt-3">
             <div class="row">
                 <div id="basket" class="col-lg-9">
                     <div class="box">
                         <form method="post" action="checkout1.html">
-                            <h1>Shopping cart</h1>
-                            <p class="text-muted">You currently have 3 item(s) in your cart.</p>
+                            <h1>Количка</h1>
+                            <p class="text-muted">Имате @Model.Count() продукт(а) в количката.</p>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th colspan="2">Product</th>
-                                            <th>Quantity</th>
-                                            <th>Unit price</th>
-                                            <th colspan="2">Total</th>
+                                            <th colspan="2">Продукт</th>
+                                            <th>Количество</th>
+                                            <th>Размер</th>
+                                            <th>Единична цена</th>
+                                            <th colspan="2">Общо</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -31,85 +35,35 @@
                                                 <td>
                                                     <input type="number" value="@item.Quantity" class="form-control">
                                                 </td>
+                                                <td>@item.Size</td>
                                                 <td>@item.Price лв.</td>
                                                 <td>@item.Total</td>
                                                 <td>
-                                                    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id"><i class="fa fa-trash-o"></i></a>
+                                                    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" asp-route-size="@item.Size"><i class="fa fa-trash-o"></i></a>
                                                 </td>
                                             </tr>
                                         }
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5">Total</th>
-                                            <th colspan="2">$446.00</th>
+                                            <th colspan="5">Общо</th>
+                                            <th colspan="2">@totalPrice лв.</th>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </div>
                             <!-- /.table-responsive-->
                             <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
-                                <div class="left"><a href="category.html" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
+                                <div class="left">
+                                    <a href='javascript:history.go(-2)' class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Продължете да пазарувате</a>
+                                </div>
                                 <div class="right">
-                                    <button class="btn btn-outline-secondary"><i class="fa fa-refresh"></i> Update cart</button>
-                                    <button type="submit" class="btn btn-primary">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+                                    <button type="submit" class="btn btn-primary">Поръчай <i class="fa fa-chevron-right"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <!-- /.box-->
-                    <div class="row same-height-row">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="box same-height">
-                                <h3>You may also like these products</h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front"><a href="detail.html"><img src="img/product2.jpg" alt="" class="img-fluid"></a></div>
-                                        <div class="back"><a href="detail.html"><img src="img/product2_2.jpg" alt="" class="img-fluid"></a></div>
-                                    </div>
-                                </div><a href="detail.html" class="invisible"><img src="img/product2.jpg" alt="" class="img-fluid"></a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product-->
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
-                                        <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
-                                    </div>
-                                </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product-->
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="product same-height">
-                                <div class="flip-container">
-                                    <div class="flipper">
-                                        <div class="front"><a href="detail.html"><img src="img/product3.jpg" alt="" class="img-fluid"></a></div>
-                                        <div class="back"><a href="detail.html"><img src="img/product3_2.jpg" alt="" class="img-fluid"></a></div>
-                                    </div>
-                                </div><a href="detail.html" class="invisible"><img src="img/product3.jpg" alt="" class="img-fluid"></a>
-                                <div class="text">
-                                    <h3>Fur coat</h3>
-                                    <p class="price">$143</p>
-                                </div>
-                            </div>
-                            <!-- /.product-->
-                        </div>
-                    </div>
                 </div>
                 <!-- /.col-lg-9-->
                 <div class="col-lg-3">

@@ -4,14 +4,16 @@ using ColorMix.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ColorMix.Data.Migrations
 {
     [DbContext(typeof(ColorMixContext))]
-    partial class ColorMixContextModelSnapshot : ModelSnapshot
+    [Migration("20190102063110_ShoppingCartItemProductId")]
+    partial class ShoppingCartItemProductId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,8 +244,6 @@ namespace ColorMix.Data.Migrations
                     b.Property<int>("Quantity");
 
                     b.Property<Guid>("ShoppingCartId");
-
-                    b.Property<string>("Size");
 
                     b.HasKey("Id");
 

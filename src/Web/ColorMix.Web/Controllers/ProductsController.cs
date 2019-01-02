@@ -3,6 +3,7 @@ using ColorMix.Services.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace ColorMix.Web.Controllers
 {
@@ -18,8 +19,7 @@ namespace ColorMix.Web.Controllers
             this.productService = productService;
             this.categoryService = categoryService;
         }
-
-        [Authorize]
+        
         public IActionResult ProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId)
         {
             if (!this.categoryService.CheckIfCategoryExists(categoryId) || 
@@ -34,18 +34,16 @@ namespace ColorMix.Web.Controllers
 
             return View(products);
         }
-
-        [Authorize]
+        
         public IActionResult Details(Guid id)
         {
-
             if (!this.productService.CheckIfProductExists(id))
             {
                 return View("Error", new ErrorViewModel() { Message = ERROR });
             }
 
             var details = this.productService.GetProductDetails(id);
-
+            
             return this.View(details);
         }
     }

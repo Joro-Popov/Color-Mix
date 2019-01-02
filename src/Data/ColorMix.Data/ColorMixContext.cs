@@ -31,6 +31,10 @@ namespace ColorMix.Data
 
         public DbSet<ProductSize> ProductSizes { get; set; }
 
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new UserConfig());
@@ -39,6 +43,8 @@ namespace ColorMix.Data
             builder.ApplyConfiguration(new ProductConfig());
             builder.ApplyConfiguration(new SubCategoryConfig());
             builder.ApplyConfiguration(new ProductSizeConfig());
+            builder.ApplyConfiguration(new ShoppingCartConfig());
+            builder.ApplyConfiguration(new ShoppingCartItemConfig());
 
             base.OnModelCreating(builder);
         }

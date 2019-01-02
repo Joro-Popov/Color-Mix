@@ -34,7 +34,7 @@ namespace ColorMix.Services.DataServices
                 products = products.Where(p => p.SubCategoryId == subCategoryId).ToList();
             }
 
-            var nextPage = page ?? 1; 
+            var nextPage = page ?? 1;
 
             var pagedProducts = products.ToPagedList(nextPage, PAGE_SIZE);
 
@@ -50,34 +50,14 @@ namespace ColorMix.Services.DataServices
 
         public DetailsViewModel GetProductDetails(Guid id)
         {
-            var product = this.dbContext.Products
+            var details = dbContext.Products
                 .Include(x => x.Sizes)
                 .ThenInclude(x => x.Size)
-                .FirstOrDefault(p => p.Id == id);
-
-            //var details = dbContext.Products
-            //    .Where(p => p.Id == id)
-            //    .ProjectTo<DetailsViewModel>()
-            //    .First();
+                .Where(p => p.Id == id)
+                .To<DetailsViewModel>()
+                .First();
             
-            var details = new DetailsViewModel()
-            {
-                CartItem = new CartItemViewModel()
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Brand = product.Brand,
-                    ImageUrl = product.ImageUrl,
-                    Price = product.Price,
-                    Sizes = product.Sizes.Select(x => x.Size.Abbreviation).ToList()
-                },
-                Color = product.Color,
-                Description = product.Description,
-                IsAvailable = product.IsAvailable,
-                Material = product.Material
-            };
-
-            var randomProducts = this.GetRandomProducts(id).ToList();
+            var randomProducts = GetRandomProducts(id).ToList();
 
             details.RandomProducts = randomProducts;
 
@@ -89,7 +69,7 @@ namespace ColorMix.Services.DataServices
             return dbContext.Products.Any(p => p.Id == id);
         }
 
-        public IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
+        private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
         {
             var random = new Random();
 

@@ -7,6 +7,9 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20181215120131_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190102062946_ShoppingCartProductId.cs" />
+    <Compile Remove="Migrations\20190102080706_ShoppingCartSizeChange.cs" />
+    <Compile Remove="Migrations\20190102080805_ShoppingCartItemSizeChange.cs" />
   </ItemGroup>
 
   <ItemGroup>
