@@ -1,8 +1,6 @@
 ﻿using ColorMix.Data;
 using ColorMix.Data.Models;
-using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Categories;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,11 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Reflection;
 using ColorMix.Services.DataServices;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Web.MiddlewareExtensions;
-using AutoMapper;
 using AutoMapperConfig = ColorMix.Services.Mapping.AutoMapperConfig;
 using CookieAuthenticationDefaults = Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults;
 
@@ -94,13 +90,12 @@ namespace ColorMix.Web
             AutoMapperConfig.RegisterMappings(
                 typeof(CategoryViewModel).Assembly
                 );
-
-            services.AddAutoMapper();
-
+            
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

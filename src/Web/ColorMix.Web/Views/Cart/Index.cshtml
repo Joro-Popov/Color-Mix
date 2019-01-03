@@ -8,60 +8,63 @@
             <div class="row">
                 <div id="basket" class="col-lg-9">
                     <div class="box">
-                        <form method="post" action="checkout1.html">
-                            <h1>Количка</h1>
-                            <p class="text-muted">Имате @Model.Count() продукт(а) в количката.</p>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
+                        <h1>Количка</h1>
+                        <p class="text-muted">Имате @Model.Count() продукт(а) в количката.</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Продукт</th>
+                                        <th>Количество</th>
+                                        <th>Размер</th>
+                                        <th>Единична цена</th>
+                                        <th colspan="2">Общо</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
                                         <tr>
-                                            <th colspan="2">Продукт</th>
-                                            <th>Количество</th>
-                                            <th>Размер</th>
-                                            <th>Единична цена</th>
-                                            <th colspan="2">Общо</th>
+                                            <td>
+                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" alt="White Blouse Armani"></a>
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                            </td>
+                                            <td>
+                                                <input type="number" value="@item.Quantity" class="form-control">
+                                            </td>
+                                            <td>@item.Size</td>
+                                            <td>@item.Price лв.</td>
+                                            <td>@item.Total</td>
+                                            <td>
+                                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" asp-route-size="@item.Size"><i class="fa fa-trash-o"></i></a>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" alt="White Blouse Armani"></a>
-                                                </td>
-                                                <td>
-                                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                                                </td>
-                                                <td>
-                                                    <input type="number" value="@item.Quantity" class="form-control">
-                                                </td>
-                                                <td>@item.Size</td>
-                                                <td>@item.Price лв.</td>
-                                                <td>@item.Total</td>
-                                                <td>
-                                                    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" asp-route-size="@item.Size"><i class="fa fa-trash-o"></i></a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="5">Общо</th>
-                                            <th colspan="2">@totalPrice лв.</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="5">Общо</th>
+                                        <th colspan="2">@totalPrice лв.</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive-->
+                        <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
+                            <div class="left">
+                                <a href='javascript:history.go(-2)' class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Продължете да пазарувате</a>
                             </div>
-                            <!-- /.table-responsive-->
-                            <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
-                                <div class="left">
-                                    <a href='javascript:history.go(-2)' class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Продължете да пазарувате</a>
-                                </div>
+                            @if (Model.Any())
+                            {
                                 <div class="right">
-                                    <button type="submit" class="btn btn-primary">Поръчай <i class="fa fa-chevron-right"></i></button>
+                                    <a asp-controller="Orders" asp-action="CheckoutAddress" type="submit" class="btn btn-primary">
+                                        Поръчай <i class="fa fa-chevron-right"></i>
+                                    </a>
                                 </div>
-                            </div>
-                        </form>
+                            }
+                        </div>
                     </div>
                     <!-- /.box-->
                 </div>

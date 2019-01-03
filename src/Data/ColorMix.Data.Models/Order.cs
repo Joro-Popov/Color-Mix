@@ -16,12 +16,11 @@ namespace ColorMix.Data.Models
         public string UserId { get; set; }
 
         public virtual ColorMixUser User { get; set; }
-
-        // Not mapped?
+        
         public decimal OrderTotalPrice { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
-
+        
         public virtual Invoice Invoice { get; set; }
     }
 }

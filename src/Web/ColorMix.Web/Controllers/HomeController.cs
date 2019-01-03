@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using ColorMix.Data.Models;
+﻿using ColorMix.Data.Models;
 using ColorMix.Services.DataServices.Contracts;
-using ColorMix.Services.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,0 +1,115 @@
+﻿@model OrdersViewModel
+@{
+    var totalPrice = Model.Products.Sum(x => x.Total);
+}
+<div id="all">
+    <div id="content">
+        <div class="container mt-3">
+            <div class="row">
+                <div id="checkout" class="col-lg-9">
+                    <div class="box">
+                        <form asp-controller="Orders" asp-action="PlaceOrder" method="post">
+                            <h1>Преглед на поръчката</h1>
+                            <div class="nav flex-column flex-sm-row nav-pills">
+                                <a asp-controller="Orders" asp-action="CheckoutAddress" class="nav-link flex-sm-fill text-sm-center"> <i class="fa fa-map-marker"> </i>Адрес</a>
+                                <a href="#" class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-eye"> </i>Преглед на поръчката</a>
+                            </div>
+                            <div class="content">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Продукт</th>
+                                                <th>Количество</th>
+                                                <th>Единична цена</th>
+                                                <th>Общо</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var product in Model.Products)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a href="#">
+                                                            <img src="@product.ImageUrl" alt="@product.Name">
+                                                        </a>
+                                                    </td>
+                                                    <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
+                                                    <td>
+                                                        @product.Quantity
+                                                    </td>
+                                                    <td>
+                                                        @product.Price
+                                                    </td>
+                                                    <td>
+                                                        @product.Total лв.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="5">Общо</th>
+                                                <th>@totalPrice лв.</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive-->
+                            </div>
+                            <!-- /.content-->
+                            <div class="box-footer d-flex justify-content-between">
+                                <a asp-controller="Orders" asp-action="CheckoutAddress" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Назад</a>
+                                <button type="submit" class="btn btn-primary">Поръчай<i class="fa fa-chevron-right"></i></button>
+                            </div>
+
+                            <input asp-for="AddressCity" type="hidden" />
+                            <input asp-for="AddressCountry" type="hidden" />
+                            <input asp-for="Products" type="hidden" />
+                            <input asp-for="AddressStreet" type="hidden" />
+                            <input asp-for="AddressZipCode" type="hidden" />
+                            <input asp-for="Email" type="hidden" />
+                            <input asp-for="FirstName" type="hidden" />
+                            <input asp-for="LastName" type="hidden" />
+                            <input asp-for="PhoneNumber" type="hidden" />
+                        </form>
+                    </div>
+                    <!-- /.box-->
+                </div>
+                <!-- /.col-lg-9-->
+                <div class="col-lg-3">
+                    <div id="order-summary" class="card">
+                        <div class="card-header">
+                            <h3 class="mt-4 mb-4">Order summary</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Order subtotal</td>
+                                            <th>$446.00</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Shipping and handling</td>
+                                            <th>$10.00</th>
+                                        </tr>
+                                        <tr>
+                                            <td>Tax</td>
+                                            <th>$0.00</th>
+                                        </tr>
+                                        <tr class="total">
+                                            <td>Total</td>
+                                            <th>$456.00</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
