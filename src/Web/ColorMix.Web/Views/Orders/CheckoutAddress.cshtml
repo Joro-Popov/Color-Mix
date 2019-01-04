@@ -9,12 +9,7 @@
                         <form asp-controller="Orders" asp-action="OrderReview" method="post">
                             <h1>Адрес за доставка</h1>
                             <p class="text-muted">
-                                Можете да коригирате посочените адресни данни, ако искате да изпратите пакет за подарък, но без да е в него фактурата.
-                                В този случай, посочения адрес ще бъде използван за адрес за доставка а посочения адрес при регистрация, ще бъде
-                                използван за адрес за фактуриране.
-                                Тогава пакетът се изпраща на адреса за доставка, а ние ще изпратим фактурата на адреса за фактуриране.
-                                Ако не сте посочили адрес при регистрация, пакетът и фактурата ще бъдат доставени на един и същ адрес.
-                                Можете да коригирате адреса за фактуриране от <a asp-controller="Users" asp-action="MyPersonalData">тук</a>.
+                                Можете да коригирате адреса за доставка от <a asp-controller="Users" asp-action="MyPersonalData">тук</a>.
                             </p>
                             <div class="nav flex-column flex-md-row nav-pills text-center">
                                 <a href="checkout1.html" class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-map-marker"> </i>Адрес</a>
@@ -24,15 +19,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="FirstName">Име<span class="text-danger">*</span></label>
-                                            <input asp-for="FirstName" value="@Model.FirstName" class="form-control">
+                                            <label asp-for="FirstName">Име</label>
+                                            <input asp-for="FirstName" value="@Model.FirstName" class="form-control" readonly>
                                             <span asp-validation-for="FirstName" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="LastName">Фамилия<span class="text-danger">*</span></label>
-                                            <input asp-for="LastName" value="@Model.LastName" class="form-control">
+                                            <label asp-for="LastName">Фамилия</label>
+                                            <input asp-for="LastName" value="@Model.LastName" class="form-control" readonly>
                                             <span asp-validation-for="LastName" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -41,15 +36,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="AddressCountry">Държава<span class="text-danger">*</span></label>
-                                            <input asp-for="AddressCountry" value="@Model.AddressCountry" class="form-control">
+                                            <label asp-for="AddressCountry">Държава</label>
+                                            <input asp-for="AddressCountry" value="@Model.AddressCountry" class="form-control" readonly>
                                             <span asp-validation-for="AddressCountry" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="AddressCity">Град<span class="text-danger">*</span></label>
-                                            <input asp-for="AddressCity" value="@Model.AddressCity" class="form-control">
+                                            <label asp-for="AddressCity">Град</label>
+                                            <input asp-for="AddressCity" value="@Model.AddressCity" class="form-control" readonly>
                                             <span asp-validation-for="AddressCity" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -58,15 +53,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="AddressZipCode">Пощенски код<span class="text-danger">*</span></label>
-                                            <input asp-for="AddressZipCode" type="number" value="@Model.AddressZipCode" class="form-control">
+                                            <label asp-for="AddressZipCode">Пощенски код</label>
+                                            <input asp-for="AddressZipCode" type="number" value="@Model.AddressZipCode" class="form-control" readonly>
                                             <span asp-validation-for="AddressZipCode" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="PhoneNumber">Телефонен номер<span class="text-danger">*</span></label>
-                                            <input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control">
+                                            <label asp-for="PhoneNumber">Телефонен номер</label>
+                                            <input asp-for="PhoneNumber" value="@Model.PhoneNumber" class="form-control" readonly>
                                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -74,15 +69,15 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="AddressStreet">Улица<span class="text-danger">*</span></label>
-                                            <input asp-for="AddressStreet" value="@Model.AddressStreet" class="form-control">
+                                            <label asp-for="AddressStreet">Улица</label>
+                                            <input asp-for="AddressStreet" value="@Model.AddressStreet" class="form-control" readonly>
                                             <span asp-validation-for="AddressStreet" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label asp-for="Email">E-mail Адрес<span class="text-danger">*</span></label>
-                                            <input asp-for="Email" value="@Model.Email" class="form-control">
+                                            <label asp-for="Email">E-mail Адрес</label>
+                                            <input asp-for="Email" value="@Model.Email" class="form-control" readonly>
                                             <span asp-validation-for="Email" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -137,6 +132,3 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
-}
