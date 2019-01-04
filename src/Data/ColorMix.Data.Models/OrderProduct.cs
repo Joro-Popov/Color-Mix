@@ -15,8 +15,7 @@ namespace ColorMix.Data.Models
         public virtual Product Product { get; set; }
 
         public int Quantity { get; set; }
-
-        // Not mapped?
+        
         public decimal UnitTotalPrice { get; set; }
     }
 }

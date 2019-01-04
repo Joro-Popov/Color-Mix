@@ -36,7 +36,8 @@ namespace ColorMix.Web
             });
 
             services.AddDbContext<ColorMixContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .UseLazyLoadingProxies());
 
             services.AddIdentity<ColorMixUser, IdentityRole>(options =>
             {

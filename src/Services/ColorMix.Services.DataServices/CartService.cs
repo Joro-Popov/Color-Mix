@@ -36,11 +36,6 @@ namespace ColorMix.Services.DataServices
             if (userId != null)
             {
                 var user = this.dbContext.Users
-                    .Include(x => x.ShoppingCart)
-                    .ThenInclude(x => x.ShoppingCartItems)
-                    .ThenInclude(x => x.Product)
-                    .ThenInclude(x => x.Sizes)
-                    .ThenInclude(x => x.Size)
                     .FirstOrDefault(x => x.Id == userId);
 
                 if (user?.ShoppingCart == null)
@@ -94,8 +89,6 @@ namespace ColorMix.Services.DataServices
             var userId = this.userManager.GetUserId(principal);
 
             var user = this.dbContext.Users
-                .Include(x => x.ShoppingCart)
-                .ThenInclude(x => x.ShoppingCartItems)
                 .FirstOrDefault(x => x.Id == userId);
                 
             if (user?.ShoppingCart == null)
@@ -212,9 +205,6 @@ namespace ColorMix.Services.DataServices
         private void AddProductToDbCart(DetailsViewModel product, string userId)
         {
             var user = this.dbContext.Users
-                .Include(x => x.ShoppingCart)
-                .ThenInclude(x => x.ShoppingCartItems)
-                .ThenInclude(x => x.Product)
                 .FirstOrDefault(u => u.Id == userId);
 
             if (user?.ShoppingCart == null)

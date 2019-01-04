@@ -2,7 +2,7 @@
 {
     public enum OrderStatus
     {
-        Waiting = 1,
+        BeingPrepared = 1,
         Send = 2,
         Delivered = 3,
     }

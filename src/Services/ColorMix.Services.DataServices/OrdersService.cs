@@ -7,8 +7,11 @@ using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Data.Models.Enumerations;
 using ColorMix.Services.DataServices.Contracts;
+using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Orders;
+using ColorMix.Services.Models.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ColorMix.Services.DataServices
 {
@@ -31,7 +34,7 @@ namespace ColorMix.Services.DataServices
             {
                 OrderDate = DateTime.UtcNow,
                 OrderTotalPrice = model.Products.Sum(x => x.Total),
-                Status = OrderStatus.Waiting,
+                Status = OrderStatus.BeingPrepared,
                 UserId = userId
             };
 
@@ -46,9 +49,59 @@ namespace ColorMix.Services.DataServices
 
             order.OrderProducts = orderProducts;
 
+            var user = this.dbContext.Users
+                .FirstOrDefault(x => x.Id == userId);
+
+            user?.ShoppingCart.ShoppingCartItems.Clear();
+
             this.dbContext.Orders.Add(order);
 
             this.dbContext.SaveChanges();
+        }
+
+        public IEnumerable<MyOrdersViewModel> GetUserOrders(ClaimsPrincipal principal)
+        {
+            var userId = this.userManager.GetUserId(principal);
+
+            var orders = this.dbContext.Orders
+                .Where(x => x.UserId == userId)
+                .To<MyOrdersViewModel>()
+                .ToList();
+
+            return orders;
+        }
+
+        public OrderDetailsViewModel GetOrderDetails(Guid id)
+        {
+            var order = this.dbContext.Orders
+                .FirstOrDefault(x => x.Id == id);
+
+            var orderDetails = new OrderDetailsViewModel()
+            {
+                OrderNumber = order.Id.ToString().Substring(0,8),
+                Products = order.OrderProducts
+                    .Select(x => new OrderProductViewModel()
+                    {
+                        Id = x.Product.Id,
+                        Name = x.Product.Name,
+                        Quantity = x.Quantity,
+                        ImageUrl = x.Product.ImageUrl,
+                        UnitPrice = x.Product.Price,
+                        TotalPrice = x.UnitTotalPrice
+                    }).ToList(),
+                Address = new OrderAddressViewModel()
+                {
+                    Country = order.User.Address.Country,
+                    Street = order.User.Address.Street,
+                    City = order.User.Address.City,
+                    Receiver = $"{order.User.FirstName} {order.User.LastName}",
+                    PhoneNumber = order.User.PhoneNumber,
+                    ZipCode = order.User.Address.ZipCode
+                },
+                OrderTotalPrice = order.OrderTotalPrice
+            };
+
+            return orderDetails;
         }
     }
 }

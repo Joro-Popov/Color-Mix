@@ -1,4 +1,5 @@
-﻿using ColorMix.Services.DataServices.Contracts;
+﻿using System;
+using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -67,6 +68,14 @@ namespace ColorMix.Web.Controllers
             ordersService.PlaceOrder(model, User);
 
             return RedirectToAction("MyOrders", "Users");
+        }
+
+        [Authorize]
+        public IActionResult Details(Guid id)
+        {
+            var detailsModel = this.ordersService.GetOrderDetails(id);
+
+            return this.View(detailsModel);
         }
     }
 }

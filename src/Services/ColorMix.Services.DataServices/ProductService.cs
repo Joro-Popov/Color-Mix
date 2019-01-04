@@ -51,8 +51,6 @@ namespace ColorMix.Services.DataServices
         public DetailsViewModel GetProductDetails(Guid id)
         {
             var details = dbContext.Products
-                .Include(x => x.Sizes)
-                .ThenInclude(x => x.Size)
                 .Where(p => p.Id == id)
                 .To<DetailsViewModel>()
                 .First();

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -10,16 +9,20 @@ namespace ColorMix.Web.Controllers
     public class UsersController : BaseController
     {
         private readonly IUserService userService;
+        private readonly IOrdersService ordersService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IOrdersService ordersService)
         {
             this.userService = userService;
+            this.ordersService = ordersService;
         }
 
         [Authorize]
         public IActionResult MyOrders()
         {
-            return View();
+            var orders = this.ordersService.GetUserOrders(this.User);
+
+            return View(orders);
         }
 
         [Authorize]

@@ -1,0 +1,68 @@
+﻿@model OrderDetailsViewModel
+
+<div id="all">
+    <div id="content">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-lg-3">
+                    <!--
+                    *** CUSTOMER MENU ***
+                    _________________________________________________________
+                    -->
+                    <partial name="_CustomerMenuPartial" />
+                    <!-- /.col-lg-3-->
+                    <!-- *** CUSTOMER MENU END ***-->
+                </div>
+                <div id="customer-order" class="col-lg-9">
+                    <div class="box">
+                        <h1>Поръчка #@Model.OrderNumber</h1>
+                        <p class="text-muted">
+                            Ако имате въпроси, <a asp-controller="Home" asp-action="Contacts">Свържете се с нас</a>
+                        </p>
+                        <hr>
+                        <div class="table-responsive mb-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Продукт</th>
+                                        <th>Количество</th>
+                                        <th>Единична цена</th>
+                                        <th>Общо</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var product in Model.Products)
+                                    {
+                                        <tr>
+                                            <td><a href="#"><img src="@product.ImageUrl" alt="@product.Name"></a></td>
+                                            <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
+                                            <td>@product.Quantity</td>
+                                            <td>@product.UnitPrice лв.</td>
+                                            <td>@product.TotalPrice лв.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="5" class="text-right">Общо</th>
+                                        <th>@Model.OrderTotalPrice</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive-->
+                        <div class="justify-content-end">
+                            <h2>Адрес за доставка</h2>
+                            <p>
+                            @Model.Address.Receiver<br/>
+                            @Model.Address.Street<br>
+                            @Model.Address.City, @Model.Address.ZipCode<br>
+                            @Model.Address.Country<br>
+                            @Model.Address.PhoneNumber
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
