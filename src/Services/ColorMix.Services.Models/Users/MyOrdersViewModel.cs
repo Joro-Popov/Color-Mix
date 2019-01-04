@@ -9,7 +9,7 @@ namespace ColorMix.Services.Models.Users
     public class MyOrdersViewModel : IMapFrom<Order>, ICustomMappings
     {
         public Guid Id { get; set; }
-
+        
         public string OrderDate { get; set; }
 
         public decimal OrderTotalPrice { get; set; }

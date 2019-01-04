@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ColorMix.Web.Controllers
+namespace ColorMix.Web.Areas.Administration.Controllers
 {
-    [Route("[controller]/[action]")]
-    public abstract class BaseController : Controller
+    public class AdminController : Controller
     {
     }
 }

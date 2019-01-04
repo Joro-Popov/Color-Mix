@@ -8,6 +8,7 @@ using ColorMix.Data.Models;
 using ColorMix.Data.Models.Enumerations;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Mapping;
+using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Orders;
 using ColorMix.Services.Models.Users;
 using Microsoft.AspNetCore.Identity;
@@ -43,7 +44,7 @@ namespace ColorMix.Services.DataServices
                 {
                     ProductId = x.Id,
                     Order = order,
-                    Quantity = model.Products.Count,
+                    Quantity = model.Products.FirstOrDefault(p => p.Id == x.Id).Quantity,
                     UnitTotalPrice = x.Total
                 }).ToList();
 
@@ -73,6 +74,16 @@ namespace ColorMix.Services.DataServices
             var orders = this.dbContext.Orders
                 .Where(x => x.UserId == userId)
                 .To<MyOrdersViewModel>()
+                .ToList();
+
+            return orders;
+        }
+
+        public IEnumerable<OrderViewModel> GetAllOrders()
+        {
+            var orders = this.dbContext.Orders
+                .Where(x => x.Status == OrderStatus.BeingPrepared)
+                .To<OrderViewModel>()
                 .ToList();
 
             return orders;

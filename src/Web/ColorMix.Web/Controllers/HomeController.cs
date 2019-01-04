@@ -5,14 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ColorMix.Web.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        private readonly UserManager<ColorMixUser> userManager;
         private readonly ICartService cartService;
 
-        public HomeController(UserManager<ColorMixUser> userManager, ICartService cartService)
+        public HomeController(ICartService cartService)
         {
-            this.userManager = userManager;
             this.cartService = cartService;
         }
 
@@ -21,6 +19,11 @@ namespace ColorMix.Web.Controllers
             if (this.User.Identity.IsAuthenticated)
             {
                 this.cartService.MoveFromSessionCartToDbCart(this.HttpContext.Session, this.User);
+            }
+
+            if (this.User.IsInRole("Admin"))
+            {
+                return this.RedirectToAction("Index", "Home", new {area = "Administration"});
             }
 
             return this.View();
