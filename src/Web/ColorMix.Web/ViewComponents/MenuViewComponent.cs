@@ -15,7 +15,7 @@ namespace ColorMix.Web.ViewComponents
         public IViewComponentResult Invoke()
         {
             var categories = categoryService.GetAllCategories();
-
+            
             return View(categories);
         }
     }

@@ -11,10 +11,6 @@
                 <div class="col-lg-9">
                     <div class="box">
                         <h1>Редактиране на профилните данни</h1>
-                        <p class="text-muted">
-                            Въведеният адрес ще бъде използван за адрес за фактуриране. При поръчка, ще имате възможност да 
-                            посочите отделен адрес за доставка на пратката.
-                        </p>
                         <h3 class="mt-5">Лични данни</h3>
                         <form method="post" asp-controller="Users" asp-action="ChangePersonalData">
                             <div class="form-row">
@@ -29,8 +25,7 @@
                                     <span asp-validation-for="@Model.LastName" class="text-danger"></span>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-row">
+                            <div class="form-row mt-3">
                                 <div class="col">
                                     <label asp-for="@Model.Age">Години<span class="text-danger">*</span></label>
                                     <input asp-for="@Model.Age" class="form-control" placeholder="Години" value="@Model.Age">
@@ -42,8 +37,7 @@
                                     <span asp-validation-for="@Model.Email" class="text-danger"></span>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-row">
+                            <div class="form-row mt-3">
                                 <div class="col">
                                     <label asp-for="@Model.AddressCountry">Държава<span class="text-danger">*</span></label>
                                     <input asp-for="@Model.AddressCountry" type="text" class="form-control" placeholder="Държава" value="@Model.AddressCountry">
@@ -55,15 +49,14 @@
                                     <span asp-validation-for="@Model.AddressCity" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row mt-3">
                                 <div class="col">
                                     <label asp-for="@Model.AddressStreet">Улица<span class="text-danger">*</span></label>
                                     <input asp-for="@Model.AddressStreet" type="text" class="form-control" placeholder="Улица" value="@Model.AddressStreet">
                                     <span asp-validation-for="@Model.AddressStreet" class="text-danger"></span>
                                 </div>
                             </div>
-                            <hr />
-                            <div class="form-row">
+                            <div class="form-row mt-3">
                                 <div class="col">
                                     <label asp-for="@Model.AddressZipCode">Пощенски код<span class="text-danger">*</span></label>
                                     <input asp-for="@Model.AddressZipCode" type="number" class="form-control" placeholder="Пощенски код" value="@Model.AddressZipCode">

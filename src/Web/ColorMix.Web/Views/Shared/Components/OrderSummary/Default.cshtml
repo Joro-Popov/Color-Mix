@@ -1,0 +1,27 @@
+﻿<div id="order-summary" class="box mt-4">
+    <div class="box-header">
+        <h3 class="mb-0">Сума на поръчката</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>Стойност</td>
+                <th>@this.ViewData["PriceWithoutTax"] лв.</th>
+            </tr>
+            <tr>
+                <td>Данъчна основа</td>
+                <th>@this.ViewData["PriceWithoutTax"] лв.</th>
+            </tr>
+            <tr>
+                <td>ДДС (20%)</td>
+                <th>@this.ViewData["Tax"] лв.</th>
+            </tr>
+            <tr class="total">
+                <td>Общо</td>
+                <th>@this.ViewData["TotalPrice"] лв.</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

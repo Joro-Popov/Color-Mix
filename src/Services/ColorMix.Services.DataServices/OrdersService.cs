@@ -53,7 +53,14 @@ namespace ColorMix.Services.DataServices
                 .FirstOrDefault(x => x.Id == userId);
 
             user?.ShoppingCart.ShoppingCartItems.Clear();
+            
+            var invoice = new Invoice()
+            {
+                Order = order,
+                CreatedOn = DateTime.UtcNow
+            };
 
+            this.dbContext.Invoices.Add(invoice);
             this.dbContext.Orders.Add(order);
 
             this.dbContext.SaveChanges();
