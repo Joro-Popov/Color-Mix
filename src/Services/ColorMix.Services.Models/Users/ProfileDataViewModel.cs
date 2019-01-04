@@ -12,7 +12,7 @@ namespace ColorMix.Services.Models.Users
         private const string INVALID_EMAIL_ADDRESS = "Невалиден E-mail адрес !";
         private const string REQUIRED_FIELD = "Полето е задължително !";
         private const string INVALID_ZIP_CODE = "Невалиден пощенски код!";
-        
+
         [Required(ErrorMessage = REQUIRED_FIELD)]
         [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
         [MaxLength(32, ErrorMessage = INVALID_NAME_LENGTH)]

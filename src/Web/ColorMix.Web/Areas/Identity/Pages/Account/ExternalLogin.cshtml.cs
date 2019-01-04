@@ -16,6 +16,12 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
+        private const string INVALID_NAME_LENGTH = "Въведете име с дължина между 3 и 32 символа !";
+        private const string INVALID_SYMBOLS = "Полето съдържа невалидни символи !";
+        private const string INVALID_AGE = "Въведете години между 16 и 80 !";
+        private const string INVALID_EMAIL_ADDRESS = "Невалиден E-mail адрес !";
+        private const string REQUIRED_FIELD = "Полето е задължително !";
+
         private readonly SignInManager<ColorMixUser> _signInManager;
         private readonly UserManager<ColorMixUser> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
@@ -42,9 +48,15 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = REQUIRED_FIELD)]
+            [EmailAddress(ErrorMessage = INVALID_EMAIL_ADDRESS)]
             public string Email { get; set; }
+            
+            public string FirstName { get; set; }
+            
+            public string LastName { get; set; }
+            
+            public string PhoneNumber { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -98,6 +110,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
                         Email = info.Principal.FindFirstValue(ClaimTypes.Email)
                     };
                 }
+
                 return Page();
             }
         }
@@ -115,7 +128,16 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ColorMixUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ColorMixUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = string.Empty,
+                    LastName = string.Empty,
+                    PhoneNumber = string.Empty,
+                    RegistrationDate = DateTime.UtcNow,
+                    Address = new Address()
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -36,7 +36,7 @@ namespace ColorMix.Services.DataServices
         {
             var userId = userManager.GetUserId(claimsPrincipal);
 
-            var user = await userManager.Users.Include(x => x.Address)
+            var user = await userManager.Users
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
             user.Address.Country = model.AddressCountry;
