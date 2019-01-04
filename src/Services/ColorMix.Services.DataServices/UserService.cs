@@ -39,6 +39,9 @@ namespace ColorMix.Services.DataServices
             var user = await userManager.Users
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Age = model.Age;
             user.Address.Country = model.AddressCountry;
             user.Address.City = model.AddressCity;
             user.Address.Street = model.AddressStreet;
