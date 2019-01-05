@@ -109,6 +109,7 @@ namespace ColorMix.Services.DataServices
             var sizes = model.Sizes
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Distinct()
+                .Where(x => product.Sizes.Any(s => s.Size.Abbreviation != x))
                 .Select(x => new ProductSize()
                 {
                     Product = product,
@@ -146,6 +147,7 @@ namespace ColorMix.Services.DataServices
             var sizes = model.Sizes
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Distinct()
+                .Where(x => product.Sizes.Any(s => s.Size.Abbreviation != x))
                 .Select(x => new ProductSize()
                 {
                     Product = product,
@@ -163,6 +165,14 @@ namespace ColorMix.Services.DataServices
             this.dbContext.SaveChanges();
         }
 
+        public void DeleteProduct(Guid id)
+        {
+            var product = this.dbContext.Products
+                .FirstOrDefault(x => x.Id == id);
+
+            this.dbContext.Products.Remove(product);
+            this.dbContext.SaveChanges();
+        }
 
         private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
         {

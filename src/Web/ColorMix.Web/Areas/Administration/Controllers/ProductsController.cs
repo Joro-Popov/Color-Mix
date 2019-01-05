@@ -7,6 +7,7 @@ using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ColorMix.Web.Areas.Administration.Controllers
 {
@@ -70,6 +71,16 @@ namespace ColorMix.Web.Areas.Administration.Controllers
             this.productService.ChangeProductInfo(model);
 
             return this.RedirectToAction("Details", "Products", new {model.Id});
+        }
+
+        public IActionResult DeleteProduct(Guid id)
+        {
+            var categoryName = this.productService.GetProduct(id).Category;
+            var categoryId = this.categoryService.GetCategoryId(categoryName);
+
+            this.productService.DeleteProduct(id);
+            
+            return this.RedirectToAction("ProductsByCategory", "Products", new {categoryId});
         }
     }
 }

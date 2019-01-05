@@ -23,5 +23,7 @@ namespace ColorMix.Services.DataServices.Contracts
         void CreateProduct(CreateProductViewModel model);
 
         void ChangeProductInfo(EditProductViewModel model);
+
+        void DeleteProduct(Guid id);
     }
 }
