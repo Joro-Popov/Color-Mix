@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models.Administration;
+using ColorMix.Services.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,13 +41,35 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 
             var categoryId = this.categoryService.GetCategoryId(model.Category);
 
-            return this.RedirectToAction("ProductsByCategory", "Products", new {categoryId = categoryId});
+            return this.RedirectToAction("ProductsByCategory", "Products", new {categoryId});
         }
+
         public IActionResult GetSubCategoryNames(string categoryName)
         {
             var subCategoryNames = this.categoryService.GetSubCategoryNames(categoryName);
 
             return Json(subCategoryNames);
+        }
+
+        public IActionResult EditProduct(Guid id)
+        {
+            var product = this.productService.GetProduct(id);
+
+            var categoryData = this.categoryService.GetAllCategoriesAndSubCategories();
+
+            this.ViewData["Categories"] = categoryData.Select(x => x.Name).ToList();
+
+            return this.View(product);
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(EditProductViewModel model)
+        {
+            if (!ModelState.IsValid) return this.View(model);
+
+            this.productService.ChangeProductInfo(model);
+
+            return this.RedirectToAction("Details", "Products", new {model.Id});
         }
     }
 }

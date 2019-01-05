@@ -32,7 +32,7 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 
             this.categoryService.CreateCategory(model);
 
-            return this.RedirectToAction("ProductsBycategory", "Products");
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

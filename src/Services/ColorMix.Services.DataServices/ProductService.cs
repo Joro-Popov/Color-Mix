@@ -14,6 +14,7 @@ using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Cart;
 using Microsoft.AspNetCore.Http;
 using X.PagedList;
+using Size = ColorMix.Data.Models.Size;
 
 namespace ColorMix.Services.DataServices
 {
@@ -69,6 +70,21 @@ namespace ColorMix.Services.DataServices
             return details;
         }
 
+        public EditProductViewModel GetProduct(Guid id)
+        {
+            var product = this.dbContext.Products
+                .Where(x => x.Id == id)
+                .To<EditProductViewModel>()
+                .First();
+
+            return product;
+        }
+
+        public Size GetProductSize(string size)
+        {
+            return this.dbContext.Sizes.FirstOrDefault(s => s.Abbreviation == size);
+        }
+
         public bool CheckIfProductExists(Guid id)
         {
             return dbContext.Products.Any(p => p.Id == id);
@@ -90,11 +106,13 @@ namespace ColorMix.Services.DataServices
                 ImageUrl = this.GetImageUrl(model.Image)
             };
 
-            var sizes = model.Sizes.Split(',', StringSplitOptions.RemoveEmptyEntries)
+            var sizes = model.Sizes
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
                 .Select(x => new ProductSize()
                 {
                     Product = product,
-                    Size = new Data.Models.Size() {Abbreviation = x}
+                    Size = this.GetProductSize(x) ?? new Size() { Abbreviation = x }
                 }).ToList();
 
             product.Sizes = sizes;
@@ -102,6 +120,49 @@ namespace ColorMix.Services.DataServices
             this.dbContext.Products.Add(product);
             this.dbContext.SaveChanges();
         }
+
+        public void ChangeProductInfo(EditProductViewModel model)
+        {
+            var product = this.dbContext.Products
+                .FirstOrDefault(x => x.Id == model.Id);
+
+            product.Name = model.Name;
+            product.Color = model.Color;
+            product.Brand = model.Brand;
+            product.Material = model.Material;
+            product.Description = model.Description;
+            product.Price = model.Price;
+
+            if (product.CategoryId != this.categoryService.GetCategoryId(model.Category))
+            {
+                product.CategoryId = this.categoryService.GetCategoryId(model.Category);
+            }
+
+            if (product.SubCategoryId != this.categoryService.GetCategoryId(model.Category, model.SubCategory))
+            {
+                product.CategoryId = this.categoryService.GetCategoryId(model.Category, model.SubCategory);
+            }
+
+            var sizes = model.Sizes
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Distinct()
+                .Select(x => new ProductSize()
+                {
+                    Product = product,
+                    Size = this.GetProductSize(x) ?? new Size() { Abbreviation = x }
+                }).ToList();
+
+            product.Sizes = sizes;
+
+            if (model.Image != null)
+            {
+                product.ImageUrl = this.GetImageUrl(model.Image);
+            }
+
+            this.dbContext.Products.Update(product);
+            this.dbContext.SaveChanges();
+        }
+
 
         private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
         {
