@@ -5,7 +5,14 @@
         <div class="container mt-3">
             <div class="row">
                 <div class="col-lg-3">
-                    <partial name="_CustomerMenuPartial" />
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <partial name="~/Areas/Administration/Views/Shared/_AdminMenuPartial.cshtml" />
+                    }
+                    else
+                    {
+                        <partial name="_CustomerMenuPartial" />
+                    }
                 </div>
                 <div id="customer-orders" class="col-lg-9">
                     <div class="box">

@@ -18,8 +18,7 @@ namespace ColorMix.Web.Areas.Administration.Controllers
         {
             this.ordersService = ordersService;
         }
-
-        [Authorize(Roles = "Admin")]
+        
         public IActionResult Index()
         {
             var orders = this.ordersService.GetAllOrders();

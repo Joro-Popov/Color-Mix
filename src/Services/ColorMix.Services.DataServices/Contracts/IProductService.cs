@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Products;
 
 namespace ColorMix.Services.DataServices.Contracts
@@ -13,5 +14,7 @@ namespace ColorMix.Services.DataServices.Contracts
         DetailsViewModel GetProductDetails(Guid id);
 
         bool CheckIfProductExists(Guid id);
+        
+        void CreateProduct(CreateProductViewModel model);
     }
 }

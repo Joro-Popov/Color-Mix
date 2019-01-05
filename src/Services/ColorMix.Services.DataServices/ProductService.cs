@@ -7,7 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using ColorMix.Data.Models;
+using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Cart;
+using Microsoft.AspNetCore.Http;
 using X.PagedList;
 
 namespace ColorMix.Services.DataServices
@@ -15,11 +20,13 @@ namespace ColorMix.Services.DataServices
     public class ProductService : IProductService
     {
         private readonly ColorMixContext dbContext;
+        private readonly ICategoryService categoryService;
         private const int PAGE_SIZE = 9;
 
-        public ProductService(ColorMixContext dbContext)
+        public ProductService(ColorMixContext dbContext, ICategoryService categoryService)
         {
             this.dbContext = dbContext;
+            this.categoryService = categoryService;
         }
 
         public AllProductsViewModel GetProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId = null)
@@ -67,6 +74,35 @@ namespace ColorMix.Services.DataServices
             return dbContext.Products.Any(p => p.Id == id);
         }
 
+        public void CreateProduct(CreateProductViewModel model)
+        {
+            var product = new Product()
+            {
+                Name = model.Name,
+                Brand = model.Brand,
+                CategoryId = this.categoryService.GetCategoryId(model.Category),
+                SubCategoryId = this.categoryService.GetCategoryId(model.Category, model.SubCategory),
+                Color = model.Color,
+                Description = model.Description,
+                IsAvailable = true,
+                Material = model.Material,
+                Price = model.Price,
+                ImageUrl = this.GetImageUrl(model.Image)
+            };
+
+            var sizes = model.Sizes.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => new ProductSize()
+                {
+                    Product = product,
+                    Size = new Data.Models.Size() {Abbreviation = x}
+                }).ToList();
+
+            product.Sizes = sizes;
+
+            this.dbContext.Products.Add(product);
+            this.dbContext.SaveChanges();
+        }
+
         private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
         {
             var random = new Random();
@@ -92,6 +128,21 @@ namespace ColorMix.Services.DataServices
             }
 
             return randomProducts;
+        }
+        
+        private string GetImageUrl(IFormFile image)
+        {
+            var account = new Account("colormix", "578625178927514", "Sbnv_9RaLWphaerau3bWDJh2c_A");
+            var cloudinary = new Cloudinary(account);
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(image.Name, image.OpenReadStream())
+            };
+
+            var uploadResult = cloudinary.Upload(uploadParams);
+
+            return uploadResult.SecureUri.ToString();
         }
     }
 }

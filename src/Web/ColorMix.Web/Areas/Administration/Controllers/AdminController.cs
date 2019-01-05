@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ColorMix.Web.Areas.Administration.Controllers
 {
-    public class AdminController : Controller
+    public abstract class AdminController : Controller
     {
     }
 }
