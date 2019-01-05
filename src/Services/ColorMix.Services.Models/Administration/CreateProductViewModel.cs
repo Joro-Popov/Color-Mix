@@ -13,6 +13,7 @@ namespace ColorMix.Services.Models.Administration
         private const string INVALID_IMAGE = "Изберете изображение за продукта !";
         private const string INVALID_CATEGORY = "Изберете категория от списъка !";
         private const string REQUIRED_FIELD = "Полето е задължително !";
+        private const string INVALID_PRICE = "Въведете валидна стойност!";
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
         [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
@@ -24,6 +25,7 @@ namespace ColorMix.Services.Models.Administration
         public IFormFile Image { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
+        [Range(typeof(decimal),"0", "79228162514264337593543950335", ErrorMessage = INVALID_PRICE)]
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]

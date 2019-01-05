@@ -1,0 +1,42 @@
+﻿@model CreateCategoryViewModel
+
+<div id="all">
+    <div id="content">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-lg-3">
+                    <!--Customer meu-->
+                    <partial name="~/Areas/Administration/Views/Shared/_AdminMenuPartial.cshtml" />
+                    <!--Customer menu end-->
+                </div>
+                <div class="col-lg-9">
+                    <div class="box">
+                        <h1>Създаване на нова категория</h1>
+                        <form asp-area="Administration" asp-controller="Categories" asp-action="CreateCategory"method="post">
+                            <div class="form-row">
+                                <div class="col">
+                                    <label asp-for="@Model.CategoryName">Име на категорията<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.CategoryName" class="form-control" placeholder="Име на категорията" />
+                                    <span asp-validation-for="@Model.CategoryName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-row mt-3">
+                                <div class="col">
+                                    <label asp-for="@Model.SubCAtegoryNames">Имена на подкатегории<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.SubCAtegoryNames" class="form-control" placeholder="Въведете имена на подкатегории, разделени със запетая" />
+                                    <span asp-validation-for="@Model.SubCAtegoryNames" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Създай</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

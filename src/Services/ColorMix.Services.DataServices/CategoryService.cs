@@ -5,6 +5,7 @@ using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Categories;
 using System.Collections.Generic;
 using System.Linq;
+using ColorMix.Data.Models;
 
 namespace ColorMix.Services.DataServices
 {
@@ -69,6 +70,30 @@ namespace ColorMix.Services.DataServices
                 .ToList();
 
             return subCategoryNames;
+        }
+
+        public void CreateCategory(CreateCategoryViewModel model)
+        {
+            var category = new Category()
+            {
+                Name = model.CategoryName
+            };
+
+            if (model.SubCAtegoryNames != null)
+            {
+                var subCategories = model.SubCAtegoryNames
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => new SubCategory()
+                    {
+                        Name = x.First().ToString().ToUpper() + x.Substring(1),
+                        Category = category
+                    }).ToList();
+
+                category.SubCategories = subCategories;
+            }
+
+            this.dbContext.Categories.Add(category);
+            this.dbContext.SaveChanges();
         }
     }
 }
