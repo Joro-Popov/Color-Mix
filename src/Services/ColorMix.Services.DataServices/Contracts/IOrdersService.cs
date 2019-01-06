@@ -15,6 +15,9 @@ namespace ColorMix.Services.DataServices.Contracts
         IEnumerable<MyOrdersViewModel> GetUserOrders(ClaimsPrincipal principal);
 
         IEnumerable<OrderViewModel> GetAllOrders();
+
+        IEnumerable<OrderViewModel> GetAllSendOrders();
+
         OrderDetailsViewModel GetOrderDetails(Guid id);
     }
 }

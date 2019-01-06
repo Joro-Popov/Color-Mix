@@ -96,9 +96,6 @@
     <Content Update="wwwroot\img\logo-small.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\img\logo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\img\main-slider1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

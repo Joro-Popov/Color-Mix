@@ -1,4 +1,4 @@
-﻿@model CreateProductViewModel
+﻿@model EditProductViewModel
 @{
     var subCategories = new List<string>();
 }
@@ -13,41 +13,50 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="box">
-                        <h1>Създаване на нов продукт</h1>
-                        <form asp-area="Administration" asp-controller="Products" asp-action="CreateProduct" enctype="multipart/form-data" method="post">
+                        <h1>Информация за продукта</h1>
+                        <form asp-area="Administration" asp-controller="AdminProducts" asp-action="EditProduct" enctype="multipart/form-data" method="post">
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="item">
+                                        <input asp-for="@Model.Id" type="hidden" />
+                                        <img src="@Model.ImageUrl" alt="" class="img-fluid">
+                                        <input asp-for="@Model.ImageUrl" , type="hidden" />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="col">
                                     <label asp-for="@Model.Name">Име на продукта<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.Name" class="form-control" placeholder="Име на продукта" />
+                                    <input asp-for="@Model.Name" value="@Model.Name" class="form-control" placeholder="Име на продукта" />
                                     <span asp-validation-for="@Model.Name" class="text-danger"></span>
                                 </div>
                                 <div class="col">
                                     <label asp-for="@Model.Color">Цвят<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.Color" class="form-control" placeholder="Цвят" />
+                                    <input asp-for="@Model.Color" value="@Model.Color" class="form-control" placeholder="Цвят" />
                                     <span asp-validation-for="@Model.Color" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-row mt-3">
                                 <div class="col">
                                     <label asp-for="@Model.Brand">Марка<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.Brand" class="form-control" placeholder="Марка" />
+                                    <input asp-for="@Model.Brand" value="@Model.Brand" class="form-control" placeholder="Марка" />
                                     <span asp-validation-for="@Model.Brand" class="text-danger"></span>
                                 </div>
                                 <div class="col">
                                     <label asp-for="@Model.Material">Материя<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.Material" class="form-control" placeholder="Материя" />
+                                    <input asp-for="@Model.Material" value="@Model.Material" class="form-control" placeholder="Материя" />
                                     <span asp-validation-for="@Model.Material" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-row mt-3">
                                 <div class="col">
                                     <label asp-for="@Model.Description">Описание<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.Description" class="form-control" placeholder="Описание" />
+                                    <input asp-for="@Model.Description" value="@Model.Description" class="form-control" placeholder="Описание" />
                                     <span asp-validation-for="@Model.Description" class="text-danger"></span>
                                 </div>
                                 <div class="col">
                                     <label asp-for="@Model.Price">Цена<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.Price" class="form-control" placeholder="Цена" />
+                                    <input asp-for="@Model.Price" value="@Model.Price" class="form-control" placeholder="Цена" />
                                     <span asp-validation-for="@Model.Price" class="text-danger"></span>
                                 </div>
                             </div>
@@ -55,7 +64,7 @@
                                 <div class="col">
                                     <select asp-for="@Model.Category" class="form-control"
                                             asp-items="@(new SelectList((IEnumerable<string>)this.ViewData["Categories"]))">
-                                        <option>Изберете категория</option>
+                                        <option>@Model.Category</option>
                                     </select>
                                 </div>
                             </div>
@@ -63,24 +72,24 @@
                                 <div class="col">
                                     <select asp-for="@Model.SubCategory" class="form-control"
                                             asp-items="@(new SelectList(subCategories))">
-                                        <option>Изберете подкатегория</option>
+                                        <option>@Model.SubCategory</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row mt-3">
-                                    <div class="col">
-                                        <label asp-for="@Model.Sizes">Размери<span class="text-danger">*</span></label>
-                                        <input asp-for="@Model.Sizes" type="text" class="form-control" placeholder="Въведете стойности разделени със запетая" />
-                                        <span asp-validation-for="@Model.Sizes" class="text-danger"></span>
-                                    </div>
-                                    <div class="col">
-                                        <label asp-for="@Model.Image">Изображение<span class="text-danger">*</span></label>
-                                        <input asp-for="@Model.Image" type="file" class="form-control" />
-                                        <span asp-validation-for="@Model.Sizes" class="text-danger"></span>
-                                    </div>
+                                <div class="col">
+                                    <label asp-for="@Model.Sizes">Размери<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.Sizes" type="text" value="@Model.Sizes" class="form-control" placeholder="Въведете стойности разделени със запетая" />
+                                    <span asp-validation-for="@Model.Sizes" class="text-danger"></span>
+                                </div>
+                                <div class="col">
+                                    <label asp-for="@Model.Image">Изображение<span class="text-danger">*</span></label>
+                                    <input asp-for="@Model.Image" type="file" class="form-control" />
+                                    <span asp-validation-for="@Model.Sizes" class="text-danger"></span>
+                                </div>
                             </div>
                             <div class="text-center mt-3">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Създай</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-user-md"></i>Запази промените</button>
                             </div>
                         </form>
                     </div>
@@ -90,7 +99,7 @@
     </div>
 </div>
 @section Scripts{
-    <partial name="_ValidationScriptsPartial"/>
+    <partial name="_ValidationScriptsPartial" />
 
     <script>
         $(document).ready(function () {

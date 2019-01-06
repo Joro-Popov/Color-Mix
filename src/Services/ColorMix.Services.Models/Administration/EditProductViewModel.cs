@@ -47,7 +47,7 @@ namespace ColorMix.Services.Models.Products
         public string Color { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
-        [RegularExpression("^[\u0410-\u044F]+", ErrorMessage = INVALID_SYMBOLS)]
+        [RegularExpression("^[\u0410-\u044F\\s]+", ErrorMessage = INVALID_SYMBOLS)]
         public string Material { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]

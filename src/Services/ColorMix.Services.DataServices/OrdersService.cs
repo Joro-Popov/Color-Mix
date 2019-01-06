@@ -89,6 +89,16 @@ namespace ColorMix.Services.DataServices
             return orders;
         }
 
+        public IEnumerable<OrderViewModel> GetAllSendOrders()
+        {
+            var orders = this.dbContext.Orders
+                .Where(x => x.Status == OrderStatus.Send)
+                .To<OrderViewModel>()
+                .ToList();
+            
+            return orders;
+        }
+
         public OrderDetailsViewModel GetOrderDetails(Guid id)
         {
             var order = this.dbContext.Orders

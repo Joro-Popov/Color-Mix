@@ -22,23 +22,13 @@
                                     <img src="@Model.ImageUrl" alt="" class="img-fluid">
                                     <input asp-for="@Model.ImageUrl" , type="hidden" />
                                 </div>
-                                <div class="ribbon sale">
-                                    <div class="theribbon">SALE</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon-->
-                                <div class="ribbon new">
-                                    <div class="theribbon">NEW</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
-                                <!-- /.ribbon-->
                                @if (this.User.IsInRole("Admin"))
                                {
                                    <div class="box d-flex justify-content-between">
-                                       <a asp-area="Administration" asp-controller="Products" asp-action="EditProduct" asp-route-id="@Model.Id" class="btn btn-primary">
+                                       <a asp-area="Administration" asp-controller="AdminProducts" asp-action="EditProduct" asp-route-id="@Model.Id" class="btn btn-primary">
                                            <i class="far fa-edit"></i> Редактирай
                                        </a>
-                                       <a asp-area="Administration" asp-controller="Products" asp-action="DeleteProduct" asp-route-id="@Model.Id" class="btn btn-primary">
+                                       <a asp-area="Administration" asp-controller="AdminProducts" asp-action="DeleteProduct" asp-route-id="@Model.Id" class="btn btn-primary">
                                            <i class="fas fa-trash-alt"></i> Изтрий
                                        </a>
                                    </div>

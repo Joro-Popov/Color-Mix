@@ -13,12 +13,12 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
     [Authorize(Roles = "Admin")]
-    public class ProductsController : AdminController
+    public class AdminProductsController : AdminController
     {
         private readonly ICategoryService categoryService;
         private readonly IProductService productService;
 
-        public ProductsController(ICategoryService categoryService, IProductService productService)
+        public AdminProductsController(ICategoryService categoryService, IProductService productService)
         {
             this.categoryService = categoryService;
             this.productService = productService;

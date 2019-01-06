@@ -2,7 +2,7 @@
 
 <div id="all">
     <div id="content">
-        <div class="container mt-3">
+        <div class="container mt-3 mb-3">
             <div class="row">
                 <div class="col-lg-3">
                     <!--Customer meu-->
@@ -12,7 +12,7 @@
                 <div class="col-lg-9">
                     <div class="box">
                         <h1>Създаване на нова категория</h1>
-                        <form asp-area="Administration" asp-controller="Categories" asp-action="CreateCategory"method="post">
+                        <form asp-area="Administration" asp-controller="AdminCategories" asp-action="CreateCategory"method="post">
                             <div class="form-row">
                                 <div class="col">
                                     <label asp-for="@Model.CategoryName">Име на категорията<span class="text-danger">*</span></label>

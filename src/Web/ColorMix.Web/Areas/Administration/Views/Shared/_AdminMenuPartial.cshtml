@@ -17,16 +17,16 @@
                 <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="nav-link"><i class="far fa-list-alt"></i> Чакащи поръчки</a>
             </li>
             <li>
-                <a asp-controller="Users" asp-action="MyOrders" class="nav-link"><i class="far fa-list-alt"></i> Изпълнени поръчки</a>
+                <a asp-area="Administration" asp-controller="AdminOrders" asp-action="SendOrders" class="nav-link"><i class="far fa-list-alt"></i> Изпълнени поръчки</a>
             </li>
             <li>
-                <a asp-area="Administration" asp-controller="Products" asp-action="CreateProduct" class="nav-link"><i class="fas fa-plus-circle"></i> Създай нов продукт</a>
+                <a asp-area="Administration" asp-controller="AdminProducts" asp-action="CreateProduct" class="nav-link"><i class="fas fa-plus-circle"></i> Създай нов продукт</a>
             </li>
             <li>
-                <a asp-area="Administration" asp-controller="Categories" asp-action="CreateCategory" class="nav-link"><i class="fas fa-plus-circle"></i> Създай новa категория</a>
+                <a asp-area="Administration" asp-controller="AdminCategories" asp-action="CreateCategory" class="nav-link"><i class="fas fa-plus-circle"></i> Създай новa категория</a>
             </li>
             <li>
-                <a asp-area="Administration" asp-controller="Categories" asp-action="CreateSubCategory" class="nav-link"><i class="fas fa-plus-circle"></i> Създай новa подкатегория</a>
+                <a asp-area="Administration" asp-controller="AdminCategories" asp-action="CreateSubCategory" class="nav-link"><i class="fas fa-plus-circle"></i> Създай новa подкатегория</a>
             </li>
         </ul>
     </div>

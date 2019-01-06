@@ -11,11 +11,11 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 {
     [Area("Administration")]
     [Authorize(Roles = "Admin")]
-    public class CategoriesController : AdminController
+    public class AdminCategoriesController : AdminController
     {
         private readonly ICategoryService categoryService;
 
-        public CategoriesController(ICategoryService categoryService)
+        public AdminCategoriesController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
         }
