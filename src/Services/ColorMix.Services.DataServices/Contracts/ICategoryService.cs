@@ -21,5 +21,7 @@ namespace ColorMix.Services.DataServices.Contracts
         IEnumerable<string> GetSubCategoryNames(string categoryName);
 
         void CreateCategory(CreateCategoryViewModel model);
+
+        void CreateSubCategory(CreateCategoryViewModel model);
     }
 }

@@ -12,11 +12,13 @@
                 <div class="col-lg-9">
                     <div class="box">
                         <h1>Създаване на нова категория</h1>
-                        <form asp-area="Administration" asp-controller="Categories" asp-action="CreateCategory"method="post">
+                        <form asp-area="Administration" asp-controller="Categories" asp-action="CreateSubCategory" method="post">
                             <div class="form-row">
                                 <div class="col">
-                                    <label asp-for="@Model.CategoryName">Име на категорията<span class="text-danger">*</span></label>
-                                    <input asp-for="@Model.CategoryName" class="form-control" placeholder="Име на категорията" />
+                                    <select asp-for="@Model.CategoryName" class="form-control"
+                                            asp-items="@(new SelectList((IEnumerable<string>)this.ViewData["Categories"]))">
+                                        <option>Име на категория</option>
+                                    </select>
                                     <span asp-validation-for="@Model.CategoryName" class="text-danger"></span>
                                 </div>
                             </div>

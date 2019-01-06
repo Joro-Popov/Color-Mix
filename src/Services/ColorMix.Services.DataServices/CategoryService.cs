@@ -79,9 +79,9 @@ namespace ColorMix.Services.DataServices
                 Name = model.CategoryName
             };
 
-            if (model.SubCAtegoryNames != null)
+            if (model.SubCаtegoryNames != null)
             {
-                var subCategories = model.SubCAtegoryNames
+                var subCategories = model.SubCаtegoryNames
                     .Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => new SubCategory()
                     {
@@ -93,6 +93,30 @@ namespace ColorMix.Services.DataServices
             }
 
             this.dbContext.Categories.Add(category);
+            this.dbContext.SaveChanges();
+        }
+
+        public void CreateSubCategory(CreateCategoryViewModel model)
+        {
+            var category = this.dbContext.Categories
+                .FirstOrDefault(c => c.Name == model.CategoryName);
+
+            var subcategories = model.SubCаtegoryNames
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Where(x => !category.SubCategories.Select(n => n.Name).Contains(x))
+                .Select(x => new SubCategory()
+                {
+                    Category = category,
+                    Name = x.First().ToString().ToUpper() + x.Substring(1)
+                })
+                .ToList();
+            
+            foreach (var subcategory in subcategories)
+            {
+                category.SubCategories.Add(subcategory);
+            }
+
+            this.dbContext.Categories.Update(category);
             this.dbContext.SaveChanges();
         }
     }

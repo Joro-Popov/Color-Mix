@@ -12,11 +12,11 @@ namespace ColorMix.Services.Models.Categories
         private const string REQUIRED_FIELD = "Полето е задължително !";
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
-        [MinLength(3, ErrorMessage = INVALID_NAME_LENGTH)]
-        [MaxLength(32, ErrorMessage = INVALID_NAME_LENGTH)]
-        [RegularExpression("^[\u0410-\u044F\\s]+", ErrorMessage = INVALID_SYMBOLS)]
+        [RegularExpression("^[\u0410-\u044F]+", ErrorMessage = INVALID_SYMBOLS)]
         public string CategoryName { get; set; }
 
-        public string SubCAtegoryNames { get; set; }
+        [Required(ErrorMessage = REQUIRED_FIELD)]
+        [RegularExpression("^[\u0410-\u044F\\s,]+", ErrorMessage = INVALID_SYMBOLS)]
+        public string SubCаtegoryNames { get; set; }
     }
 }

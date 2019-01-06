@@ -34,5 +34,31 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 
             return this.RedirectToAction("Index", "Home");
         }
+
+        public IActionResult CreateSubCategory()
+        {
+            var categoryData = this.categoryService.GetAllCategoriesAndSubCategories();
+
+            this.ViewData["Categories"] = categoryData.Select(x => x.Name).ToList();
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateSubCategory(CreateCategoryViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var categoryData = this.categoryService.GetAllCategoriesAndSubCategories();
+
+                this.ViewData["Categories"] = categoryData.Select(x => x.Name).ToList();
+
+                return this.View(model);
+            }
+            
+            this.categoryService.CreateSubCategory(model);
+
+            return this.RedirectToAction("Index", "Home");
+        }
     }
 }
