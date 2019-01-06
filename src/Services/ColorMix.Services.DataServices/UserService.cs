@@ -14,22 +14,31 @@ namespace ColorMix.Services.DataServices
     public class UserService : IUserService
     {
         private readonly ColorMixContext dbContext;
+        private readonly UserManager<ColorMixUser> userManager;
 
-        public UserService(ColorMixContext dbContext)
+        public UserService(ColorMixContext dbContext, UserManager<ColorMixUser> userManager)
         {
             this.dbContext = dbContext;
+            this.userManager = userManager;
         }
 
-        public ProfileDataViewModel GetUserData(string userId)
+        public ProfileDataViewModel GetUserData(ClaimsPrincipal principal)
         {
+            var userId = this.userManager.GetUserId(principal);
+
             var userData = dbContext.Users.Where(u => u.Id == userId)
                 .To<ProfileDataViewModel>().First();
 
             return userData;
         }
 
-        public ColorMixUser ChangeUserData(ColorMixUser user, ProfileDataViewModel model)
+        public async Task ChangeUserData(ClaimsPrincipal principal, ProfileDataViewModel model)
         {
+            var userId = userManager.GetUserId(principal);
+
+            var user = await userManager.Users
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Age = model.Age;
@@ -39,7 +48,7 @@ namespace ColorMix.Services.DataServices
             user.Address.ZipCode = model.AddressZipCode;
             user.PhoneNumber = model.PhoneNumber;
 
-            return user;
+            await userManager.UpdateAsync(user);
         }
     }
 }

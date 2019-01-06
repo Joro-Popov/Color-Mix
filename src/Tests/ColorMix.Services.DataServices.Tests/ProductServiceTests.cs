@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Moq;
@@ -14,17 +15,23 @@ namespace ColorMix.Services.DataServices.Tests
 {
     public class ProductServiceTests
     {
+        private readonly ColorMixContext dbContext;
+        private readonly CategoryService categoryService;
+        private readonly ProductService productService;
+
+        public ProductServiceTests()
+        {
+            this.dbContext = new ColorMixContext(new DbContextOptionsBuilder<ColorMixContext>()
+                .UseInMemoryDatabase("ColorMix")
+                .Options);
+
+            this.categoryService = new CategoryService(dbContext);
+            this.productService = new ProductService(dbContext, categoryService);
+        }
+
         [Fact]
         public void GetProductsByCategoryShouldNotReturnEmptyCollection()
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
-
-            var dbContext = new ColorMixContext(options);
-            var categoryService = new CategoryService(dbContext);
-            var productService = new ProductService(dbContext, categoryService);
-
             var categoryId = Guid.NewGuid();
             var subCategoryId = Guid.NewGuid();
 
@@ -66,13 +73,6 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetProductDetailsShouldReturnPopulatedObject()
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
-
-            var dbContext = new ColorMixContext(options);
-            var categoryService = new CategoryService(dbContext);
-            var productService = new ProductService(dbContext, categoryService);
             var categoryId = Guid.NewGuid();
             var subCategoryId = Guid.NewGuid();
 
@@ -149,13 +149,6 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetProductShouldReturnCorrectProduct()
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
-
-            var dbContext = new ColorMixContext(options);
-            var categoryService = new CategoryService(dbContext);
-            var productService = new ProductService(dbContext, categoryService);
             var categoryId = Guid.NewGuid();
             var subCategoryId = Guid.NewGuid();
 
@@ -199,14 +192,6 @@ namespace ColorMix.Services.DataServices.Tests
         [InlineData("XL")]
         public void GetProductSizeShouldReturnCorrectSize(string size)
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
-
-            var dbContext = new ColorMixContext(options);
-            var categoryService = new CategoryService(dbContext);
-            var productService = new ProductService(dbContext, categoryService);
-
             var sizes = new List<Size>()
             {
                 new Size(){Id = Guid.NewGuid(),Abbreviation = "S"},
@@ -224,14 +209,8 @@ namespace ColorMix.Services.DataServices.Tests
         }
 
         [Fact]
-        public void DeleteProductShoulRemovePRoductFromDatabase()
+        public void DeleteProductShouldRemoveProductFromDatabase()
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
-
-            var dbContext = new ColorMixContext(options);
-            var categoryService = new CategoryService(dbContext);
             var categoryId = Guid.NewGuid();
             var subCategoryId = Guid.NewGuid();
 
@@ -262,12 +241,10 @@ namespace ColorMix.Services.DataServices.Tests
 
             dbContext.Products.Add(product);
             dbContext.SaveChanges();
+            
+            this.productService.DeleteProduct(productId);
 
-            var productService = new ProductService(dbContext, categoryService);
-
-            productService.DeleteProduct(productId);
-
-            Assert.Empty(dbContext.Products);
+            Assert.Null(dbContext.Products.FirstOrDefault(x => x.Id == productId));
         }
     }
 }

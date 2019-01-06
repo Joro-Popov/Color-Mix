@@ -13,15 +13,12 @@ namespace ColorMix.Web.Controllers
     {
         private readonly IUserService userService;
         private readonly IOrdersService ordersService;
-        private readonly UserManager<ColorMixUser> userManager;
 
         public UsersController(IUserService userService, 
-                               IOrdersService ordersService,
-                               UserManager<ColorMixUser> userManager)
+                               IOrdersService ordersService)
         {
             this.userService = userService;
             this.ordersService = ordersService;
-            this.userManager = userManager;
         }
 
         [Authorize]
@@ -35,9 +32,7 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult MyPersonalData()
         {
-            var userId = this.userManager.GetUserId(this.User);
-
-            var profileData = this.userService.GetUserData(userId);
+            var profileData = this.userService.GetUserData(this.User);
 
             return View(profileData);
         }
@@ -46,13 +41,9 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePersonalData(ProfileDataViewModel model)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
             if (ModelState.IsValid)
             {
-                this.userService.ChangeUserData(user, model);
-
-                await this.userManager.UpdateAsync(user);
+                await this.userService.ChangeUserData(this.User, model);
             }
 
             return RedirectToAction("MyPersonalData");

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Services.Mapping;
@@ -15,45 +19,91 @@ namespace ColorMix.Services.DataServices.Tests
 {
     public class UserServiceTests
     {
+        private readonly Mock<UserManager<ColorMixUser>> mockUserManager;
+        private readonly ColorMixContext dbContext;
+
+        public UserServiceTests()
+        {
+            this.mockUserManager = new Mock<UserManager<ColorMixUser>>(
+                new Mock<IUserStore<ColorMixUser>>().Object,
+                new Mock<IOptions<IdentityOptions>>().Object,
+                new Mock<IPasswordHasher<ColorMixUser>>().Object,
+                new IUserValidator<ColorMixUser>[0],
+                new IPasswordValidator<ColorMixUser>[0],
+                new Mock<ILookupNormalizer>().Object,
+                new Mock<IdentityErrorDescriber>().Object,
+                new Mock<IServiceProvider>().Object,
+                new Mock<ILogger<UserManager<ColorMixUser>>>().Object);
+
+            this.dbContext = new ColorMixContext(new DbContextOptionsBuilder<ColorMixContext>()
+                .UseInMemoryDatabase("ColorMix")
+                .Options);
+        }
+
         [Fact]
         public void GetUserDataShouldNotReturnNull()
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
+            AutoMapperConfig.RegisterMappings(
+                typeof(CategoryViewModel).Assembly
+            );
             
-            var dbContext = new ColorMixContext(options);
-            var id = Guid.NewGuid().ToString();
+            var roleId = Guid.NewGuid().ToString();
 
-            dbContext.Users.Add(new ColorMixUser()
+            var role = new IdentityRole()
             {
-                Id = id,
+                Id = roleId,
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            };
+
+            this.dbContext.Roles.Add(role);
+            this.dbContext.SaveChanges();
+
+            var userId = Guid.NewGuid().ToString();
+
+            var user = new ColorMixUser()
+            {
+                Id = userId,
                 ShoppingCart = new ShoppingCart(),
                 Address = new Address(),
                 FirstName = "Georgi",
                 LastName = "Popov",
                 PhoneNumber = "12345678",
                 Age = 25,
-                Email = "popov@abv.bg"
-            });
+                Email = "popov@abv.bg",
+                UserName = "Georgi"
+            };
 
-            dbContext.SaveChanges();
+            this.dbContext.Users.Add(user);
+            this.dbContext.SaveChanges();
 
-            var service = new UserService(dbContext);
+            this.dbContext.UserRoles.Add(new IdentityUserRole<string>() {UserId = userId, RoleId = roleId});
+            this.dbContext.SaveChanges();
 
-            var user = service.GetUserData(id);
+            var service = new UserService(dbContext,mockUserManager.Object);
 
-            Assert.NotNull(user);
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, "Georgi"),
+                new Claim(ClaimTypes.NameIdentifier, userId),
+                new Claim(ClaimTypes.Role, "User"),
+                new Claim("name", "Georgi"),
+            };
+
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+
+            var principal = new ClaimsPrincipal(identity);
+
+            this.mockUserManager.Object.CreateAsync(user).GetAwaiter().GetResult();
+            var userData = service.GetUserData(principal);
+
+            Assert.NotNull(userData);
         }
 
         [Fact]
-        public void ChangePersonalDataShouldEditUserData()
+        public async Task ChangePersonalDataShouldEditUserData()
         {
-            var options = new DbContextOptionsBuilder<ColorMixContext>()
-                .UseInMemoryDatabase("ColorMix")
-                .Options;
-
-            var dbContext = new ColorMixContext(options);
             var id = Guid.NewGuid().ToString();
 
             AutoMapperConfig.RegisterMappings(
@@ -75,10 +125,10 @@ namespace ColorMix.Services.DataServices.Tests
             dbContext.Users.Add(user);
 
             dbContext.SaveChanges();
-
-            var service = new UserService(dbContext);
             
-            var newUserData = new ProfileDataViewModel()
+            var service = new UserService(dbContext,mockUserManager.Object);
+            
+            var model = new ProfileDataViewModel()
             {
                 AddressStreet = "Street",
                 AddressCity = "City",
@@ -91,13 +141,31 @@ namespace ColorMix.Services.DataServices.Tests
                 Email = "email@mail.com"
             };
 
-            service.ChangeUserData(user, newUserData);
+            var appUser = new ColorMixUser()
+            {
+                UserName = "Georgi"
+            };
+
+            await mockUserManager.Object.CreateAsync(appUser);
+
+            //var principal = new TestPrincipal(new Claim("name", "Georgi"));
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, "Georgi"),
+                new Claim(ClaimTypes.NameIdentifier, "1"),
+                new Claim("name", "Georgi"),
+            };
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+            var claimsPrincipal = new ClaimsPrincipal(identity);
+            
+            await service.ChangeUserData(claimsPrincipal, model);
 
             dbContext.Users.Update(user);
 
             dbContext.SaveChanges();
 
-            var newUser = dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var newUser = dbContext.Users.FirstOrDefault(x => x.Id == id);
 
             Assert.NotSame(newUser, user);
         }

@@ -30,9 +30,7 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult CheckoutAddress()
         {
-            var userId = this.userManager.GetUserId(this.User);
-
-            var userData = userService.GetUserData(userId);
+            var userData = userService.GetUserData(this.User);
 
             var viewModel = new OrdersViewModel()
             {
