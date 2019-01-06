@@ -18,6 +18,7 @@ namespace ColorMix.Web.Areas.Administration.Controllers
         {
             this.ordersService = ordersService;
         }
+
         public IActionResult SendOrders()
         {
             var sendOrders = this.ordersService.GetAllSendOrders();

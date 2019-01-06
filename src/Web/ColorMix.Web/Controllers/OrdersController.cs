@@ -4,6 +4,8 @@ using ColorMix.Services.Models.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using ColorMix.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ColorMix.Web.Controllers
 {
@@ -12,20 +14,25 @@ namespace ColorMix.Web.Controllers
         private readonly IUserService userService;
         private readonly ICartService cartService;
         private readonly IOrdersService ordersService;
+        private readonly UserManager<ColorMixUser> userManager;
 
         public OrdersController(IUserService userService,
                                 ICartService cartService,
-                                IOrdersService ordersService)
+                                IOrdersService ordersService,
+                                UserManager<ColorMixUser> userManager)
         {
             this.userService = userService;
             this.cartService = cartService;
             this.ordersService = ordersService;
+            this.userManager = userManager;
         }
 
         [Authorize]
         public IActionResult CheckoutAddress()
         {
-            var userData = userService.GetUserData(User);
+            var userId = this.userManager.GetUserId(this.User);
+
+            var userData = userService.GetUserData(userId);
 
             var viewModel = new OrdersViewModel()
             {

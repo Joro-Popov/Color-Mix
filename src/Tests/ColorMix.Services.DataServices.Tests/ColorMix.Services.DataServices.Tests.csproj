@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\ColorMix.Services.DataServices\ColorMix.Services.DataServices.csproj" />
+  </ItemGroup>
+
 </Project>
