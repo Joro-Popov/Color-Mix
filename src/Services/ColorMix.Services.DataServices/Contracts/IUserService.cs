@@ -13,7 +13,5 @@ namespace ColorMix.Services.DataServices.Contracts
         ProfileDataViewModel GetUserData(ClaimsPrincipal principal);
 
         Task ChangeUserData(ClaimsPrincipal principal, ProfileDataViewModel model);
-
-        void SendMessage(EmailViewModel model);
     }
 }

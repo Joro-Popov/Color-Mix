@@ -97,6 +97,7 @@ namespace ColorMix.Web
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

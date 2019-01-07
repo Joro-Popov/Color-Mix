@@ -54,20 +54,5 @@ namespace ColorMix.Services.DataServices
 
             await userManager.UpdateAsync(user);
         }
-
-        public void SendMessage(EmailViewModel model)
-        {
-            var message = new Message()
-            {
-                Content = model.Message,
-                EmailAddress = model.EmailAddress,
-                IsAnswered = false,
-                SendOn = DateTime.UtcNow,
-                Title = model.Title
-            };
-
-            this.dbContext.Messages.Add(message);
-            this.dbContext.SaveChanges();
-        }
     }
 }

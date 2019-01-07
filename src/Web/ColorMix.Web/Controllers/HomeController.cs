@@ -9,12 +9,12 @@ namespace ColorMix.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ICartService cartService;
-        private readonly IUserService userService;
+        private readonly IMessageService messageService;
 
-        public HomeController(ICartService cartService, IUserService userService)
+        public HomeController(ICartService cartService, IMessageService messageService)
         {
             this.cartService = cartService;
-            this.userService = userService;
+            this.messageService = messageService;
         }
 
         public IActionResult Index()
@@ -37,7 +37,7 @@ namespace ColorMix.Web.Controllers
         {
             if (!ModelState.IsValid) return this.View(model);
 
-            this.userService.SendMessage(model);
+            this.messageService.SendMessage(model);
             
             this.TempData["SendMessage"] = "Успешно изпратихте съобщение!";
 
