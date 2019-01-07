@@ -14,6 +14,8 @@ namespace ColorMix.Services.DataServices.Contracts
 
         void SendAnswer(SendMessageViewModel model);
 
+        void DeleteMessage(Guid messageId);
+
         MessageDetailsViewModel GetMessageDetails(Guid messageId);
 
         IEnumerable<MessageViewModel> GetAllUnAnsweredMessages();

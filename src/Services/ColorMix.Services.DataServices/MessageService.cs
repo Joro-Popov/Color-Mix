@@ -71,6 +71,15 @@ namespace ColorMix.Services.DataServices
             this.ChangeMessageStatus(model.Id);
         }
 
+        public void DeleteMessage(Guid messageId)
+        {
+            var message = this.dbContext.Messages
+                .FirstOrDefault(x => x.Id == messageId);
+
+            this.dbContext.Messages.Remove(message);
+            this.dbContext.SaveChanges();
+        }
+
         public MessageDetailsViewModel GetMessageDetails(Guid messageId)
         {
             var details = this.dbContext.Messages

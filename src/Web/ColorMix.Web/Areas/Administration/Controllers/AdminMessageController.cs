@@ -51,5 +51,17 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 
             return this.RedirectToAction("UnAnsweredMessages");
         }
+
+        public IActionResult DeleteMessage(Guid messageId)
+        {
+            if (!this.messageService.MessageExists(messageId))
+            {
+                return View("Error", new ErrorViewModel() { Message = ERROR });
+            }
+
+            this.messageService.DeleteMessage(messageId);
+
+            return this.RedirectToAction("UnAnsweredMessages");
+        }
     }
 }

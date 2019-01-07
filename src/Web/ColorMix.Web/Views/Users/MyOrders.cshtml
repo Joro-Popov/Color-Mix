@@ -18,9 +18,12 @@
                     <div class="box">
                         <h1>Моите поръчки</h1>
                         <p class="lead">Вашите поръчки на едно място.</p>
-                        <p class="text-muted">
-                            Ако имате въпроси, <a asp-controller="Home" asp-action="Contacts">Свържете се с нас</a>
-                        </p>
+                        @if (this.User.IsInRole("User"))
+                        {
+                            <p class="text-muted">
+                                Ако имате въпроси, <a asp-controller="Home" asp-action="Contacts">Свържете се с нас</a>
+                            </p>
+                        }
                         <hr>
                         <div class="table-responsive">
                             <table class="table table-hover">

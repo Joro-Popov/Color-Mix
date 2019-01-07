@@ -22,13 +22,16 @@
                                 <tbody>
                                     @foreach (var message in Model)
                                     {
-                                    <tr>
-                                        <th>@message.EmailAddress</th>
-                                        <th>@message.Title</th>
-                                        <th>@message.SendOn</th>
-                                        <td>@message.Content</td>
-                                        <td><a asp-area="Administration" asp-controller="AdminMessage" asp-action="MessageDetails" asp-route-messageId="@message.Id" class="btn btn-primary btn-sm">Детайли</a></td>
-                                    </tr>
+                                        <tr>
+                                            <th>@message.EmailAddress</th>
+                                            <th>@message.Title</th>
+                                            <th>@message.SendOn</th>
+                                            <td>@message.Content</td>
+                                            <td><a asp-area="Administration" asp-controller="AdminMessage" asp-action="MessageDetails" asp-route-messageId="@message.Id" class="btn btn-primary btn-sm">Детайли</a></td>
+                                            <td>
+                                                <a asp-area="Administration" asp-controller="AdminMessage" asp-action="DeleteMessage" asp-route-messageId="@message.Id"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
                                     }
                                 </tbody>
                             </table>
