@@ -19,6 +19,9 @@ body {
     background-image: url("/img/background.jpg");
 }
 
+.home-page-element {
+    color: #9055A2;
+}
 a, button {
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
@@ -344,6 +347,7 @@ h1 {
         text-transform: uppercase;
         letter-spacing: 0.1em;
         z-index: 2;
+        color: #9055A2
     }
 
         #advantages .box h3 a:hover {
@@ -475,7 +479,7 @@ h1 {
     background: #fff;
     margin: 0 0 30px;
     border: solid 1px #e6e6e6;
-    padding: 20px;
+    padding: 26px;
     -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }

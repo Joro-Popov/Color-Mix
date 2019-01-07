@@ -16,7 +16,7 @@ namespace ColorMix.Web.Controllers
             this.cartService = cartService;
             this.messageService = messageService;
         }
-
+        
         public IActionResult Index()
         {
             if (this.User.Identity.IsAuthenticated)
