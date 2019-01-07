@@ -11,6 +11,7 @@
     <Compile Remove="Migrations\20190102080706_ShoppingCartSizeChange.cs" />
     <Compile Remove="Migrations\20190102080805_ShoppingCartItemSizeChange.cs" />
     <Compile Remove="Migrations\20190107161323_AddMessageTable.cs" />
+    <Compile Remove="Migrations\20190107184629_MessageChange.cs" />
   </ItemGroup>
 
   <ItemGroup>

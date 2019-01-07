@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.6.0" />
+    <PackageReference Include="MailKit" Version="2.1.2" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
   </ItemGroup>
 

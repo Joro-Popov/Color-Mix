@@ -1,0 +1,36 @@
+﻿@model MessageDetailsViewModel
+
+<div id="all">
+    <div id="content">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-lg-3">
+                    <!--
+                    *** CUSTOMER MENU ***
+                    _________________________________________________________
+                    -->
+                    <partial name="~/Areas/Administration/Views/Shared/_AdminMenuPartial.cshtml" />
+                    <!-- /.col-lg-3-->
+                    <!-- *** CUSTOMER MENU END ***-->
+                </div>
+                <div id="customer-order" class="col-lg-9">
+                    <div class="box">
+                        <div>
+                            <span class="mr-2 mb-1">Относно:</span>@Model.Title<br />
+                            <span class="mr-2 mb-1">Изпратено от:</span>@Model.EmailAddress<br />
+                            <span class="mr-2">Изпратено на:</span>@Model.SendOn
+                            <textarea type="text" class="form-control mt-3" style="height: 120px" placeholder="Съдържание" disabled="disabled"></textarea>
+                            <hr />
+                        </div>
+                        <h3>Изпрати отговор</h3>
+                        <partial name="~/Areas/Administration/Views/AdminMessage/_SendAnswerPartial.cshtml"
+                                 model="new SendMessageViewModel{ Id = Model.Id, EmailAddress = Model.EmailAddress }" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

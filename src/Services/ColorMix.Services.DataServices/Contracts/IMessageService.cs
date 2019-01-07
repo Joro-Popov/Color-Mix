@@ -10,6 +10,12 @@ namespace ColorMix.Services.DataServices.Contracts
     {
         void SendMessage(EmailViewModel model);
 
+        bool MessageExists(Guid messageId);
+
+        void SendAnswer(SendMessageViewModel model);
+
+        MessageDetailsViewModel GetMessageDetails(Guid messageId);
+
         IEnumerable<MessageViewModel> GetAllUnAnsweredMessages();
     }
 }

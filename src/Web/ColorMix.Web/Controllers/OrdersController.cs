@@ -78,6 +78,8 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult Details(Guid id)
         {
+            //TODO: Check if order exists
+
             var detailsModel = this.ordersService.GetOrderDetails(id);
 
             return this.View(detailsModel);

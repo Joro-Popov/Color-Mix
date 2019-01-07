@@ -27,7 +27,7 @@
                                         <th>@message.Title</th>
                                         <th>@message.SendOn</th>
                                         <td>@message.Content</td>
-                                        <td><a asp-controller="Orders" asp-action="Details" asp-route-id="@message.Id" class="btn btn-primary btn-sm">Детайли</a></td>
+                                        <td><a asp-area="Administration" asp-controller="AdminMessage" asp-action="MessageDetails" asp-route-messageId="@message.Id" class="btn btn-primary btn-sm">Детайли</a></td>
                                     </tr>
                                     }
                                 </tbody>

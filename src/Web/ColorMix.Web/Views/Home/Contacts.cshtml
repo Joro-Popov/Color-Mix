@@ -80,10 +80,12 @@
     </div>
 </div>
 @section Scripts{
-    <script>
-        window.setTimeout(function() {
+    <partial name="_ValidationScriptsPartial" />
 
-            $(".custom-alert").slideUp(500, function() {
+    <script>
+        window.setTimeout(function () {
+
+            $(".custom-alert").slideUp(500, function () {
                 $(this).remove();
             });
         }, 3000);
