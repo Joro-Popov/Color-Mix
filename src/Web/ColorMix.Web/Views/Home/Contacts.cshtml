@@ -1,40 +1,39 @@
-﻿<div id="all">
+﻿@model EmailViewModel
+
+<div id="all">
     <div id="content">
         <div class="container mt-4">
+            @if (this.TempData.Count > 0)
+            {
+                <div class="alert alert-success custom-alert" role="alert">
+                    @this.TempData["SendMessage"]
+                </div>
+            }
             <div class="row">
                 <div class="col-lg-5">
                     <div id="contact" class="box">
                         <h2>Пишете ни</h2>
-                        <form>
+                        <form asp-controller="Home" , asp-action="Contacts" method="post">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="firstname">Име</label>
-                                        <input id="firstname" type="text" class="form-control">
+                                        <label asp-for="Title">Заглавие</label>
+                                        <input asp-for="Title" type="text" class="form-control" placeholder="Заглавие">
+                                        <span asp-validation-for="Title" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="lastname">Фамилия</label>
-                                        <input id="lastname" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email">E-mail адрес</label>
-                                        <input id="email" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="subject">Заглавие</label>
-                                        <input id="subject" type="text" class="form-control">
+                                        <label asp-for="Title">E-mail адрес</label>
+                                        <input asp-for="EmailAddress" type="email" class="form-control" placeholder="E-mail адрес">
+                                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="message">Съобщение</label>
-                                        <textarea id="message" class="form-control" style="height: 132px;"></textarea>
+                                        <label asp-for="Message">Съобщение</label>
+                                        <textarea asp-for="Message" type="text" class="form-control" style="height: 120px" placeholder="Съдържание"></textarea>
+                                        <span asp-validation-for="Message" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-center">
@@ -80,3 +79,13 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+        window.setTimeout(function() {
+
+            $(".custom-alert").slideUp(500, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    </script>
+}

@@ -1,4 +1,5 @@
-﻿using ColorMix.Data;
+﻿using System;
+using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Mapping;
@@ -6,6 +7,7 @@ using ColorMix.Services.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -13,6 +15,8 @@ namespace ColorMix.Services.DataServices
 {
     public class UserService : IUserService
     {
+        private const string RECEIVER_EMAIL = "popov937@abv.bg";
+
         private readonly ColorMixContext dbContext;
         private readonly UserManager<ColorMixUser> userManager;
 
@@ -49,6 +53,21 @@ namespace ColorMix.Services.DataServices
             user.PhoneNumber = model.PhoneNumber;
 
             await userManager.UpdateAsync(user);
+        }
+
+        public void SendMessage(EmailViewModel model)
+        {
+            var message = new Message()
+            {
+                Content = model.Message,
+                EmailAddress = model.EmailAddress,
+                IsAnswered = false,
+                SendOn = DateTime.UtcNow,
+                Title = model.Title
+            };
+
+            this.dbContext.Messages.Add(message);
+            this.dbContext.SaveChanges();
         }
     }
 }

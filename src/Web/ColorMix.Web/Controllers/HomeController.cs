@@ -1,5 +1,6 @@
 ﻿using ColorMix.Data.Models;
 using ColorMix.Services.DataServices.Contracts;
+using ColorMix.Services.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace ColorMix.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ICartService cartService;
+        private readonly IUserService userService;
 
-        public HomeController(ICartService cartService)
+        public HomeController(ICartService cartService, IUserService userService)
         {
             this.cartService = cartService;
+            this.userService = userService;
         }
 
         public IActionResult Index()
@@ -25,6 +28,18 @@ namespace ColorMix.Web.Controllers
             {
                 return this.RedirectToAction("Index", "Home", new {area = "Administration"});
             }
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Contacts(EmailViewModel model)
+        {
+            if (!ModelState.IsValid) return this.View(model);
+
+            this.userService.SendMessage(model);
+            
+            this.TempData["SendMessage"] = "Успешно изпратихте съобщение!";
 
             return this.View();
         }
