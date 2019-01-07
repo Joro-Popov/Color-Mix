@@ -26,6 +26,7 @@ namespace ColorMix.Services.DataServices.Tests
                 .Options);
 
             this.categoryService = new CategoryService(dbContext);
+
             this.productService = new ProductService(dbContext, categoryService);
         }
 

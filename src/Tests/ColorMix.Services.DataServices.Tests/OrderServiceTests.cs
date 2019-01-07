@@ -20,7 +20,7 @@ namespace ColorMix.Services.DataServices.Tests
 {
     public class OrderServiceTests
     {
-        private readonly Mock<UserManager<ColorMixUser>>mockUserManager;
+        private readonly Mock<UserManager<ColorMixUser>> mockUserManager;
         private readonly ColorMixContext dbContext;
         private readonly OrdersService orderService;
 
