@@ -8,7 +8,7 @@ using ColorMix.Services.Mapping.Contracts;
 
 namespace ColorMix.Services.Models.Administration
 {
-    public class MessageDetailsViewModel : IMapFrom<Message>, ICustomMappings
+    public class MessageDetailsViewModel : IMapFrom<Message>
     {
         public Guid Id { get; set; }
 
@@ -18,15 +18,6 @@ namespace ColorMix.Services.Models.Administration
 
         public string Content { get; set; }
 
-        public string SendOn { get; set; }
-        
-        public void CreateMappings(IMapperConfigurationExpression configuration)
-        {
-            configuration.CreateMap<Message, MessageViewModel>()
-                .ForMember(opt => opt.SendOn,
-                    opt => opt.MapFrom(x => x.SendOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)))
-                .ForMember(opt => opt.Content,
-                    opt => opt.MapFrom(x => x.Content));
-        }
+        public DateTime SendOn { get; set; }
     }
 }

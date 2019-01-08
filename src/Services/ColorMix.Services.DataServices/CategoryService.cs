@@ -17,6 +17,7 @@ namespace ColorMix.Services.DataServices
         {
             this.dbContext = dbContext;
         }
+
         public IEnumerable<CategoryViewModel> GetAllCategories()
         {
             var categories = this.dbContext.Categories.To<CategoryViewModel>().ToList();

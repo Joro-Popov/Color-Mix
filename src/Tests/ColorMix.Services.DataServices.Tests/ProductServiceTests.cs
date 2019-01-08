@@ -6,8 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ColorMix.Services.DataServices.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
 
@@ -26,8 +28,11 @@ namespace ColorMix.Services.DataServices.Tests
                 .Options);
 
             this.categoryService = new CategoryService(dbContext);
-
-            this.productService = new ProductService(dbContext, categoryService);
+            
+            var configuration = new Mock<IConfigurationRoot>();
+            configuration.SetupGet(x => x[It.IsAny<string>()]).Returns("");
+            
+            this.productService = new ProductService(dbContext, categoryService, configuration.Object);
         }
 
         [Fact]

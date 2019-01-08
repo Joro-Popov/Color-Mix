@@ -243,19 +243,5 @@ namespace ColorMix.Services.DataServices
             
             return uploadResult.SecureUri.ToString();
         }
-
-        //private void DeleteImageFromCloud()
-        //{
-        //    var account = new Account("colormix", "578625178927514", "Sbnv_9RaLWphaerau3bWDJh2c_A");
-        //    var cloudinary = new Cloudinary(account);
-
-        //    var delParams = new DelResParams()
-        //    {
-        //        PublicIds = new List<string>() { "zombie" },
-        //        Invalidate = true
-        //    };
-
-        //    cloudinary.DeleteResources(delParams);
-        //}
     }
 }

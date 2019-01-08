@@ -11,7 +11,7 @@
             <li>
                 <a asp-controller="Users" asp-action="MyPersonalData" class="nav-link"><i class="fa fa-user"></i>Лични данни</a>
             </li>
-            @if (UserManager.GetUserAsync(this.User).GetAwaiter().GetResult().PasswordHash != null)
+            @if (UserManager.GetUserAsync(this.User).GetAwaiter().GetResult()?.PasswordHash != null)
             {
                 <li>
                     <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="nav-link"><i class="fas fa-users-cog mr-1"></i>Смяна на парола</a>

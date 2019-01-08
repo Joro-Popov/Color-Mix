@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore.Internal;
 using Xunit;
 
 namespace ColorMix.Services.DataServices.Tests
@@ -22,6 +24,11 @@ namespace ColorMix.Services.DataServices.Tests
                 .Options);
 
             categoryService = new CategoryService(dbContext);
+            Mapper.Reset();
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(CategoryViewModel).Assembly
+            );
         }
 
         [Fact]
@@ -35,16 +42,13 @@ namespace ColorMix.Services.DataServices.Tests
 
             };
 
-            AutoMapperConfig.RegisterMappings(
-                typeof(CategoryViewModel).Assembly
-            );
-
             dbContext.Categories.AddRange(categories);
             dbContext.SaveChanges();
 
-            var dbCategories = categoryService.GetAllCategories();
+            var expected = categoryService.GetAllCategories().Count();
+            var actual = this.dbContext.Categories.Count();
 
-            Assert.Equal(3, dbCategories.Count());
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -94,6 +98,7 @@ namespace ColorMix.Services.DataServices.Tests
             dbContext.SubCategories.Add(subCategory);
             dbContext.SaveChanges();
             
+
             var actualCategoryId = categoryService.GetCategoryId(category.Name);
             var actualSubCategoryId = categoryService.GetCategoryId(category.Name, subCategory.Name);
 
@@ -107,9 +112,9 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetAllCategoriesAndSubCategoriesShouldReturnAllPresentCategoriesAndTheirSubCategories()
         {
-            AutoMapperConfig.RegisterMappings(
-                typeof(CategoryViewModel).Assembly
-            );
+            foreach (var entity in dbContext.Categories)
+                dbContext.Categories.Remove(entity);
+            dbContext.SaveChanges();
 
             var categories = new List<Category>()
             {
@@ -206,6 +211,11 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void CreateCategoryShouldAddNewCategoryToDatabase()
         {
+            foreach (var entity in dbContext.Categories)
+                dbContext.Categories.Remove(entity);
+
+            dbContext.SaveChanges();
+
             var model = new CreateCategoryViewModel()
             {
                 CategoryName = "Men",

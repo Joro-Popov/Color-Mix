@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using AutoMapper;
 using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Data.Models.Enumerations;
@@ -42,7 +43,12 @@ namespace ColorMix.Services.DataServices.Tests
                 .Options);
 
             this.orderService = new OrdersService(this.mockUserManager.Object, this.dbContext);
-            
+
+            Mapper.Reset();
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(CategoryViewModel).Assembly
+            );
         }
 
         [Fact]
@@ -111,14 +117,8 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetAllOrdersShouldReturnAllOrdersMade()
         {
-            var principal = new TestPrincipal(new Claim("name", "Georgi"));
-
             var id = Guid.NewGuid().ToString();
-
-            AutoMapperConfig.RegisterMappings(
-                typeof(CategoryViewModel).Assembly
-            );
-
+            
             var user = new ColorMixUser()
             {
                 Id = id,
@@ -176,7 +176,9 @@ namespace ColorMix.Services.DataServices.Tests
 
             var orders = this.orderService.GetAllOrders();
 
-            Assert.Equal(4, orders.Count());
+            var expected = this.dbContext.Orders.Count(x => x.Status == OrderStatus.BeingPrepared);
+
+            Assert.Equal(expected, orders.Count());
         }
 
         [Fact]
@@ -185,11 +187,7 @@ namespace ColorMix.Services.DataServices.Tests
             var principal = new TestPrincipal(new Claim("name", "Georgi"));
 
             var id = Guid.NewGuid().ToString();
-
-            AutoMapperConfig.RegisterMappings(
-                typeof(CategoryViewModel).Assembly
-            );
-
+            
             var user = new ColorMixUser()
             {
                 Id = id,
