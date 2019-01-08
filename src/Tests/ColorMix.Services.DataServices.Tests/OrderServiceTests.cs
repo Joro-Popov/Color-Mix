@@ -77,8 +77,6 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetUserOrdersShouldReturnCurrentUserOrders()
         {
-            var principal = new TestPrincipal(new Claim("name", "Georgi"));
-            
             var id = Guid.NewGuid().ToString();
 
             var user = new ColorMixUser()
@@ -108,6 +106,18 @@ namespace ColorMix.Services.DataServices.Tests
             dbContext.Users.Add(user);
 
             dbContext.SaveChanges();
+
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, "Georgi"),
+                new Claim(ClaimTypes.NameIdentifier, id),
+                new Claim(ClaimTypes.Role, "User"),
+                new Claim("name", "Georgi"),
+            };
+            
+            var identity = new ClaimsIdentity(claims, "TestAuthType");
+
+            var principal = new ClaimsPrincipal(identity);
 
             var orders = this.orderService.GetUserOrders(principal);
 
@@ -184,8 +194,6 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetAllSendOrdersShouldReturnOrdersWithStatusSend()
         {
-            var principal = new TestPrincipal(new Claim("name", "Georgi"));
-
             var id = Guid.NewGuid().ToString();
             
             var user = new ColorMixUser()

@@ -10,8 +10,6 @@ namespace ColorMix.Services.Models.Administration
 {
     public class MessageViewModel : IMapFrom<Message>,ICustomMappings
     {
-        //TODO: Add Validations
-
         public Guid Id { get; set; }
 
         public string Title { get; set; }

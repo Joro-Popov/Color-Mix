@@ -6,7 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AutoMapper;
 using ColorMix.Services.DataServices.Contracts;
+using ColorMix.Services.Mapping;
+using ColorMix.Services.Models.Categories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +36,12 @@ namespace ColorMix.Services.DataServices.Tests
             configuration.SetupGet(x => x[It.IsAny<string>()]).Returns("");
             
             this.productService = new ProductService(dbContext, categoryService, configuration.Object);
+
+            Mapper.Reset();
+
+            AutoMapperConfig.RegisterMappings(
+                typeof(CategoryViewModel).Assembly
+            );
         }
 
         [Fact]

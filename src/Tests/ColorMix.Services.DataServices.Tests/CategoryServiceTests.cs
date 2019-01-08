@@ -24,6 +24,7 @@ namespace ColorMix.Services.DataServices.Tests
                 .Options);
 
             categoryService = new CategoryService(dbContext);
+
             Mapper.Reset();
 
             AutoMapperConfig.RegisterMappings(
@@ -34,6 +35,11 @@ namespace ColorMix.Services.DataServices.Tests
         [Fact]
         public void GetAllCategoriesShouldReturnAllPresentCategories()
         {
+            foreach (var entity in dbContext.Categories)
+                dbContext.Categories.Remove(entity);
+
+            dbContext.SaveChanges();
+
             var categories = new List<Category>()
             {
                 new Category() { Id = Guid.NewGuid(), Name = "Men" },
@@ -114,6 +120,7 @@ namespace ColorMix.Services.DataServices.Tests
         {
             foreach (var entity in dbContext.Categories)
                 dbContext.Categories.Remove(entity);
+
             dbContext.SaveChanges();
 
             var categories = new List<Category>()

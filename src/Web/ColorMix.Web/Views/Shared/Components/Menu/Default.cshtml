@@ -26,6 +26,10 @@
                     <div id="basket-overview" class="d-lg-block"><a asp-controller="Home" asp-action="Contacts" class="btn btn-primary navbar-btn"><i class="far fa-comments mr-1"></i><span>Контакти</span></a></div>
                 }
 
+                @if (this.User.Identity.IsAuthenticated && !this.User.IsInRole("Admin"))
+                {
+                    <div id="basket-overview" class="d-lg-block"><a asp-controller="Home" asp-action="Contacts" class="btn btn-primary navbar-btn"><i class="far fa-comments mr-1"></i><span>Контакти</span></a></div>
+                }
 
                 <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
                     <a asp-controller="Cart" asp-action="Index" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span>Количка</span></a>

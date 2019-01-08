@@ -29,7 +29,7 @@ namespace ColorMix.Services.DataServices.Tests
             var configuration = new Mock<IConfigurationRoot>();
             configuration.SetupGet(x => x[It.IsAny<string>()]).Returns("");
 
-            this.messageService = new MessageService(dbContext, configuration.Object);
+            this.messageService = new MessageService(this.dbContext, configuration.Object);
 
             Mapper.Reset();
             
