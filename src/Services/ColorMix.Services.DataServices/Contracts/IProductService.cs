@@ -18,6 +18,8 @@ namespace ColorMix.Services.DataServices.Contracts
 
         Size GetProductSize(string size);
 
+        IEnumerable<ProductViewModel> GetRandomProducts(int count);
+
         bool CheckIfProductExists(Guid id);
         
         void CreateProduct(CreateProductViewModel model);

@@ -100,7 +100,7 @@
                     var categoryName = $('#Category option:selected').val();
                     $.ajax({
                         type: 'GET',
-                        url: '/Administration/Products/GetSubCategoryNames',
+                        url: '/Administration/AdminProducts/GetSubCategoryNames',
                         contentType: 'application/json; charset=utf-8',
                         data: { categoryName: categoryName },
                         dataType: 'json',

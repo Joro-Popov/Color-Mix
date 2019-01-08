@@ -10,11 +10,13 @@ namespace ColorMix.Web.Controllers
     {
         private readonly ICartService cartService;
         private readonly IMessageService messageService;
+        private readonly IProductService productService;
 
-        public HomeController(ICartService cartService, IMessageService messageService)
+        public HomeController(ICartService cartService, IMessageService messageService, IProductService productService)
         {
             this.cartService = cartService;
             this.messageService = messageService;
+            this.productService = productService;
         }
         
         public IActionResult Index()
@@ -29,9 +31,11 @@ namespace ColorMix.Web.Controllers
                 return this.RedirectToAction("Index", "Home", new {area = "Administration"});
             }
 
+            var randomProducts = this.ViewData["RandomProducts"] = this.productService.GetRandomProducts(5);
+
             return this.View();
         }
-
+        
         [HttpPost]
         public IActionResult Contacts(EmailViewModel model)
         {

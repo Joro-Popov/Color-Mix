@@ -34,7 +34,7 @@
                     <div class="col-md-4">
                         <div class="box d-flex flex-column justify-content-center mb-0 h-100">
                             <div class="icon"><i class="fa fa-thumbs-up"></i></div>
-                            <h3>100% satisfaction guaranteed</h3>
+                            <h3>100% качество</h3>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2 class="mb-0">Горещи оферти!</h2>
+                            <h2 class="mb-0">Нашите продукти!</h2>
                         </div>
                     </div>
                 </div>
@@ -60,91 +60,26 @@
         <div class="container">
             <div class="product-slider owl-carousel owl-theme">
                 <!--Loop over products-->
-                <div class="item mr-3">
-                    <div class="product">
-                        <div class="flip-container">
-                            <div class="flipper">
-                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
-                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
-                            </div>
-                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
-                        <div class="text">
-                            <h3><a href="detail.html">Дамско палто</a></h3>
-                            <p class="price">
-                                <del></del>45.00 лв.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- /.product-->
-                </div>
-                <div class="item mr-3">
-                    <div class="product">
-                        <div class="flip-container">
-                            <div class="flipper">
-                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
-                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
-                            </div>
-                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
-                        <div class="text">
-                            <h3><a href="detail.html">Дамско палто</a></h3>
-                            <p class="price">
-                                <del></del>45.00 лв.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- /.product-->
-                </div>
-                <div class="item mr-3">
-                    <div class="product">
-                        <div class="flip-container">
-                            <div class="flipper">
-                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
-                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
-                            </div>
-                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
-                        <div class="text">
-                            <h3><a href="detail.html">Дамско палто</a></h3>
-                            <p class="price">
-                                <del></del>45.00 лв.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- /.product-->
-                </div>
-                <div class="item mr-3">
-                    <div class="product">
-                        <div class="flip-container">
-                            <div class="flipper">
-                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
-                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
-                            </div>
-                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
-                        <div class="text">
-                            <h3><a href="detail.html">Дамско палто</a></h3>
-                            <p class="price">
-                                <del></del>45.00 лв.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- /.product-->
-                </div>
-                <div class="item mr-3">
-                    <div class="product">
-                        <div class="flip-container">
-                            <div class="flipper">
-                                <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
-                                <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
-                            </div>
-                        </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
-                        <div class="text">
-                            <h3><a href="detail.html">Дамско палто</a></h3>
-                            <p class="price">
-                                <del></del>45.00 лв.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- /.product-->
-                </div>
+               @foreach (var product in (HashSet<ProductViewModel>) this.ViewData["RandomProducts"])
+               {
+                   <div class="item mr-3">
+                       <div class="product">
+                           <div class="flip-container">
+                               <div class="flipper">
+                                   <div class="front"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>
+                                   @*<div class="back"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>*@
+                               </div>
+                           </div><a href="detail.html" class="invisible"><img src="@product.ImageUrl" alt="" class="img-fluid"></a>
+                           <div class="text">
+                               <h3><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h3>
+                               <p class="price">
+                                   <del></del>@product.Price лв.
+                               </p>
+                           </div>
+                       </div>
+                       <!-- /.product-->
+                   </div>
+               }
             </div>
         </div>
         <!--End of Hot offers-->

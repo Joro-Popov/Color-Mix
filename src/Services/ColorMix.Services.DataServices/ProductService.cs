@@ -13,6 +13,7 @@ using ColorMix.Data.Models;
 using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Cart;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using X.PagedList;
 using Size = ColorMix.Data.Models.Size;
 
@@ -22,12 +23,14 @@ namespace ColorMix.Services.DataServices
     {
         private readonly ColorMixContext dbContext;
         private readonly ICategoryService categoryService;
+        private readonly IConfiguration configuration;
         private const int PAGE_SIZE = 9;
 
-        public ProductService(ColorMixContext dbContext, ICategoryService categoryService)
+        public ProductService(ColorMixContext dbContext, ICategoryService categoryService, IConfiguration configuration)
         {
             this.dbContext = dbContext;
             this.categoryService = categoryService;
+            this.configuration = configuration;
         }
 
         public AllProductsViewModel GetProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId = null)
@@ -83,6 +86,28 @@ namespace ColorMix.Services.DataServices
         public Size GetProductSize(string size)
         {
             return this.dbContext.Sizes.FirstOrDefault(s => s.Abbreviation == size);
+        }
+
+        public IEnumerable<ProductViewModel> GetRandomProducts(int count)
+        {
+            var random = new Random();
+
+            var randomProducts = new HashSet<ProductViewModel>();
+
+            var products = dbContext.Products
+                .To<ProductViewModel>()
+                .ToList();
+
+            var end = products.Count < count ? products.Count : count;
+
+            while (randomProducts.Count < end)
+            {
+                var index = random.Next(0, products.Count);
+
+                randomProducts.Add(products[index]);
+            }
+
+            return randomProducts;
         }
 
         public bool CheckIfProductExists(Guid id)
@@ -181,7 +206,6 @@ namespace ColorMix.Services.DataServices
             var randomProducts = new HashSet<ProductViewModel>();
 
             var category = dbContext.Products
-                .Include(x => x.Category)
                 .FirstOrDefault(p => p.Id == productId)?.Category;
 
             var products = dbContext.Products
@@ -203,17 +227,35 @@ namespace ColorMix.Services.DataServices
         
         private string GetImageUrl(IFormFile image)
         {
-            var account = new Account("colormix", "578625178927514", "Sbnv_9RaLWphaerau3bWDJh2c_A");
-            var cloudinary = new Cloudinary(account);
+            var apiKey = this.configuration["Authentication:Cloudinary:ApiKey"];
+            var apiSecret = this.configuration["Authentication:Cloudinary:ApiSecret"];
+            var cloudName = this.configuration["Authentication:Cloudinary:CloudName"];
 
+            var account = new Account(cloudName, apiKey, apiSecret);
+            var cloudinary = new Cloudinary(account);
+            
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription(image.Name, image.OpenReadStream())
+                File = new FileDescription(image.FileName, image.OpenReadStream())
             };
-
+            
             var uploadResult = cloudinary.Upload(uploadParams);
-
+            
             return uploadResult.SecureUri.ToString();
         }
+
+        //private void DeleteImageFromCloud()
+        //{
+        //    var account = new Account("colormix", "578625178927514", "Sbnv_9RaLWphaerau3bWDJh2c_A");
+        //    var cloudinary = new Cloudinary(account);
+
+        //    var delParams = new DelResParams()
+        //    {
+        //        PublicIds = new List<string>() { "zombie" },
+        //        Invalidate = true
+        //    };
+
+        //    cloudinary.DeleteResources(delParams);
+        //}
     }
 }
