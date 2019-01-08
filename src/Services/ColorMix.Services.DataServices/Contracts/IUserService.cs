@@ -10,8 +10,8 @@ namespace ColorMix.Services.DataServices.Contracts
 {
     public interface IUserService
     {
-        ProfileDataViewModel GetUserData(ClaimsPrincipal principal);
+        ProfileDataViewModel GetUserData(string userId);
 
-        Task ChangeUserData(ClaimsPrincipal principal, ProfileDataViewModel model);
+        void ChangeUserData(string userId, ProfileDataViewModel model);
     }
 }

@@ -10,11 +10,11 @@ namespace ColorMix.Services.DataServices.Contracts
 {
     public interface ICartService
     {
-        IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, ClaimsPrincipal principal);
+        IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, string userId);
 
-        void MoveFromSessionCartToDbCart(ISession session, ClaimsPrincipal principal);
+        void MoveFromSessionCartToDbCart(ISession session, string userId);
 
-        void AddToCart(DetailsViewModel product, ISession session, ClaimsPrincipal principal);
+        void AddToCart(DetailsViewModel product, ISession session, string userId);
 
         void Remove(Guid productId, string size, ISession session, ClaimsPrincipal principal);
     }

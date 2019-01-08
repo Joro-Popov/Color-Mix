@@ -18,19 +18,15 @@ namespace ColorMix.Services.DataServices
 {
     public class OrdersService : IOrdersService
     {
-        private readonly UserManager<ColorMixUser> userManager;
         private readonly ColorMixContext dbContext;
 
-        public OrdersService(UserManager<ColorMixUser> userManager, ColorMixContext dbContext)
+        public OrdersService(ColorMixContext dbContext)
         {
-            this.userManager = userManager;
             this.dbContext = dbContext;
         }
 
-        public void PlaceOrder(OrdersViewModel model, ClaimsPrincipal principal)
+        public void PlaceOrder(OrdersViewModel model, string userId)
         {
-            var userId = this.userManager.GetUserId(principal);
-
             var order = new Order()
             {
                 OrderDate = DateTime.UtcNow,
@@ -63,14 +59,11 @@ namespace ColorMix.Services.DataServices
 
             this.dbContext.Invoices.Add(invoice);
             this.dbContext.Orders.Add(order);
-
             this.dbContext.SaveChanges();
         }
 
-        public IEnumerable<MyOrdersViewModel> GetUserOrders(ClaimsPrincipal principal)
+        public IEnumerable<MyOrdersViewModel> GetUserOrders(string userId)
         {
-            var userId = this.userManager.GetUserId(principal);
-
             var orders = this.dbContext.Orders
                 .Where(x => x.UserId == userId)
                 .To<MyOrdersViewModel>()

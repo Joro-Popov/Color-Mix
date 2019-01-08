@@ -21,28 +21,16 @@ namespace ColorMix.Services.DataServices.Tests
 {
     public class OrderServiceTests
     {
-        private readonly Mock<UserManager<ColorMixUser>> mockUserManager;
         private readonly ColorMixContext dbContext;
         private readonly OrdersService orderService;
 
         public OrderServiceTests()
         {
-            this.mockUserManager = new Mock<UserManager<ColorMixUser>>(
-                new Mock<IUserStore<ColorMixUser>>().Object,
-                new Mock<IOptions<IdentityOptions>>().Object,
-                new Mock<IPasswordHasher<ColorMixUser>>().Object,
-                new IUserValidator<ColorMixUser>[0],
-                new IPasswordValidator<ColorMixUser>[0],
-                new Mock<ILookupNormalizer>().Object,
-                new Mock<IdentityErrorDescriber>().Object,
-                new Mock<IServiceProvider>().Object,
-                new Mock<ILogger<UserManager<ColorMixUser>>>().Object);
-
             this.dbContext = new ColorMixContext(new DbContextOptionsBuilder<ColorMixContext>()
                 .UseInMemoryDatabase("ColorMix")
                 .Options);
 
-            this.orderService = new OrdersService(this.mockUserManager.Object, this.dbContext);
+            this.orderService = new OrdersService(this.dbContext);
 
             Mapper.Reset();
 
@@ -67,9 +55,24 @@ namespace ColorMix.Services.DataServices.Tests
                 Email = "Email@email.com"
             };
 
-            var principal = new TestPrincipal(new Claim("name","Georgi"));
+            var id = Guid.NewGuid().ToString();
 
-            this.orderService.PlaceOrder(model,principal);
+            var user = new ColorMixUser()
+            {
+                Id = id,
+                ShoppingCart = new ShoppingCart(),
+                Address = new Address(),
+                FirstName = "Georgi",
+                LastName = "Popov",
+                PhoneNumber = "12345678",
+                Age = 25,
+                Email = "popov@abv.bg"
+            };
+
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+
+            this.orderService.PlaceOrder(model,id);
 
             Assert.NotEmpty(dbContext.Orders);
         }
@@ -106,20 +109,8 @@ namespace ColorMix.Services.DataServices.Tests
             dbContext.Users.Add(user);
 
             dbContext.SaveChanges();
-
-            var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Name, "Georgi"),
-                new Claim(ClaimTypes.NameIdentifier, id),
-                new Claim(ClaimTypes.Role, "User"),
-                new Claim("name", "Georgi"),
-            };
             
-            var identity = new ClaimsIdentity(claims, "TestAuthType");
-
-            var principal = new ClaimsPrincipal(identity);
-
-            var orders = this.orderService.GetUserOrders(principal);
+            var orders = this.orderService.GetUserOrders(id);
 
             Assert.Single(orders);
         }

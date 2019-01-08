@@ -10,9 +10,9 @@ namespace ColorMix.Services.DataServices.Contracts
 {
     public interface IOrdersService
     {
-        void PlaceOrder(OrdersViewModel model, ClaimsPrincipal principal);
+        void PlaceOrder(OrdersViewModel model, string userId);
 
-        IEnumerable<MyOrdersViewModel> GetUserOrders(ClaimsPrincipal principal);
+        IEnumerable<MyOrdersViewModel> GetUserOrders(string userId);
 
         IEnumerable<OrderViewModel> GetAllOrders();
 

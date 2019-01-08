@@ -11,19 +11,26 @@ namespace ColorMix.Web.Controllers
         private readonly ICartService cartService;
         private readonly IMessageService messageService;
         private readonly IProductService productService;
+        private readonly UserManager<ColorMixUser> userManager;
 
-        public HomeController(ICartService cartService, IMessageService messageService, IProductService productService)
+        public HomeController(ICartService cartService, 
+                              IMessageService messageService, 
+                              IProductService productService,
+                              UserManager<ColorMixUser> userManager)
         {
             this.cartService = cartService;
             this.messageService = messageService;
             this.productService = productService;
+            this.userManager = userManager;
         }
         
         public IActionResult Index()
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                this.cartService.MoveFromSessionCartToDbCart(this.HttpContext.Session, this.User);
+                var userId = this.userManager.GetUserId(this.User);
+
+                this.cartService.MoveFromSessionCartToDbCart(this.HttpContext.Session, userId);
             }
 
             if (this.User.IsInRole("Admin"))

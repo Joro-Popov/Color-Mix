@@ -29,10 +29,8 @@ namespace ColorMix.Services.DataServices
             this.userManager = userManager;
         }
 
-        public IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, ClaimsPrincipal principal)
+        public IEnumerable<ShoppingCartViewModel> GetAllCartProducts(ISession session, string userId)
         {
-            var userId = this.userManager.GetUserId(principal);
-
             if (userId != null)
             {
                 var user = this.dbContext.Users
@@ -70,10 +68,8 @@ namespace ColorMix.Services.DataServices
             return cart ?? new List<ShoppingCartViewModel>();
         }
 
-        public void AddToCart(DetailsViewModel product, ISession session, ClaimsPrincipal principal)
+        public void AddToCart(DetailsViewModel product, ISession session, string userId)
         {
-            var userId = this.userManager.GetUserId(principal);
-            
             if (userId != null)
             {
                 AddProductToDbCart(product, userId);
@@ -84,10 +80,8 @@ namespace ColorMix.Services.DataServices
             }
         }
 
-        public void MoveFromSessionCartToDbCart(ISession session, ClaimsPrincipal principal)
+        public void MoveFromSessionCartToDbCart(ISession session, string userId)
         {
-            var userId = this.userManager.GetUserId(principal);
-
             var user = this.dbContext.Users
                 .FirstOrDefault(x => x.Id == userId);
                 

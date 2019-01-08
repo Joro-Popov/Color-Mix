@@ -15,33 +15,24 @@ namespace ColorMix.Services.DataServices
 {
     public class UserService : IUserService
     {
-        private const string RECEIVER_EMAIL = "popov937@abv.bg";
-
         private readonly ColorMixContext dbContext;
-        private readonly UserManager<ColorMixUser> userManager;
 
-        public UserService(ColorMixContext dbContext, UserManager<ColorMixUser> userManager)
+        public UserService(ColorMixContext dbContext)
         {
             this.dbContext = dbContext;
-            this.userManager = userManager;
         }
 
-        public ProfileDataViewModel GetUserData(ClaimsPrincipal principal)
+        public ProfileDataViewModel GetUserData(string userId)
         {
-            var userId = this.userManager.GetUserId(principal);
-
             var userData = dbContext.Users.Where(u => u.Id == userId)
                 .To<ProfileDataViewModel>().First();
 
             return userData;
         }
 
-        public async Task ChangeUserData(ClaimsPrincipal principal, ProfileDataViewModel model)
+        public void ChangeUserData(string userId, ProfileDataViewModel model)
         {
-            var userId = userManager.GetUserId(principal);
-
-            var user = await userManager.Users
-                .FirstOrDefaultAsync(x => x.Id == userId);
+            var user = this.dbContext.Users.FirstOrDefault(x => x.Id == userId);
 
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
@@ -52,7 +43,8 @@ namespace ColorMix.Services.DataServices
             user.Address.ZipCode = model.AddressZipCode;
             user.PhoneNumber = model.PhoneNumber;
 
-            await userManager.UpdateAsync(user);
+            this.dbContext.Users.Update(user);
+            this.dbContext.SaveChanges();
         }
     }
 }

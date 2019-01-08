@@ -30,7 +30,9 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult CheckoutAddress()
         {
-            var userData = userService.GetUserData(this.User);
+            var userId = this.userManager.GetUserId(this.User);
+
+            var userData = userService.GetUserData(userId);
 
             var viewModel = new OrdersViewModel()
             {
@@ -53,7 +55,9 @@ namespace ColorMix.Web.Controllers
         {
             if (!ModelState.IsValid) return RedirectToAction("CheckoutAddress");
 
-            var products = cartService.GetAllCartProducts(HttpContext.Session, User);
+            var userId = this.userManager.GetUserId(this.User);
+
+            var products = cartService.GetAllCartProducts(HttpContext.Session, userId);
 
             model.Products = products.ToList();
 
@@ -66,11 +70,13 @@ namespace ColorMix.Web.Controllers
         {
             if (!ModelState.IsValid) return RedirectToAction("OrderReview");
 
-            var products = cartService.GetAllCartProducts(HttpContext.Session, User);
+            var userId = this.userManager.GetUserId(this.User);
+
+            var products = cartService.GetAllCartProducts(HttpContext.Session, userId);
 
             model.Products = products.ToList();
 
-            ordersService.PlaceOrder(model, User);
+            ordersService.PlaceOrder(model, userId);
 
             return RedirectToAction("MyOrders", "Users");
         }
