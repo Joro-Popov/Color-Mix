@@ -66,10 +66,10 @@
                        <div class="product">
                            <div class="flip-container">
                                <div class="flipper">
-                                   <div class="front"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>
-                                   @*<div class="back"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-fluid"></a></div>*@
+                                   <div class="front"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-thumbnail" style="width: 300px; height: 210px;"></a></div>
+                                   <div class="back"><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" alt="" class="img-thumbnail" style="width: 300px; height: 210px;"></a></div>
                                </div>
-                           </div><a href="detail.html" class="invisible"><img src="@product.ImageUrl" alt="" class="img-fluid"></a>
+                           </div><a href="detail.html" class="invisible"><img src="@product.ImageUrl" alt="" class="img-thumbnail" style="width: 300px; height: 210px;"></a>
                            <div class="text">
                                <h3><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></h3>
                                <p class="price">

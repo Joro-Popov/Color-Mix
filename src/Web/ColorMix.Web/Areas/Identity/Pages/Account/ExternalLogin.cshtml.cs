@@ -16,9 +16,6 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private const string INVALID_NAME_LENGTH = "Въведете име с дължина между 3 и 32 символа !";
-        private const string INVALID_SYMBOLS = "Полето съдържа невалидни символи !";
-        private const string INVALID_AGE = "Въведете години между 16 и 80 !";
         private const string INVALID_EMAIL_ADDRESS = "Невалиден E-mail адрес !";
         private const string REQUIRED_FIELD = "Полето е задължително !";
 
@@ -51,12 +48,6 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
             [Required(ErrorMessage = REQUIRED_FIELD)]
             [EmailAddress(ErrorMessage = INVALID_EMAIL_ADDRESS)]
             public string Email { get; set; }
-            
-            public string FirstName { get; set; }
-            
-            public string LastName { get; set; }
-            
-            public string PhoneNumber { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -139,9 +130,11 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
                     Address = new Address()
                 };
                 var result = await _userManager.CreateAsync(user);
+
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
+
                     if (result.Succeeded)
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
