@@ -78,6 +78,50 @@ namespace ColorMix.Services.DataServices.Tests
         }
 
         [Fact]
+        public void SendOrderShouldChangeOrderStatusToSend()
+        {
+            var model = new OrdersViewModel()
+            {
+                Products = new List<ShoppingCartViewModel>(),
+                AddressStreet = "street",
+                AddressCity = "city",
+                AddressCountry = "country",
+                AddressZipCode = 1000,
+                FirstName = "Georgi",
+                LastName = "Popov",
+                PhoneNumber = "12345",
+                Email = "Email@email.com"
+            };
+
+            var id = Guid.NewGuid().ToString();
+
+            var user = new ColorMixUser()
+            {
+                Id = id,
+                ShoppingCart = new ShoppingCart(),
+                Address = new Address(),
+                FirstName = "Georgi",
+                LastName = "Popov",
+                PhoneNumber = "12345678",
+                Age = 25,
+                Email = "popov@abv.bg"
+            };
+
+            dbContext.Users.Add(user);
+            dbContext.SaveChanges();
+
+            this.orderService.PlaceOrder(model, id);
+
+            var oldOrder = this.orderService.GetAllOrders().First();
+
+            this.orderService.SendOrder(oldOrder.Id);
+
+            var newOrder = this.orderService.GetAllSendOrders().First();
+
+            Assert.NotEqual(oldOrder.Status, newOrder.Status);
+        }
+
+        [Fact]
         public void GetUserOrdersShouldReturnCurrentUserOrders()
         {
             var id = Guid.NewGuid().ToString();
