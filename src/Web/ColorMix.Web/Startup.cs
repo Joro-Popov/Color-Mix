@@ -99,7 +99,10 @@ namespace ColorMix.Web
             services.AddScoped<IOrdersService, OrdersService>();
             services.AddScoped<IMessageService, MessageService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         public void Configure(IApplicationBuilder app,
