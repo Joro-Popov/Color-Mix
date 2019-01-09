@@ -111,6 +111,8 @@ namespace ColorMix.Services.DataServices.Tests
             foreach (var entity in dbContext.Messages)
                 dbContext.Messages.Remove(entity);
 
+            this.dbContext.SaveChanges();
+
             var messages = new List<Message>();
 
             for (int i = 0; i < 4; i++)

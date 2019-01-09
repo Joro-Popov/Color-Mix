@@ -85,7 +85,9 @@ namespace ColorMix.Services.DataServices
 
         public Size GetProductSize(string size)
         {
-            return this.dbContext.Sizes.FirstOrDefault(s => s.Abbreviation == size);
+            var productSize = this.dbContext.Sizes.FirstOrDefault(s => s.Abbreviation == size);
+
+            return productSize;
         }
 
         public IEnumerable<ProductViewModel> GetRandomProducts(int count)
@@ -131,10 +133,11 @@ namespace ColorMix.Services.DataServices
                 ImageUrl = this.GetImageUrl(model.Image)
             };
 
+            var sz = model.Sizes
+                .Split(',', StringSplitOptions.RemoveEmptyEntries);
+
             var sizes = model.Sizes
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Distinct()
-                .Where(x => product.Sizes.Any(s => s.Size.Abbreviation != x))
                 .Select(x => new ProductSize()
                 {
                     Product = product,
@@ -172,7 +175,6 @@ namespace ColorMix.Services.DataServices
             var sizes = model.Sizes
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Distinct()
-                .Where(x => product.Sizes.Any(s => s.Size.Abbreviation != x))
                 .Select(x => new ProductSize()
                 {
                     Product = product,

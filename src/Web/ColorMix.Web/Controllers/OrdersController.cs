@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ColorMix.Data.Models;
+using ColorMix.Services.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace ColorMix.Web.Controllers
 {
     public class OrdersController : BaseController
     {
+        private const string ERROR = "Възникна грешка!";
+
         private readonly IUserService userService;
         private readonly ICartService cartService;
         private readonly IOrdersService ordersService;
@@ -84,7 +87,10 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult Details(Guid id)
         {
-            //TODO: Check if order exists
+            if (!this.ordersService.OrderExists(id))
+            {
+                return View("Error", new ErrorViewModel() { Message = ERROR });
+            }
 
             var detailsModel = this.ordersService.GetOrderDetails(id);
 

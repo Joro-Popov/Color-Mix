@@ -14,7 +14,6 @@ namespace ColorMix.Services.Models.Products
     {
         private const string INVALID_NAME_LENGTH = "Въведете име с дължина между 3 и 32 символа !";
         private const string INVALID_SYMBOLS = "Полето съдържа невалидни символи !";
-        private const string INVALID_IMAGE = "Изберете изображение за продукта !";
         private const string INVALID_CATEGORY = "Изберете категория от списъка !";
         private const string REQUIRED_FIELD = "Полето е задължително !";
         private const string INVALID_PRICE = "Въведете валидна стойност!";
@@ -43,7 +42,7 @@ namespace ColorMix.Services.Models.Products
         public bool IsAvailable { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
-        [RegularExpression("^[\u0410-\u044F]+", ErrorMessage = INVALID_SYMBOLS)]
+        [RegularExpression("^[\u0410-\u044F\\s]+", ErrorMessage = INVALID_SYMBOLS)]
         public string Color { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]

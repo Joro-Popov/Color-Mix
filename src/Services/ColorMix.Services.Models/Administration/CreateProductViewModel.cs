@@ -33,7 +33,7 @@ namespace ColorMix.Services.Models.Administration
         public string Description { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
-        [RegularExpression("^[\u0410-\u044F]+", ErrorMessage = INVALID_SYMBOLS)]
+        [RegularExpression("^[\u0410-\u044F\\s]+", ErrorMessage = INVALID_SYMBOLS)]
         public string Color { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]

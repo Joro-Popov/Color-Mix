@@ -47,12 +47,11 @@ namespace ColorMix.Web.Controllers
         [Authorize]
         public IActionResult ChangePersonalData(ProfileDataViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = this.userManager.GetUserId(this.User);
+            if (!ModelState.IsValid) return RedirectToAction("MyPersonalData");
 
-                this.userService.ChangeUserData(userId, model);
-            }
+            var userId = this.userManager.GetUserId(this.User);
+
+            this.userService.ChangeUserData(userId, model);
 
             return RedirectToAction("MyPersonalData");
         }

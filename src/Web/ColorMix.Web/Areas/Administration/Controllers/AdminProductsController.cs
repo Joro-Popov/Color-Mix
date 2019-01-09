@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ColorMix.Services.DataServices.Contracts;
+using ColorMix.Services.Models;
 using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Products;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +16,8 @@ namespace ColorMix.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminProductsController : AdminController
     {
+        private const string ERROR = "Възникна грешка!";
+
         private readonly ICategoryService categoryService;
         private readonly IProductService productService;
 
@@ -54,6 +57,11 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 
         public IActionResult EditProduct(Guid id)
         {
+            if (!this.productService.CheckIfProductExists(id))
+            {
+                return View("Error", new ErrorViewModel() { Message = ERROR });
+            }
+
             var product = this.productService.GetProduct(id);
 
             var categoryData = this.categoryService.GetAllCategoriesAndSubCategories();
@@ -75,6 +83,11 @@ namespace ColorMix.Web.Areas.Administration.Controllers
 
         public IActionResult DeleteProduct(Guid id)
         {
+            if (!this.productService.CheckIfProductExists(id))
+            {
+                return View("Error", new ErrorViewModel() { Message = ERROR });
+            }
+
             var categoryName = this.productService.GetProduct(id).Category;
             var categoryId = this.categoryService.GetCategoryId(categoryName);
 
