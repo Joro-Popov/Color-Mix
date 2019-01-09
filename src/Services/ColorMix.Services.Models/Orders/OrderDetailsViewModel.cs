@@ -10,6 +10,8 @@ namespace ColorMix.Services.Models.Orders
 {
     public class OrderDetailsViewModel
     {
+        public Guid Id { get; set; }
+
         public string OrderNumber { get; set; }
 
         public IList<OrderProductViewModel> Products { get; set; }

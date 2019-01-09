@@ -62,6 +62,22 @@ namespace ColorMix.Services.DataServices
             this.dbContext.SaveChanges();
         }
 
+        public void SendOrder(Guid orderId)
+        {
+            var order = this.dbContext.Orders
+                .FirstOrDefault(x => x.Id == orderId);
+
+            order.Status = OrderStatus.Send;
+
+            this.dbContext.Orders.Update(order);
+            this.dbContext.SaveChanges();
+        }
+
+        public bool OrderExists(Guid orderId)
+        {
+            return this.dbContext.Orders.Any(x => x.Id == orderId);
+        }
+
         public IEnumerable<MyOrdersViewModel> GetUserOrders(string userId)
         {
             var orders = this.dbContext.Orders
@@ -99,6 +115,7 @@ namespace ColorMix.Services.DataServices
 
             var orderDetails = new OrderDetailsViewModel()
             {
+                Id = order.Id,
                 OrderNumber = order.Id.ToString().Substring(0,8),
                 Products = order.OrderProducts
                     .Select(x => new OrderProductViewModel()

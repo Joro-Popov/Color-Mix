@@ -30,36 +30,42 @@
                             </p>
                             <hr>
                         }
-                        <div class="table-responsive mb-4">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">Продукт</th>
-                                        <th>Количество</th>
-                                        <th>Единична цена</th>
-                                        <th>Общо</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var product in Model.Products)
-                                    {
+                            <div class="table-responsive mb-4">
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td><a href="#"><img src="@product.ImageUrl" alt="@product.Name"></a></td>
-                                            <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
-                                            <td>@product.Quantity</td>
-                                            <td>@product.UnitPrice лв.</td>
-                                            <td>@product.TotalPrice лв.</td>
+                                            <th colspan="2">Продукт</th>
+                                            <th>Количество</th>
+                                            <th>Единична цена</th>
+                                            <th>Общо</th>
                                         </tr>
-                                    }
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="5" class="text-right">Общо</th>
-                                        <th>@Model.OrderTotalPrice</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var product in Model.Products)
+                                        {
+                                            <tr>
+                                                <td><a href="#"><img src="@product.ImageUrl" alt="@product.Name"></a></td>
+                                                <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
+                                                <td>@product.Quantity</td>
+                                                <td>@product.UnitPrice лв.</td>
+                                                <td>@product.TotalPrice лв.</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="5" class="text-right">Общо</th>
+                                            <th>@Model.OrderTotalPrice</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                @if (this.User.IsInRole("Admin"))
+                                {
+                                    <div id="basket-overview" class="d-flex justify-content-end">
+                                        <a asp-area="Administration" asp-controller="AdminOrders" asp-action="SendOrder" asp-route-orderId="@Model.Id" class="btn btn-primary navbar-btn"><i class="fas fa-sign-in-alt mr-1"></i><span>Изпрати</span></a>
+                                    </div>
+                                }
+                            </div>
                         <!-- /.table-responsive-->
                         <div class="justify-content-end">
                             <h2>Адрес за доставка</h2>

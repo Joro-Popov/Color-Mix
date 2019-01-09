@@ -12,6 +12,10 @@ namespace ColorMix.Services.DataServices.Contracts
     {
         void PlaceOrder(OrdersViewModel model, string userId);
 
+        void SendOrder(Guid orderId);
+
+        bool OrderExists(Guid orderId);
+
         IEnumerable<MyOrdersViewModel> GetUserOrders(string userId);
 
         IEnumerable<OrderViewModel> GetAllOrders();
