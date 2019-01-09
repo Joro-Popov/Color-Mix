@@ -64,45 +64,45 @@ namespace ColorMix.Services.DataServices.Tests
             Assert.NotNull(userData);
         }
 
-        [Fact]
-        public void ChangePersonalDataShouldEditUserData()
-        {
-            var id = Guid.NewGuid().ToString();
+        //[Fact]
+        //public void ChangePersonalDataShouldEditUserData()
+        //{
+        //    var id = Guid.NewGuid().ToString();
             
-            var user = new ColorMixUser()
-            {
-                Id = id,
-                ShoppingCart = new ShoppingCart(),
-                Address = new Address(),
-                FirstName = "Georgi",
-                LastName = "Popov",
-                PhoneNumber = "12345678",
-                Age = 25,
-                Email = "popov@abv.bg"
-            };
+        //    var user = new ColorMixUser()
+        //    {
+        //        Id = id,
+        //        ShoppingCart = new ShoppingCart(),
+        //        Address = new Address(),
+        //        FirstName = "Georgi",
+        //        LastName = "Popov",
+        //        PhoneNumber = "12345678",
+        //        Age = 25,
+        //        Email = "popov@abv.bg"
+        //    };
 
-            dbContext.Users.Add(user);
-            dbContext.SaveChanges();
+        //    dbContext.Users.Add(user);
+        //    dbContext.SaveChanges();
             
-            var model = new ProfileDataViewModel()
-            {
-                AddressStreet = "Street",
-                AddressCity = "City",
-                AddressCountry = "Country",
-                FirstName = "Pesho",
-                LastName = "Petrov",
-                Age = 19,
-                AddressZipCode = 1000,
-                PhoneNumber = "1111111",
-                Email = "email@mail.com"
-            };
+        //    var model = new ProfileDataViewModel()
+        //    {
+        //        AddressStreet = "Street",
+        //        AddressCity = "City",
+        //        AddressCountry = "Country",
+        //        FirstName = "Pesho",
+        //        LastName = "Petrov",
+        //        Age = 19,
+        //        AddressZipCode = 1000,
+        //        PhoneNumber = "1111111",
+        //        Email = "email@mail.com"
+        //    };
             
-            this.userService.ChangeUserData(id,model);
+        //    this.userService.ChangeUserData(id,model);
 
-            dbContext.Users.Update(user);
-            dbContext.SaveChanges();
+        //    dbContext.Users.Update(user);
+        //    dbContext.SaveChanges();
 
-            var newUser = dbContext.Users.FirstOrDefault(x => x.Id == id);
-        }
+        //    var newUser = dbContext.Users.FirstOrDefault(x => x.Id == id);
+        //}
     }
 }

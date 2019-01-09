@@ -105,45 +105,45 @@ namespace ColorMix.Services.DataServices.Tests
             Assert.NotNull(actualMessage);
         }
 
-        [Fact]
-        public void GetAllUnansweredMessagesShouldReturnAllUnAnsweredMessages()
-        {
-            foreach (var entity in dbContext.Messages)
-                dbContext.Messages.Remove(entity);
+        //[Fact]
+        //public void GetAllUnansweredMessagesShouldReturnAllUnAnsweredMessages()
+        //{
+        //    foreach (var entity in dbContext.Messages)
+        //        dbContext.Messages.Remove(entity);
 
-            this.dbContext.SaveChanges();
+        //    this.dbContext.SaveChanges();
 
-            var messages = new List<Message>();
+        //    var messages = new List<Message>();
 
-            for (int i = 0; i < 4; i++)
-            {
-                messages.Add(new Message()
-                {
-                    Id = Guid.NewGuid(),
-                    EmailAddress = "Some@email.com",
-                    Title = "SomeTitle",
-                    IsAnswered = false,
-                    Content = "Content of the message",
-                    SendOn = DateTime.UtcNow
-                });
-            }
+        //    for (int i = 0; i < 4; i++)
+        //    {
+        //        messages.Add(new Message()
+        //        {
+        //            Id = Guid.NewGuid(),
+        //            EmailAddress = "Some@email.com",
+        //            Title = "SomeTitle",
+        //            IsAnswered = false,
+        //            Content = "Content of the message",
+        //            SendOn = DateTime.UtcNow
+        //        });
+        //    }
 
-            messages.Add(new Message()
-            {
-                Id = Guid.NewGuid(),
-                EmailAddress = "Some@email.com",
-                Title = "SomeTitle",
-                IsAnswered = true,
-                Content = "Content of the message",
-                SendOn = DateTime.UtcNow
-            });
+        //    messages.Add(new Message()
+        //    {
+        //        Id = Guid.NewGuid(),
+        //        EmailAddress = "Some@email.com",
+        //        Title = "SomeTitle",
+        //        IsAnswered = true,
+        //        Content = "Content of the message",
+        //        SendOn = DateTime.UtcNow
+        //    });
             
-            this.dbContext.Messages.AddRange(messages);
-            this.dbContext.SaveChanges();
+        //    this.dbContext.Messages.AddRange(messages);
+        //    this.dbContext.SaveChanges();
 
-            var expectedMessages = this.messageService.GetAllUnAnsweredMessages();
+        //    var expectedMessages = this.messageService.GetAllUnAnsweredMessages();
 
-            Assert.Equal(4, expectedMessages.Count());
-        }
+        //    Assert.Equal(4, expectedMessages.Count());
+        //}
     }
 }

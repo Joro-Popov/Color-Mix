@@ -8,9 +8,6 @@
 
                     <vc:Side-Menu></vc:Side-Menu>
 
-                    <div class="banner">
-                        <a href="#"><img src="/img/banner.jpg" alt="sales 2014" class="img-fluid"></a>
-                    </div>
                 </div>
                 <div class="col-lg-9">
                     <form asp-controller="Cart" asp-action="AddToCart" method="post">
@@ -19,7 +16,7 @@
                                 <div class="item">
                                     <input asp-for="@Model.Id" type="hidden" />
 
-                                    <img src="@Model.ImageUrl" alt="" class="img-fluid">
+                                    <img src="@Model.ImageUrl" alt="" class="img-thumbnail" style="width: 400px; height: 386px;">
                                     <input asp-for="@Model.ImageUrl" , type="hidden" />
                                 </div>
                                @if (this.User.IsInRole("Admin"))
