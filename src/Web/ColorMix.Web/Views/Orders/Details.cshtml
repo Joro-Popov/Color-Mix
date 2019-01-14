@@ -1,4 +1,5 @@
-﻿@model OrderDetailsViewModel
+﻿@using ColorMix.Data.Models.Enumerations
+@model OrderDetailsViewModel
 
 <div id="all">
     <div id="content">
@@ -59,7 +60,7 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-                                @if (this.User.IsInRole("Admin"))
+                                @if (this.User.IsInRole("Admin") && Model.OrderStatus == OrderStatus.BeingPrepared)
                                 {
                                     <div id="basket-overview" class="d-flex justify-content-end">
                                         <a asp-area="Administration" asp-controller="AdminOrders" asp-action="SendOrder" asp-route-orderId="@Model.Id" class="btn btn-primary navbar-btn"><i class="fas fa-sign-in-alt mr-1"></i><span>Изпрати</span></a>

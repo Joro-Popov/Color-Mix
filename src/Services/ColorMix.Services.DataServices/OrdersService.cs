@@ -117,6 +117,7 @@ namespace ColorMix.Services.DataServices
             {
                 Id = order.Id,
                 OrderNumber = order.Id.ToString().Substring(0,8),
+                OrderStatus = order.Status,
                 Products = order.OrderProducts
                     .Select(x => new OrderProductViewModel()
                     {

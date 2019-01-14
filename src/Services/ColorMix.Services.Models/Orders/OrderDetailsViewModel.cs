@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Text;
 using AutoMapper;
 using ColorMix.Data.Models;
+using ColorMix.Data.Models.Enumerations;
 using ColorMix.Services.Mapping.Contracts;
 
 namespace ColorMix.Services.Models.Orders
@@ -17,6 +18,8 @@ namespace ColorMix.Services.Models.Orders
         public IList<OrderProductViewModel> Products { get; set; }
 
         public decimal OrderTotalPrice { get; set; }
+
+        public OrderStatus OrderStatus { get; set; }
 
         public OrderAddressViewModel Address { get; set; }
     }
