@@ -132,10 +132,7 @@ namespace ColorMix.Services.DataServices
                 Price = model.Price,
                 ImageUrl = this.GetImageUrl(model.Image)
             };
-
-            var sz = model.Sizes
-                .Split(',', StringSplitOptions.RemoveEmptyEntries);
-
+            
             var sizes = model.Sizes
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => new ProductSize()
@@ -161,27 +158,12 @@ namespace ColorMix.Services.DataServices
             product.Material = model.Material;
             product.Description = model.Description;
             product.Price = model.Price;
-
-            if (product.CategoryId != this.categoryService.GetCategoryId(model.Category))
-            {
-                product.CategoryId = this.categoryService.GetCategoryId(model.Category);
-            }
-
-            if (product.SubCategoryId != this.categoryService.GetCategoryId(model.Category, model.SubCategory))
-            {
-                product.CategoryId = this.categoryService.GetCategoryId(model.Category, model.SubCategory);
-            }
-
+            
             var sizes = model.Sizes
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Distinct()
-                .Select(x => new ProductSize()
-                {
-                    Product = product,
-                    Size = this.GetProductSize(x) ?? new Size() { Abbreviation = x }
-                }).ToList();
+                .ToList();
 
-            product.Sizes = sizes;
+            ChangeProductSize(model, product, sizes);
 
             if (model.Image != null)
             {
@@ -191,7 +173,7 @@ namespace ColorMix.Services.DataServices
             this.dbContext.Products.Update(product);
             this.dbContext.SaveChanges();
         }
-
+        
         public void DeleteProduct(Guid id)
         {
             var product = this.dbContext.Products
@@ -244,6 +226,38 @@ namespace ColorMix.Services.DataServices
             var uploadResult = cloudinary.Upload(uploadParams);
             
             return uploadResult.SecureUri.ToString();
+        }
+
+        private void ChangeProductSize(EditProductViewModel model, Product product, ICollection<string> sizes)
+        {
+            if (product.Sizes.Count > sizes.Count)
+            {
+                var sizesToRemove = product.Sizes
+                    .Where(x => !sizes.Contains(x.Size.Abbreviation))
+                    .ToList();
+
+                foreach (var size in sizesToRemove)
+                {
+                    product.Sizes.Remove(size);
+                }
+            }
+            else if (product.Sizes.Count < sizes.Count)
+            {
+                var sizesToAdd = model.Sizes
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Where(x => !product.Sizes.Select(s => s.Size.Abbreviation).Contains(x))
+                    .Select(x => new ProductSize()
+                    {
+                        Product = product,
+                        Size = this.GetProductSize(x) ?? new Size() { Abbreviation = x }
+                    })
+                    .ToList();
+
+                foreach (var size in sizesToAdd)
+                {
+                    product.Sizes.Add(size);
+                }
+            }
         }
     }
 }
