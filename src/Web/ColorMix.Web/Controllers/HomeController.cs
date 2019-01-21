@@ -38,7 +38,7 @@ namespace ColorMix.Web.Controllers
                 return this.RedirectToAction("Index", "Home", new {area = "Administration"});
             }
 
-            var randomProducts = this.ViewData["RandomProducts"] = this.productService.GetRandomProducts(5);
+            this.ViewData["RandomProducts"] = this.productService.GetRandomProducts(5);
 
             return this.View();
         }

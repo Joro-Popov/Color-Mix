@@ -14,7 +14,7 @@ namespace ColorMix.Services.Models.Orders
         public Guid Id { get; set; }
 
         public string OrderNumber { get; set; }
-
+        
         public IList<OrderProductViewModel> Products { get; set; }
 
         public decimal OrderTotalPrice { get; set; }

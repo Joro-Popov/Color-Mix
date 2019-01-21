@@ -2,6 +2,7 @@
 @{
     var totalPrice = Model.Products.Sum(x => x.Total);
 }
+
 <div id="all">
     <div id="content">
         <div class="container mt-3">
@@ -26,6 +27,7 @@
                                             <tr>
                                                 <th colspan="2">Продукт</th>
                                                 <th>Количество</th>
+                                                <th>Размер</th>
                                                 <th>Единична цена</th>
                                                 <th>Общо</th>
                                             </tr>
@@ -42,6 +44,9 @@
                                                     <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
                                                     <td>
                                                         @product.Quantity
+                                                    </td>
+                                                    <td>
+                                                        @product.Size
                                                     </td>
                                                     <td>
                                                         @product.Price

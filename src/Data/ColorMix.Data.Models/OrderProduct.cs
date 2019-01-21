@@ -15,7 +15,9 @@ namespace ColorMix.Data.Models
         public virtual Product Product { get; set; }
 
         public int Quantity { get; set; }
-        
+
+        public string Size { get; set; }
+
         public decimal UnitTotalPrice { get; set; }
     }
 }

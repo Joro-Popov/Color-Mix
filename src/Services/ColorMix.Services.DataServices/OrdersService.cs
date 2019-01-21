@@ -40,6 +40,7 @@ namespace ColorMix.Services.DataServices
                 {
                     ProductId = x.Id,
                     Order = order,
+                    Size = x.Size,
                     Quantity = model.Products.FirstOrDefault(p => p.Id == x.Id).Quantity,
                     UnitTotalPrice = x.Total
                 }).ToList();
@@ -108,10 +109,10 @@ namespace ColorMix.Services.DataServices
             return orders;
         }
 
-        public OrderDetailsViewModel GetOrderDetails(Guid id)
+        public OrderDetailsViewModel GetOrderDetails(Guid orderId)
         {
             var order = this.dbContext.Orders
-                .FirstOrDefault(x => x.Id == id);
+                .FirstOrDefault(x => x.Id == orderId);
 
             var orderDetails = new OrderDetailsViewModel()
             {
@@ -123,6 +124,7 @@ namespace ColorMix.Services.DataServices
                     {
                         Id = x.Product.Id,
                         Name = x.Product.Name,
+                        Size = x.Size,
                         Quantity = x.Quantity,
                         ImageUrl = x.Product.ImageUrl,
                         UnitPrice = x.Product.Price,

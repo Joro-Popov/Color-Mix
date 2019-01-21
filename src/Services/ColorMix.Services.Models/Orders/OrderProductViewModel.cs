@@ -16,6 +16,8 @@ namespace ColorMix.Services.Models.Orders
 
         public int Quantity { get; set; }
 
+        public string Size { get; set; }
+
         public decimal UnitPrice { get; set; }
 
         public decimal TotalPrice { get; set; }

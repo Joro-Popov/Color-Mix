@@ -38,12 +38,7 @@ namespace ColorMix.Services.DataServices
 
                 if (user?.ShoppingCart == null)
                 {
-                    var shoppingCart = new ShoppingCart()
-                    {
-                        UserId = userId
-                    };
-
-                    user.ShoppingCart = shoppingCart;
+                    user.ShoppingCart = new ShoppingCart(){ UserId = userId };
 
                     this.dbContext.SaveChanges();
                 }

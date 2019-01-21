@@ -37,6 +37,7 @@
                                         <tr>
                                             <th colspan="2">Продукт</th>
                                             <th>Количество</th>
+                                            <th>Размер</th>
                                             <th>Единична цена</th>
                                             <th>Общо</th>
                                         </tr>
@@ -44,13 +45,14 @@
                                     <tbody>
                                         @foreach (var product in Model.Products)
                                         {
-                                            <tr>
-                                                <td><a href="#"><img src="@product.ImageUrl" alt="@product.Name"></a></td>
-                                                <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
-                                                <td>@product.Quantity</td>
-                                                <td>@product.UnitPrice лв.</td>
-                                                <td>@product.TotalPrice лв.</td>
-                                            </tr>
+                                        <tr>
+                                            <td><a href="#"><img src="@product.ImageUrl" alt="@product.Name"></a></td>
+                                            <td><a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></td>
+                                            <td>@product.Quantity</td>
+                                            <td>@product.Size</td>
+                                            <td>@product.UnitPrice лв.</td>
+                                            <td>@product.TotalPrice лв.</td>
+                                        </tr>
                                         }
                                     </tbody>
                                     <tfoot>
