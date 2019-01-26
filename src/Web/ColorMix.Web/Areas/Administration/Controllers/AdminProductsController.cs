@@ -95,5 +95,24 @@ namespace ColorMix.Web.Areas.Administration.Controllers
             
             return this.RedirectToAction("ProductsByCategory", "Products", new {categoryId});
         }
+
+        public IActionResult AllUnavailableProducts()
+        {
+            var allUnavailableProducts = this.productService.GetAllUnavailableProducts();
+
+            return this.View(allUnavailableProducts);
+        }
+
+        public IActionResult RestoreProduct(Guid id)
+        {
+            if (!this.productService.CheckIfProductExists(id))
+            {
+                return View("Error", new ErrorViewModel() { Message = ERROR });
+            }
+
+            this.productService.RestoreProduct(id);
+
+            return this.RedirectToAction("AllUnavailableProducts","AdminProducts");
+        }
     }
 }

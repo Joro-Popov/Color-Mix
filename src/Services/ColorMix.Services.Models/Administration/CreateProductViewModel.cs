@@ -29,7 +29,7 @@ namespace ColorMix.Services.Models.Administration
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
-        [RegularExpression("^[\u0410-\u044F\\s]+", ErrorMessage = INVALID_SYMBOLS)]
+        [RegularExpression("^[\u0410-\u044F\\s\\.]+", ErrorMessage = INVALID_SYMBOLS)]
         public string Description { get; set; }
 
         [Required(ErrorMessage = REQUIRED_FIELD)]

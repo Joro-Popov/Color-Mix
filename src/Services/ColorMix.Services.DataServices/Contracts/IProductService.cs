@@ -20,6 +20,8 @@ namespace ColorMix.Services.DataServices.Contracts
 
         IEnumerable<ProductViewModel> GetRandomProducts(int count);
 
+        IEnumerable<UnavailableProductViewModel> GetAllUnavailableProducts();
+
         bool CheckIfProductExists(Guid id);
         
         void CreateProduct(CreateProductViewModel model);
@@ -27,5 +29,7 @@ namespace ColorMix.Services.DataServices.Contracts
         void ChangeProductInfo(EditProductViewModel model);
 
         void DeleteProduct(Guid id);
+
+        void RestoreProduct(Guid id);
     }
 }

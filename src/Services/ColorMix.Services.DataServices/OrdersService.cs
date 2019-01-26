@@ -108,7 +108,7 @@ namespace ColorMix.Services.DataServices
             
             return orders;
         }
-
+        
         public OrderDetailsViewModel GetOrderDetails(Guid orderId)
         {
             var order = this.dbContext.Orders

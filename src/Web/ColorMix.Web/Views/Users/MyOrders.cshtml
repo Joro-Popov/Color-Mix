@@ -57,7 +57,9 @@
                                                     <span class="badge badge-success">Доставена</span>
                                                 }
                                             </td>
-                                            <td><a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-primary btn-sm">Детайли</a></td>
+                                            <td>
+                                                <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-primary btn-sm">Детайли</a>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>

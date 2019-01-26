@@ -21,7 +21,7 @@ namespace ColorMix.Services.DataServices.Contracts
         IEnumerable<OrderViewModel> GetAllOrders();
 
         IEnumerable<OrderViewModel> GetAllSendOrders();
-
+        
         OrderDetailsViewModel GetOrderDetails(Guid orderId);
     }
 }

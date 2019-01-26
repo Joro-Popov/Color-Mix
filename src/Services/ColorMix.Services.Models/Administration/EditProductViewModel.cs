@@ -36,7 +36,7 @@ namespace ColorMix.Services.Models.Products
 
 
         [Required(ErrorMessage = REQUIRED_FIELD)]
-        [RegularExpression("^[\u0410-\u044F\\s]+", ErrorMessage = INVALID_SYMBOLS)]
+        [RegularExpression("^[\u0410-\u044F\\s\\.]+", ErrorMessage = INVALID_SYMBOLS)]
         public string Description { get; set; }
 
         public bool IsAvailable { get; set; }

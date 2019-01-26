@@ -36,7 +36,7 @@ namespace ColorMix.Services.DataServices
         public AllProductsViewModel GetProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId = null)
         {
             var products = dbContext.Products
-                .Where(p => p.CategoryId == categoryId)
+                .Where(p => p.CategoryId == categoryId && p.IsAvailable)
                 .To<ProductViewModel>()
                 .ToList();
 
@@ -179,8 +179,30 @@ namespace ColorMix.Services.DataServices
             var product = this.dbContext.Products
                 .FirstOrDefault(x => x.Id == id);
 
-            this.dbContext.Products.Remove(product);
+            product.IsAvailable = false;
+
+            this.dbContext.Products.Update(product);
             this.dbContext.SaveChanges();
+        }
+
+        public void RestoreProduct(Guid id)
+        {
+            var productToRestore = this.dbContext
+                .Products.FirstOrDefault(x => x.Id == id);
+
+            productToRestore.IsAvailable = true;
+
+            this.dbContext.Products.Update(productToRestore);
+            this.dbContext.SaveChanges();
+        }
+
+        public IEnumerable<UnavailableProductViewModel> GetAllUnavailableProducts()
+        {
+            var unavailableProducts = this.dbContext.Products
+                .Where(p => !p.IsAvailable)
+                .To<UnavailableProductViewModel>();
+
+            return unavailableProducts;
         }
 
         private IEnumerable<ProductViewModel> GetRandomProducts(Guid productId)
