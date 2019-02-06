@@ -46,6 +46,7 @@ namespace ColorMix.Services.DataServices
 
         public void SendAnswer(SendMessageViewModel model)
         {
+            //TODO: Fix Connect settings
             var message = new MimeMessage();
 
             message.From.Add(new MailboxAddress("Color Mix", "popov937@abv.bg"));

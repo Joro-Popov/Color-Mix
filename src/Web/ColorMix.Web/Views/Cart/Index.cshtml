@@ -22,41 +22,41 @@
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th colspan="2">Продукт</th>
-                                        <th>Количество</th>
-                                        <th>Размер</th>
-                                        <th>Единична цена</th>
-                                        <th colspan="2">Общо</th>
-                                    </tr>
+                                <tr>
+                                    <th colspan="2">Продукт</th>
+                                    <th>Количество</th>
+                                    <th>Размер</th>
+                                    <th>Единична цена</th>
+                                    <th colspan="2">Общо</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in Model)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" alt="White Blouse Armani"></a>
-                                            </td>
-                                            <td>
-                                                <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                                            </td>
-                                            <td>
-                                                <input type="number" value="@item.Quantity" class="form-control">
-                                            </td>
-                                            <td>@item.Size</td>
-                                            <td>@item.Price лв.</td>
-                                            <td>@item.Total</td>
-                                            <td>
-                                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" asp-route-size="@item.Size"><i class="fa fa-trash-o"></i></a>
-                                            </td>
-                                        </tr>
-                                    }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id"><img src="@item.ImageUrl" alt="White Blouse Armani"></a>
+                                        </td>
+                                        <td>
+                                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                        </td>
+                                        <td>
+                                            <input type="number" value="@item.Quantity" class="form-control">
+                                        </td>
+                                        <td>@item.Size</td>
+                                        <td>@item.Price лв.</td>
+                                        <td>@item.Total</td>
+                                        <td>
+                                            <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" id="Remove"><i class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                }
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th colspan="5">Общо</th>
-                                        <th colspan="2">@this.ViewData["TotalPrice"] лв.</th>
-                                    </tr>
+                                <tr>
+                                    <th colspan="5">Общо</th>
+                                    <th colspan="2">@this.ViewData["TotalPrice"] лв.</th>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>
@@ -68,18 +68,40 @@
                             @if (Model.Any())
                             {
                                 <div class="right">
-                                    <a asp-controller="Orders" asp-action="CheckoutAddress" type="submit" class="btn btn-primary">
+                                    <a asp-controller="Orders" asp-action="CheckoutAddress" class="btn btn-primary">
                                         Поръчай <i class="fa fa-chevron-right"></i>
                                     </a>
                                 </div>
                             }
                         </div>
                     </div>
-                    <!-- /.box-->
                 </div>
-                <!-- /.col-lg-9-->
-                <!-- /.col-md-3-->
             </div>
         </div>
     </div>
 </div>
+@section Scripts{ 
+    <script>
+        $(document).ready(function () {
+            $('#Remove').onclick(
+                function () {
+                    var productId = $('#Remove').val();
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '/Cart/Remove',
+                        contentType: 'application/json; charset=utf-8',
+                        data: { id: productId },
+                        dataType: 'json',
+                        async: false,
+                        success: function (data) {
+                            $('#ShoppingCartViewModel').replaceWith(JSON.parse()(data));
+                        },
+                        error: function() {
+                            alert('there is some error');
+                        }
+                    });
+                });
+        });
+    </script>
+}

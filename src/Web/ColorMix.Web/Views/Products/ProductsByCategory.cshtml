@@ -1,8 +1,4 @@
-﻿@using X.PagedList
-@using X.PagedList.Mvc.Common
-@using X.PagedList.Mvc.Core
-
-@model AllProductsViewModel
+﻿@model AllProductsViewModel
 @{
     var categoryName = this.ViewData["CategoryName"];
 }
@@ -43,17 +39,17 @@
                             </div>
                         }
                     </div>
-
                     <div class="pages">
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                            @Html.PagedListPager((IPagedList)Model.Products,
-                                page => Url.Action("ProductsByCategory",
-                                    new { Model.CategoryId, page, Model.SubCategoryId }),
-                                    new PagedListRenderOptions()
-                                    {
-                                        UlElementClasses = new List<string> { "pagination"},
-                                        LiElementClasses = new List<string> { "page-item", "page-link"}
-                                    })
+                            @Html.PagedListPager(
+                                             (IPagedList)Model.Products,
+                                pageNumber => Url.Action("ProductsByCategory",
+                                       new { Model.CategoryId, pageNumber, Model.SubCategoryId }),
+                                             new PagedListRenderOptions()
+                                             {
+                                                 UlElementClasses = new List<string> { "pagination"},
+                                                 LiElementClasses = new List<string> { "page-item", "page-link"}
+                                             })
                         </nav>
                     </div>
                 </div>

@@ -33,7 +33,7 @@ namespace ColorMix.Services.DataServices
             this.configuration = configuration;
         }
 
-        public AllProductsViewModel GetProductsByCategory(Guid categoryId, int? page, Guid? subCategoryId = null)
+        public AllProductsViewModel GetProductsByCategory(Guid categoryId, int? pageNumber, Guid? subCategoryId = null)
         {
             var products = dbContext.Products
                 .Where(p => p.CategoryId == categoryId && p.IsAvailable)
@@ -45,15 +45,13 @@ namespace ColorMix.Services.DataServices
                 products = products.Where(p => p.SubCategoryId == subCategoryId).ToList();
             }
 
-            var nextPage = page ?? 1;
-
-            var pagedProducts = products.ToPagedList(nextPage, PAGE_SIZE);
-
+            var nextPage = pageNumber ?? 1;
+            
             var allProducts = new AllProductsViewModel()
             {
                 CategoryId = categoryId,
                 SubCategoryId = subCategoryId,
-                Products = pagedProducts
+                Products = products.ToPagedList(nextPage, PAGE_SIZE)
             };
 
             return allProducts;

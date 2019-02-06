@@ -98,6 +98,7 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account.Manage
             StatusMessage = "Your password has been changed.";
 
             this.TempData["ChangedPassword"] = "Успешно сменихте паролата си!";
+
             return Page();
         }
     }

@@ -16,6 +16,6 @@ namespace ColorMix.Services.DataServices.Contracts
 
         void AddToCart(DetailsViewModel product, ISession session, string userId);
 
-        void Remove(Guid productId, string size, ISession session, ClaimsPrincipal principal);
+        void Remove(Guid productId,ISession session, ClaimsPrincipal principal);
     }
 }

@@ -7,6 +7,7 @@ using ColorMix.Services.Models;
 using ColorMix.Services.Models.Cart;
 using ColorMix.Services.Models.Products;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,16 +62,20 @@ namespace ColorMix.Web.Controllers
             return this.RedirectToAction("Details","Products");
         }
 
-        public IActionResult Remove(Guid id, string size)
+        public IActionResult Remove(Guid id)
         {
             if (!this.productService.CheckIfProductExists(id))
             {
                 return View("Error", new ErrorViewModel() { Message = ERROR });
             }
             
-            this.cartService.Remove(id, size, this.HttpContext.Session, this.User);
+            this.cartService.Remove(id, this.HttpContext.Session, this.User);
 
-            return this.RedirectToAction("Index");
+            var userId = this.userManager.GetUserId(this.User);
+
+            return Json(this.cartService.GetAllCartProducts(this.HttpContext.Session, userId));
+
+            //return this.RedirectToAction("Index");
         }
     }
 }

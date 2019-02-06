@@ -113,12 +113,12 @@ namespace ColorMix.Services.DataServices
             this.dbContext.SaveChanges();
         }
 
-        public void Remove(Guid productId, string size, ISession session, ClaimsPrincipal principal)
+        public void Remove(Guid productId,ISession session, ClaimsPrincipal principal)
         {
             if (!principal.Identity.IsAuthenticated)
             {
                 var cart = SessionHelper.Get<List<DetailsViewModel>>(session, "cart");
-                var index = GetProductIndex(productId, size, session);
+                var index = GetProductIndex(productId,session);
 
                 cart.RemoveAt(index);
 
@@ -129,14 +129,11 @@ namespace ColorMix.Services.DataServices
                 var userId = this.userManager.GetUserId(principal);
 
                 var user = this.dbContext.Users
-                    .Include(x => x.ShoppingCart)
-                    .ThenInclude(x => x.ShoppingCartItems)
-                    .ThenInclude(x => x.Product)
                     .FirstOrDefault(x => x.Id == userId);
 
                 var item = user.ShoppingCart.ShoppingCartItems
                     .ToList()
-                    .FirstOrDefault(x => x.ProductId == productId && x.Size == size);
+                    .FirstOrDefault(x => x.ProductId == productId);
 
                 user.ShoppingCart.ShoppingCartItems.Remove(item);
 
@@ -144,11 +141,11 @@ namespace ColorMix.Services.DataServices
             }
         }
 
-        private int GetProductIndex(Guid productId, string size, ISession session)
+        private int GetProductIndex(Guid productId,ISession session)
         {
             var cart = SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart");
             
-            return cart.Any(x => x.Id == productId && x.Size == size) ? cart.FindIndex(x => x.Id == productId) : -1;
+            return cart.Any(x => x.Id == productId) ? cart.FindIndex(x => x.Id == productId) : -1;
         }
 
         private void AddProductToSessionCart(DetailsViewModel product, ISession session)
@@ -176,7 +173,7 @@ namespace ColorMix.Services.DataServices
             {
                 var cart = SessionHelper.Get<List<ShoppingCartViewModel>>(session, "cart");
 
-                var index = GetProductIndex(product.Id, shoppingCartItem.Size, session);
+                var index = GetProductIndex(product.Id,session);
 
                 if (index != -1)
                 {
@@ -223,7 +220,7 @@ namespace ColorMix.Services.DataServices
 
         private static void AddToShoppingCart(ColorMixUser user, ShoppingCartItem shoppingCartItem)
         {
-            if (user.ShoppingCart.ShoppingCartItems.Any(x => x.ProductId == shoppingCartItem.ProductId && x.Size == shoppingCartItem.Size))
+            if (user.ShoppingCart.ShoppingCartItems.Any(x => x.ProductId == shoppingCartItem.ProductId))
             {
                 var index = user.ShoppingCart.ShoppingCartItems.ToList().FindIndex(x => x.ProductId == shoppingCartItem.ProductId);
 

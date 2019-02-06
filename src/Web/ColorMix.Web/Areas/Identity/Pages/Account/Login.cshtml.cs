@@ -52,7 +52,6 @@ namespace ColorMix.Web.Areas.Identity.Pages.Account
             public string Password { get; set; }
         }
         
-        // TODO: Restrict authorized users
         public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
             if (this.User.Identity.IsAuthenticated)

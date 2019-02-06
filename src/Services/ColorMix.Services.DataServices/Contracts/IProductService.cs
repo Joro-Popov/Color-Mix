@@ -10,7 +10,7 @@ namespace ColorMix.Services.DataServices.Contracts
 {
     public interface IProductService
     {
-        AllProductsViewModel GetProductsByCategory(Guid categoryId, int? page , Guid? subCategoryId = null);
+        AllProductsViewModel GetProductsByCategory(Guid categoryId, int? pageNumber , Guid? subCategoryId = null);
 
         DetailsViewModel GetProductDetails(Guid id);
 
