@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using ColorMix.Data.Models;
 using ColorMix.Services.DataServices.Contracts;
 using Microsoft.AspNetCore.Identity;

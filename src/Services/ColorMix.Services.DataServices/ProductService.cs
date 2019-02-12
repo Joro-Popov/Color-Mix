@@ -1,9 +1,7 @@
-﻿using AutoMapper.QueryableExtensions;
-using ColorMix.Data;
+﻿using ColorMix.Data;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Products;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,6 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using ColorMix.Data.Models;
 using ColorMix.Services.Models.Administration;
-using ColorMix.Services.Models.Cart;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using X.PagedList;
@@ -64,9 +61,7 @@ namespace ColorMix.Services.DataServices
                 .To<DetailsViewModel>()
                 .First();
             
-            var randomProducts = GetRandomProducts(id).ToList();
-
-            details.RandomProducts = randomProducts;
+            details.RandomProducts = GetRandomProducts(id).ToList();
 
             return details;
         }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models;
 using ColorMix.Services.Models.Administration;
@@ -14,8 +11,6 @@ namespace ColorMix.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminMessageController : AdminController
     {
-        private const string ERROR = "Възникна грешка!";
-
         private readonly IMessageService messageService;
 
         public AdminMessageController(IMessageService messageService)

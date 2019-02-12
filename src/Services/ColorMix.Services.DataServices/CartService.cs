@@ -6,14 +6,10 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
 using ColorMix.Data;
 using ColorMix.Data.Models;
-using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Products;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace ColorMix.Services.DataServices
 {
@@ -110,6 +106,7 @@ namespace ColorMix.Services.DataServices
             }
 
             session.Clear();
+
             this.dbContext.SaveChanges();
         }
 

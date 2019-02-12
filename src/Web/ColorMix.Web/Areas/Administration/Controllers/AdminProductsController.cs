@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models;
 using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ColorMix.Web.Areas.Administration.Controllers
 {
@@ -16,8 +13,6 @@ namespace ColorMix.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminProductsController : AdminController
     {
-        private const string ERROR = "Възникна грешка!";
-
         private readonly ICategoryService categoryService;
         private readonly IProductService productService;
 
@@ -48,7 +43,7 @@ namespace ColorMix.Web.Areas.Administration.Controllers
             return this.RedirectToAction("ProductsByCategory", "Products", new {categoryId});
         }
 
-        public IActionResult GetSubCategoryNames(string categoryName)
+        public JsonResult GetSubCategoryNames(string categoryName)
         {
             var subCategoryNames = this.categoryService.GetSubCategoryNames(categoryName);
 

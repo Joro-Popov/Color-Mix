@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using ColorMix.Data.Models;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models;
-using ColorMix.Services.Models.Cart;
 using ColorMix.Services.Models.Products;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +10,6 @@ namespace ColorMix.Web.Controllers
 {
     public class CartController : BaseController
     {
-        private const string ERROR = "Възникна грешка!";
-
         private readonly ICartService cartService;
         private readonly IProductService productService;
         private readonly UserManager<ColorMixUser> userManager;
@@ -33,16 +26,8 @@ namespace ColorMix.Web.Controllers
             var userId = this.userManager.GetUserId(this.User);
 
             var products = this.cartService.GetAllCartProducts(this.HttpContext.Session, userId);
-            
-            var totalPrice = products.Sum(x => x.Total);
-            var tax = totalPrice * 0.2m;
-            var priceWithoutTax = totalPrice - tax;
 
-            this.ViewData["TotalPrice"] = $"{totalPrice:f2}";
-            this.ViewData["Tax"] = $"{tax:f2}";
-            this.ViewData["PriceWithoutTax"] = $"{priceWithoutTax:f2}";
-
-            return View(products);
+            return this.View(products);
         }
 
         [HttpPost]
@@ -50,16 +35,16 @@ namespace ColorMix.Web.Controllers
         {
             var userId = this.userManager.GetUserId(this.User);
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                this.cartService.AddToCart(model, this.HttpContext.Session, userId);
+                ModelState.AddModelError(string.Empty, ERROR);
 
-                return this.RedirectToAction("Index");
+                return this.RedirectToAction("Details", "Products");
             }
-            
-            ModelState.AddModelError(string.Empty, ERROR);
 
-            return this.RedirectToAction("Details","Products");
+            this.cartService.AddToCart(model, this.HttpContext.Session, userId);
+
+            return this.RedirectToAction("Index");
         }
 
         public IActionResult Remove(Guid id)
@@ -70,12 +55,8 @@ namespace ColorMix.Web.Controllers
             }
             
             this.cartService.Remove(id, this.HttpContext.Session, this.User);
-
-            var userId = this.userManager.GetUserId(this.User);
-
-            return Json(this.cartService.GetAllCartProducts(this.HttpContext.Session, userId));
-
-            //return this.RedirectToAction("Index");
+            
+            return this.RedirectToAction("Index");
         }
     }
 }

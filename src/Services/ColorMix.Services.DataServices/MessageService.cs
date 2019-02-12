@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Services.DataServices.Contracts;
@@ -46,7 +45,6 @@ namespace ColorMix.Services.DataServices
 
         public void SendAnswer(SendMessageViewModel model)
         {
-            //TODO: Fix Connect settings
             var message = new MimeMessage();
 
             message.From.Add(new MailboxAddress("Color Mix", "popov937@abv.bg"));

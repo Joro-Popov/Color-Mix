@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using ColorMix.Data;
 using ColorMix.Data.Models;
 using ColorMix.Data.Models.Enumerations;
@@ -11,8 +9,6 @@ using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Administration;
 using ColorMix.Services.Models.Orders;
 using ColorMix.Services.Models.Users;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace ColorMix.Services.DataServices
 {

@@ -1,16 +1,12 @@
 ﻿using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 
 namespace ColorMix.Web.Controllers
 {
     public class ProductsController : BaseController
     {
-        private const string ERROR = "Възникна грешка!";
-
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
 

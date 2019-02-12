@@ -8,6 +8,8 @@ namespace ColorMix.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private const string SENT_MESSAGE = "Успешно изпратихте съобщение!";
+
         private readonly ICartService cartService;
         private readonly IMessageService messageService;
         private readonly IProductService productService;
@@ -50,7 +52,7 @@ namespace ColorMix.Web.Controllers
 
             this.messageService.SendMessage(model);
             
-            this.TempData["SendMessage"] = "Успешно изпратихте съобщение!";
+            this.TempData["SendMessage"] = SENT_MESSAGE;
 
             return this.View();
         }

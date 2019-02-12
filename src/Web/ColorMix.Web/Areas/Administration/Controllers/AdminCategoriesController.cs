@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models.Categories;
 using Microsoft.AspNetCore.Authorization;

@@ -47,7 +47,7 @@
                                         <td>@item.Price лв.</td>
                                         <td>@item.Total</td>
                                         <td>
-                                            <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id" id="Remove"><i class="fa fa-trash-o"></i></a>
+                                            <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Id"><i class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -80,28 +80,3 @@
         </div>
     </div>
 </div>
-@section Scripts{ 
-    <script>
-        $(document).ready(function () {
-            $('#Remove').onclick(
-                function () {
-                    var productId = $('#Remove').val();
-
-                    $.ajax({
-                        type: 'GET',
-                        url: '/Cart/Remove',
-                        contentType: 'application/json; charset=utf-8',
-                        data: { id: productId },
-                        dataType: 'json',
-                        async: false,
-                        success: function (data) {
-                            $('#ShoppingCartViewModel').replaceWith(JSON.parse()(data));
-                        },
-                        error: function() {
-                            alert('there is some error');
-                        }
-                    });
-                });
-        });
-    </script>
-}

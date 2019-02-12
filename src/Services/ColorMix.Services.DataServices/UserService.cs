@@ -1,15 +1,8 @@
-﻿using System;
-using ColorMix.Data;
-using ColorMix.Data.Models;
+﻿using ColorMix.Data;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Mapping;
 using ColorMix.Services.Models.Users;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Net.Mail;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace ColorMix.Services.DataServices
 {

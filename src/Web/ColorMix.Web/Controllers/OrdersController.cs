@@ -10,10 +10,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ColorMix.Web.Controllers
 {
+    [Authorize]
     public class OrdersController : BaseController
     {
-        private const string ERROR = "Възникна грешка!";
-
         private readonly IUserService userService;
         private readonly ICartService cartService;
         private readonly IOrdersService ordersService;
@@ -29,8 +28,7 @@ namespace ColorMix.Web.Controllers
             this.ordersService = ordersService;
             this.userManager = userManager;
         }
-
-        [Authorize]
+        
         public IActionResult CheckoutAddress()
         {
             var userId = this.userManager.GetUserId(this.User);
@@ -51,8 +49,7 @@ namespace ColorMix.Web.Controllers
 
             return View(viewModel);
         }
-
-        [Authorize]
+        
         [HttpPost]
         public IActionResult OrderReview(OrdersViewModel model)
         {
@@ -66,8 +63,7 @@ namespace ColorMix.Web.Controllers
 
             return View(model);
         }
-
-        [Authorize]
+        
         [HttpPost]
         public IActionResult PlaceOrder(OrdersViewModel model)
         {
@@ -83,8 +79,7 @@ namespace ColorMix.Web.Controllers
 
             return RedirectToAction("MyOrders", "Users");
         }
-
-        [Authorize]
+        
         public IActionResult Details(Guid id)
         {
             if (!this.ordersService.OrderExists(id))

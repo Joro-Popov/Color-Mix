@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ColorMix.Services.DataServices.Contracts;
 using ColorMix.Services.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -13,8 +10,6 @@ namespace ColorMix.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminOrdersController : AdminController
     {
-        private const string ERROR = "Възникна грешка!";
-
         private readonly IOrdersService ordersService;
 
         public AdminOrdersController(IOrdersService ordersService)
